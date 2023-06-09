@@ -1,0 +1,172 @@
+{
+    "N": {
+        "label": "Round Neck",
+        "tooltip": "Measure the circumference of the neck by running a tape around the neck",
+        "name": "neck",
+        "sizes": {
+            "s4":17,
+            "s6":18,
+            "s8":19,
+            "s10":20,
+            "s12":21,
+            "s14":22,
+            "s16":23,
+            "s18":24,
+            "s20":25,
+            "s22":26
+        }
+    },
+    "L": {
+            "label": "Shirt/top Length",
+            "tooltip": "Measure vertically from the shoulders to the point where you want the top to end. Best to measure from behind.",
+            "name": "top_length",
+            "sizes": {
+                "s4":17,
+                "s6":18,
+                "s8":19,
+                "s10":20,
+                "s12":21,
+                "s14":22,
+                "s16":23,
+                "s18":24,
+                "s20":25,
+                "s22":26
+            }
+        },
+    "T": {
+            "label": "Torso/ Half-length",
+            "tooltip": "Measure vertically from the back of the neck to the waist. Best to measure from behind.",
+            "name": "torso",
+            "sizes": {
+                "s4":17,
+                "s6":18,
+                "s8":19,
+                "s10":20,
+                "s12":21,
+                "s14":22,
+                "s16":23,
+                "s18":24,
+                "s20":25,
+                "s22":26
+            }
+        },
+    "CH": {
+            "label": "Chest/Bust",
+            "tooltip": "Measure the circumference of the chest/bust by running a tape round the body and over the chest",
+            "name": "chest",
+            "sizes": {
+                "s4":30,
+                "s6":32,
+                "s8":34,
+                "s10":36,
+                "s12":38,
+                "s14":40,
+                "s16":42,
+                "s18":44,
+                "s20":46,
+                "s22":48
+            }
+        },
+    "SW": {
+            "label": "Shoulder Width",
+            "tooltip": "Measure the shoulders horizontally from one end to the other, through the back",
+            "name": "shoulder",
+            "sizes": {
+                "s4":14.5,
+                "s6":15,
+                "s8":15.5,
+                "s10":16,
+                "s12":16.5,
+                "s14":17,
+                "s16":17.5,
+                "s18":18,
+                "s20":18.5,
+                "s22":19
+            }
+        },
+    "AL": {
+            "label": "Arm Length",
+            "tooltip": "Measure the length of the entire arm by running a tape from the shoulders to the wrist",
+            "name": "arm_length",
+            "sizes": {
+                "s4":23,
+                "s6":24,
+                "s8":25,
+                "s10":26,
+                "s12":27,
+                "s14":28,
+                "s16":29,
+                "s18":30,
+                "s20":31,
+                "s22":32
+            }
+        },
+    "SL": {
+            "label": "Sleeve Length",
+            "tooltip": "Measure the length of the sleeve by running a tape from the shoulders to where the sleeves of the top should end. For a long sleeve cloth, it would be same as the arm length",
+            "name": "sleeve_length",
+            "sizes": {
+                "s4":21,
+                "s6":22,
+                "s8":23,
+                "s10":24,
+                "s12":25,
+                "s14":26,
+                "s16":27,
+                "s18":28,
+                "s20":29,
+                "s22":30
+            }
+        },
+    "cuff": {
+            "label": "Wrist/Cuff",
+            "tooltip": "Measure the circumference of the wrists by running a tape around the wrist",
+            "name": "wrist",
+            "sizes": {
+                "s4":5.5,
+                "s6":6.0,
+                "s8":6.5,
+                "s10":7.0,
+                "s12":7.5,
+                "s14":8.0,
+                "s16":8.5,
+                "s18":9.0,
+                "s20":9.5,
+                "s22":10
+            }
+        },
+    "bicep": {
+            "label": "Upper Arm/Bicep",
+            "tooltip": "Measure the circumference of the upper arm by running a tape around the widest part of your biceps when your arms are bent.",
+            "name": "bicep",
+            "sizes": {
+                "s4":17,
+                "s6":18,
+                "s8":19,
+                "s10":20,
+                "s12":21,
+                "s14":22,
+                "s16":23,
+                "s18":24,
+                "s20":25,
+                "s22":26
+            }
+        },
+    "full": {
+            "label": "Full Length",
+            "tooltip": "For gowns and long tops, measure vertically from the shoulders to the point where the dress is expected to end. Ensure you are standing erect.",
+            "name": "full_length",
+            "sizes": {
+                "s4":17,
+                "s6":18,
+                "s8":19,
+                "s10":20,
+                "s12":21,
+                "s14":22,
+                "s16":23,
+                "s18":24,
+                "s20":25,
+                "s22":26
+            }
+        }
+}

@@ -1,0 +1,62 @@
+{ 
+    "L": {
+            "label": "Trouser/skirt Lt",
+            "tooltip": "Measure vertically from where the top of the pant/skirt should begin to where it should end",
+            "name": "bottom_length",
+            "defaultValue": "29"
+        },
+    "IL": {
+            "label": "In-seam Lt",
+            "tooltip": "The inseam length is the measurement from the inside of the leg, from the crotch to the ankle. To measure the inseam, you can use a pair of pants that fit well and measure along the inside of the leg from the crotch seam to the bottom of the ankle opening.",
+            "name": "inseam_length",
+            "defaultValue": "29"
+        },
+    "W": {
+            "label": "Waist",
+            "tooltip": "Measure the circumference of the waist by running a tape around the waist or at the part of the body where the pant/skirt should begin",
+            "name": "waist",
+            "defaultValue": "10"
+        },
+    "hip": {
+            "label": "Hip",
+            "tooltip": "Measure the circumference of the hips by running a tape around the hips and buttocks.",
+            "name": "hip",
+            "defaultValue": "20"
+        },
+    "laps": {
+            "label": "Laps",
+            "tooltip": "Measure the circumference of one of your laps by running a tape around the widest part of the laps, immediately below the bum.",
+            "name": "laps",
+            "defaultValue": "20"
+        },
+    "flap": {
+            "label": "Flap Length",
+            "tooltip": "Measure vertically from where the top of the pant/skirt should begin to where the flap ends, just below your crouch",
+            "name": "flap",
+            "defaultValue": "20"
+        },
+    "knee": {
+            "label": "Knee Length",
+            "tooltip": "Measure vertically from where the top of the pant/skirt should begin to the top of the knee",
+            "name": "knee_length",
+            "defaultValue": "20"
+        },
+    "kc": {
+            "label": "Round Knee",
+            "tooltip": "Measure the circumference of the knee by running a tape around the kneecap.",
+            "name": "round_knee",
+            "defaultValue": "20"
+        },
+    "ankle": {
+            "label": "Ankle",
+            "tooltip": "Measure the circumference of the ankle by running a tape around the ankles",
+            "name": "ankle",
+            "defaultValue": "20"
+        },
+    "shoe": {
+            "label": "Shoe Size",
+            "tooltip": "Measure from your longest toe to the back of the leg where the sole ends",
+            "name": "shoe_size",
+            "defaultValue": "6"
+        }
+}
