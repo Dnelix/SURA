@@ -6,6 +6,7 @@
         <!-- datatables-->
         <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
         <script src="assets/js/custom/custom.js"></script>
+        <script src="assets/js/custom/modals/new-customer.js"></script>
         
         <!--begin::Page Level Javascript-->
         <?php 

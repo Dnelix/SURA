@@ -1,8 +1,9 @@
 <?php include_once('views/head.php'); ?>
 <?php
 // $users called in from header.php
-$customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid);
-$customerCount = (isset($customers->data->count) ? $customers->data->count : 0);
+$customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid) -> data;
+$customerCount = (isset($customers->count) ? $customers->count : 0);
+$customerList = (isset($customers->customerlist) ? $customers->customerlist : null);
 
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
 $projectCount = (isset($projects->count) ? $projects->count : 0);

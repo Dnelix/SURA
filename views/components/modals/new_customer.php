@@ -11,8 +11,10 @@
                     <form id="modal_new_customer_form" class="form" action="#">
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">Add a Customer</h1>
-                            <div class="text-muted fw-bold fs-5">Add the customer details below. It's that simple.</div>
+                            <div class="text-muted fw-bold fs-5">Enter the customer details below. It's that simple.</div>
                         </div>
+
+                        <input type="hidden" name="tailor" value="<?= $loguserid; ?>" />
                         
                         <div class="d-flex flex-column mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2 required"> Full Name</label>
@@ -34,6 +36,21 @@
                             </button>
                         </div>
                     </form>
+
+                    <div id="new_customer_success" class="d-none">
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Success!</h1>
+                            <div class="text-muted fw-bold fs-5">Customer has been created successfully.</div>
+                        </div>
+                        <div class="mb-10 text-center">
+                            <img src="assets/media/illustrations/sigma-1/17.png" alt="" class="mw-50 mb-10 mh-250px">
+                            <div class="text-muted fs-5">Click Continue to add measurements for this customer or exit and add more customers.</div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" id="create_another" class="btn btn-light me-3">Create another customer</button>
+                            <button type="button" id="add_measurement" class="btn btn-primary">Continue to measurements</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

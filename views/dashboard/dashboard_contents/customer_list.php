@@ -1,24 +1,18 @@
-<?php
-    // replace this with customers later
-    $contents = retrieveDataFrom($c_website.'controllers/users.php');
-    $userCount = $contents->data->count;
-    $userList = $contents->data->userlist;
-?>
-    <div class="card card-xl-stretch mb-xl-8">
+
+    <div class="card">
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
                 <span class="card-label fw-bolder fs-3 mb-1">My Customers</span>
-                <span class="text-muted mt-1 fw-bold fs-7">You have registered <?= $userCount; ?> customers</span>
+                <span class="text-muted mt-1 fw-bold fs-7">You have registered <?= $customerCount; ?> customers</span>
             </h3>
-            <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
-                <a href="customers" class="btn btn-sm btn-light btn-active-primary" >
-                <i class="fa fa-eye"></i> See all </a>
+            <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a customer">
+                <a href="#" class="btn btn-sm btn-primary btn-active-light" data-bs-toggle="modal" data-bs-target="#modal_new_customer">Add Customer</a>
             </div>
         </div>
         <!--end::Header-->
         <!--begin::Body-->
-        <div class="card-body py-3">
+        <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                     <thead>
@@ -32,8 +26,14 @@
                     
                     <tbody>
                         <?php 
-                        foreach($userList as $user) { 
-                            $name = ($user->fullname !== null) ? $user->fullname : $user->username;
+                        $counter = 0;
+                        $pageLimit = 5;
+                        $listTotal = ($customerCount <= $pageLimit) ? $customerCount : $pageLimit;
+
+                        foreach($customerList as $customer) { 
+                            if ($counter >= $pageLimit) { break;}
+
+                            $name = ($customer->fullname !== null) ? $customer->fullname : $customer->username;
                             $initials = getInitials($name);
                         ?>
 
@@ -41,15 +41,15 @@
                             <td>
 								<div class="d-flex align-items-center">
 									<div class="me-5 position-relative">
-										<?= showCustomerIcon($user->id, $initials, $user->active); ?>
+										<?= showCustomerIcon($customer->id, $initials, $customer->active); ?>
 									</div>
 									<div class="d-flex flex-column justify-content-center">
 										<a href="#" class="fs-6 text-gray-800 text-hover-primary"><?= $name; ?></a>
-										<div class="fw-bold text-gray-400"><?= $user->email; ?></div>
+										<div class="fw-bold text-gray-400"><?= $customer->email; ?></div>
 									</div>
 								</div>
 							</td>
-							<td><?= $user->phone; ?></td>
+							<td><?= $customer->phone; ?></td>
 							<td>
 								<div class="d-flex flex-column w-100 me-2">
                                     <div class="d-flex flex-stack mb-2">
@@ -62,7 +62,7 @@
 							</td>
 							<td class="text-end">
 								<div class="d-flex justify-content-end flex-shrink-0">
-                                    <a href="customers?cid=<?= $user->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="View details">
+                                    <a href="customers?cid=<?= $customer->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="View details">
                                         <span class="svg-icon svg-icon-3"><i class="fa fa-eye"></i></span>
                                     </a>
                                     <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Start new project">
@@ -72,13 +72,16 @@
 							</td>
                         </tr>
 
-                        <?php } ?>
+                        <?php $counter++; } ?>
 
                     </tbody>
                 </table>
-                <?= sendEmail('general', 'Test mail', 'domainbuy101@gmail.com', 'Fleix', 'Just Testing this', 'Marcus'); ?>
-                <br/>
-                <button onClick="sendMail('welcome', 'Welcome to our world', 'domainbuy101@gmail.com')"> click to send mail</button>
+                <?//= sendEmail('general', 'Test mail', 'domainbuy101@gmail.com', 'Fleix', 'Just Testing this', 'Marcus'); ?>
+                <!--button onClick="sendMail('welcome', 'Welcome to our world', 'domainbuy101@gmail.com')"> click to send mail</button-->
+                <div class="fs-6 fw-bold text-gray-700">
+                    Showing 1 to <?= $listTotal.' of '.$customerCount.' customers - '; ?>
+                    <a class="fw-bolder" href="customers">View all</a>
+                </div>
             </div>
         </div>
     </div>

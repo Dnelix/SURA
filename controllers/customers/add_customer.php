@@ -2,7 +2,7 @@
 /*
 PAYLOAD
 {
-    name*:'customer full name',
+    fullname*:'customer full name',
     phone*:'user phone or 000000000',
     email:'user email or username@sura.ng',
     tailor:'userID or 0'
@@ -14,17 +14,17 @@ PAYLOAD
     $jsonData = validateJsonRequest();
 
     //1. ensure all mandatory fields are provided
-    if(!isset($jsonData->phone) || !isset($jsonData->name) || !isset($jsonData->tailor)){
+    if(!isset($jsonData->phone) || !isset($jsonData->fullname) || !isset($jsonData->tailor)){
         $message = "";
         $message .= (!isset($jsonData->phone) ? 'Phone number not provided' : false);
-        $message .= (!isset($jsonData->name) ? 'Customer name not provided' : false);
+        $message .= (!isset($jsonData->fullname) ? 'Customer name not provided' : false);
         $message .= (!isset($jsonData->tailor) ? 'Every customer must be assigned to a tailor' : false);
 
         sendResponse(400, false, $message);
     }
 
     //2. check if the strings are empty or have values above the DB limits
-    if(strlen($jsonData->phone) < 1 || strlen($jsonData->phone) > 15 || strlen($jsonData->name) < 1 || strlen($jsonData->name) > 50){
+    if(strlen($jsonData->phone) < 1 || strlen($jsonData->phone) > 15 || strlen($jsonData->fullname) < 1 || strlen($jsonData->fullname) > 50){
         $message = "";
         $message .= (strlen($jsonData->phone) < 1 ? 'Phone Number cannot be blank' : false);
         $message .= (strlen($jsonData->phone) > 15 ? 'Phone number cannot be greater than 15 characters' : false);
@@ -35,7 +35,7 @@ PAYLOAD
     }
 
     //3. Collate data and strip off white spaces
-    $name = trim($jsonData->name);
+    $name = trim($jsonData->fullname);
     $phone = trim($jsonData->phone);
     $email = (isset($jsonData->email) ? trim($jsonData->email) : "" );
     $tailor = (isset($jsonData->tailor) ? $jsonData->tailor : 0 );
@@ -46,7 +46,7 @@ PAYLOAD
         $email_parts = explode("@", $email);
         $username = strtolower($email_parts[0]); //create temporal username from email
     } else {
-        $username = strtolower(preg_replace("/[^a-zA-Z0-9]+/", "", $name).time()); // create temporal username from fullname
+        $username = strtolower(preg_replace("/[^a-zA-Z0-9]+/", "", $name).date('s')); // create temporal username from fullname
         $email = $username.'@'.$c_shortsite; // create temporal email as well
     }
     $password = getRandomPassword(8); //generate a random 8-digit password
@@ -68,11 +68,12 @@ PAYLOAD
         $hash_pass = password_hash($password, PASSWORD_DEFAULT); //hash using the standard PHP hashing
 
         //6. Insert record into user table
-        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, active, role, createdon, profile_completion) VALUES(:username, :password, :email, :phone, "1", :role, STR_TO_DATE(:createdon, \'%d/%m/%Y %H:%i\'), 30)');
+        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, fullname, active, role, createdon, profile_completion) VALUES(:username, :password, :email, :phone, :fullname, "1", :role, STR_TO_DATE(:createdon, \'%d/%m/%Y %H:%i\'), 30)');
         $query -> bindParam(':username', $username, PDO::PARAM_STR);
         $query -> bindParam(':password', $hash_pass, PDO::PARAM_STR);
         $query -> bindParam(':email', $email, PDO::PARAM_STR);
         $query -> bindParam(':phone', $phone, PDO::PARAM_STR);
+        $query -> bindParam(':fullname', $name, PDO::PARAM_STR);
         $query -> bindParam(':role', $role, PDO::PARAM_STR);
         $query -> bindParam(':createdon', $createdon, PDO::PARAM_STR);
         $query -> execute();
@@ -127,6 +128,7 @@ PAYLOAD
         $returnData = array();
         $returnData['user_id'] = $lastID;
         $returnData['username'] = $username;
+        $returnData['fullname'] = $name;
         $returnData['password'] = $hash_pass;
         $returnData['email'] = $email;
         $returnData['phone'] = $phone;

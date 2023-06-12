@@ -13,7 +13,7 @@ function reloadPage(){
 }
 
 //Sweetalert pop-ups
-function swal_Popup(status, responseMessage, btn_text){
+function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     // status = error/success
     if (status === 'error'){ var btn_type = "btn font-weight-bold btn-danger";} 
     else if (status === 'success') { var btn_type = "btn btn-primary";}
@@ -41,10 +41,19 @@ function swal_confirm(msg, btn_yes='YES', btn_no='NO'){
         confirmButtonText: btn_yes,
         denyButtonText: btn_no,
         customClass: {
-            confirmButton: "btn btn-light-primary",
-            denyButton: "btn btn-danger"
+            confirmButton: "btn btn-light-warning",
+            denyButton: "btn btn-warning"
         }
     })
+}
+
+// Serialize any form and convert output to JSON. The name of each field will become the JSON attribute
+function serializeToJSON(formID){
+    var formData = {};
+    $.each($(formID).serializeArray(), function(_, field) {
+        formData[field.name] = field.value;
+    });
+    return formData;
 }
 
 // AJAX Calls
@@ -58,10 +67,7 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null){
 
     // Handle form serialization
     if (formData === null){
-        var formData = {};
-        $.each($(formID).serializeArray(), function(_, field) {
-            formData[field.name] = field.value;
-        });
+        formData = serializeToJSON(formID);
     } else {
         formData = formData;
     }
