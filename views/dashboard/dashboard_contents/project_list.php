@@ -35,7 +35,7 @@
     ?>
 
         <div class="col-md-4 col-xl-4">
-            <a href="projects?pid=<?= $project->id; ?>" class="card border-hover-primary">
+            <a href="javascript:;" class="card border-hover-primary">
 
                 <div class="card-header border-0 pt-9">
                     <div class="card-title m-0">
@@ -43,7 +43,23 @@
                     </div>
                     
                     <div class="card-toolbar">
-                        <?= showStatus($project->status); ?>
+                        <button class="btn" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"> 
+                            <?= showStatus($project->status); ?> 
+                        </button>
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">SET PROJECT STATUS</div>
+                            </div>
+                            <div class="menu-item px-3"> 
+                                <ul>
+                                    <li class="pt-3"> <?= showStatus('Not Started'); ?></li>
+                                    <li class="pt-3"> <?= showStatus('In Progress'); ?> </li>
+                                    <li class="pt-3"> <?= showStatus('Delayed'); ?> </li>
+                                    <li class="pt-3"> <?= showStatus('Completed'); ?> </li>
+                                </ul> 
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
                 
@@ -76,7 +92,13 @@
                         </div>
                     </div>
 
+                    <span style="float:right">
+                        <button onClick="goTo('projects?pid=<?= $project->id; ?>')" class="btn text-primary">
+                            View details &nbsp; <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </span>
                 </div>
+
             </a>
         </div>
     <?php $counter++; } ?>

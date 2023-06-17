@@ -44,7 +44,7 @@
 										<?= showCustomerIcon($customer->id, $initials, $customer->active); ?>
 									</div>
 									<div class="d-flex flex-column justify-content-center">
-										<a href="#" class="fs-6 text-gray-800 text-hover-primary"><?= $name; ?></a>
+										<a href="customers?cid=<?= $customer->id; ?>" class="fs-6 text-gray-800 text-hover-primary"><?= $name; ?></a>
 										<div class="fw-bold text-gray-400"><?= $customer->email; ?></div>
 									</div>
 								</div>

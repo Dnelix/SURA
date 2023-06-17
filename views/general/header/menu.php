@@ -32,13 +32,6 @@
                     </div-->
                 </div>
 
-                <div class="menu-item <?= ($curPage=='profile') ? 'here show':'';?> menu-lg-down-accordion me-lg-1" >
-                    <a class="menu-link py-3" href="profile">
-                        <?= ($curPage=='profile') ? '<span class="menu-icon"><i class="fa fa-user"></i></span>' : ''; ?>
-                        <span class="menu-title">My Profile</span>
-                    </a>
-                </div>
-
                 <div class="menu-item <?= ($curPage=='customers') ? 'here show':'';?> menu-lg-down-accordion me-lg-1" >
                     <a class="menu-link py-3" href="customers">
                         <?= ($curPage=='customers') ? '<span class="menu-icon"><i class="fa fa-users"></i></span>' : ''; ?>
@@ -50,6 +43,13 @@
                     <a class="menu-link py-3" href="projects">
                         <?= ($curPage=='projects') ? '<span class="menu-icon"><i class="fa fa-briefcase"></i></span>' : ''; ?>
                         <span class="menu-title"><?= $alt_job.'s'; ?></span>
+                    </a>
+                </div>
+
+                <div class="menu-item <?= ($curPage=='profile') ? 'here show':'';?> menu-lg-down-accordion me-lg-1" >
+                    <a class="menu-link py-3" href="profile">
+                        <?= ($curPage=='profile') ? '<span class="menu-icon"><i class="fa fa-user"></i></span>' : ''; ?>
+                        <span class="menu-title">My Profile</span>
                     </a>
                 </div>
 

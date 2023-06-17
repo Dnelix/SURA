@@ -40,6 +40,9 @@
                 <?php include_once('views/general/scrolltop.php'); ?>
                 
                 <!-- Include Modals -->
+                <?php include_once('views/components/modals/upper_body.php'); ?>
+                <?php include_once('views/components/modals/lower_body.php'); ?>
+
                 <?php include_once('views/components/modals/share_link.php'); ?>
                 <?php include_once('views/components/modals/new_customer.php'); ?>
                 <?php include_once('views/components/modals/new_project.php'); ?>

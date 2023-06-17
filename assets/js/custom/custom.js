@@ -41,8 +41,8 @@ function swal_confirm(msg, btn_yes='YES', btn_no='NO'){
         confirmButtonText: btn_yes,
         denyButtonText: btn_no,
         customClass: {
-            confirmButton: "btn btn-light-warning",
-            denyButton: "btn btn-warning"
+            confirmButton: "btn btn-light-primary",
+            denyButton: "btn btn-primary"
         }
     })
 }

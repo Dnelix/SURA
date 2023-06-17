@@ -1,17 +1,17 @@
 { 
-    "L": {
+    "bottom_length": {
             "label": "Trouser/skirt Lt",
             "tooltip": "Measure vertically from where the top of the pant/skirt should begin to where it should end",
             "name": "bottom_length",
             "defaultValue": "29"
         },
-    "IL": {
+    "inseam_length": {
             "label": "In-seam Lt",
             "tooltip": "The inseam length is the measurement from the inside of the leg, from the crotch to the ankle. To measure the inseam, you can use a pair of pants that fit well and measure along the inside of the leg from the crotch seam to the bottom of the ankle opening.",
             "name": "inseam_length",
             "defaultValue": "29"
         },
-    "W": {
+    "waist": {
             "label": "Waist",
             "tooltip": "Measure the circumference of the waist by running a tape around the waist or at the part of the body where the pant/skirt should begin",
             "name": "waist",
@@ -35,13 +35,13 @@
             "name": "flap",
             "defaultValue": "20"
         },
-    "knee": {
+    "knee_length": {
             "label": "Knee Length",
             "tooltip": "Measure vertically from where the top of the pant/skirt should begin to the top of the knee",
             "name": "knee_length",
             "defaultValue": "20"
         },
-    "kc": {
+    "round_knee": {
             "label": "Round Knee",
             "tooltip": "Measure the circumference of the knee by running a tape around the kneecap.",
             "name": "round_knee",
@@ -53,7 +53,7 @@
             "name": "ankle",
             "defaultValue": "20"
         },
-    "shoe": {
+    "shoe_size": {
             "label": "Shoe Size",
             "tooltip": "Measure from your longest toe to the back of the leg where the sole ends",
             "name": "shoe_size",

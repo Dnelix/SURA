@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header border-0 pt-5">
                         <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to edit these measurements">
-                            <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_edit_ub"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_upper_body"><i class="fa fa-edit"></i> Edit</a>
                         </div>
                     </div>
                     <div class="card-body d-flex flex-center flex-column pt-12 p-9">
@@ -18,14 +18,12 @@
 
                         <div class="d-flex flex-center flex-wrap">
                             <?php
-                                // Get only the measurements from index 2 to 11
-                                //$keys = array_keys($measurements);
-                                $upperBody = array_slice($measurements, 2, 10, true);
-                                foreach ($upperBody as $key=>$value){
+                                //$upperBody = array_slice($measures, 0, 10, true);
+                                foreach ($UBmeasures as $data){
                             ?>
                                 <div class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                    <div class="fs-6 fw-bolder text-gray-700"><?= $value; ?></div>
-                                    <div class="fw-bold text-gray-400"><?= $key; ?></div>
+                                    <div class="fs-6 fw-bolder text-gray-700"><?= $data->value; ?></div>
+                                    <div class="fw-bold text-gray-400"><?= $data->metadata->label; ?></div>
                                 </div>
                             <?php
                                 }
@@ -40,7 +38,7 @@
                 <div class="card">
                     <div class="card-header border-0 pt-5">
                         <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to edit these measurements">
-                            <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_edit_lb"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_lower_body"><i class="fa fa-edit"></i> Edit</a>
                         </div>
                     </div>
                     <div class="card-body d-flex flex-center flex-column pt-12 p-9">
@@ -54,13 +52,12 @@
 
                         <div class="d-flex flex-center flex-wrap">
                             <?php
-                                // Get only the measurements from index 13 to end of array
-                                $lowerBody = array_slice($measurements, 12);
-                                foreach ($lowerBody as $key=>$value){
+                                //$lowerBody = array_slice($measures, 10);
+                                foreach ($LBmeasures as $data){
                             ?>
                                 <div class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                    <div class="fs-6 fw-bolder text-gray-700"><?= $value; ?></div>
-                                    <div class="fw-bold text-gray-400"><?= $key; ?></div>
+                                    <div class="fs-6 fw-bolder text-gray-700"><?= $data->value; ?></div>
+                                    <div class="fw-bold text-gray-400"><?= $data->metadata->label; ?></div>
                                 </div>
                             <?php
                                 }

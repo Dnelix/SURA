@@ -57,7 +57,7 @@ try{
 
 }
 catch (PDOException $e){
-    responseServerException($e, 'Failed to get users');
+    responseServerException($e, 'Failed to get customer data');
 }
 
 ?>

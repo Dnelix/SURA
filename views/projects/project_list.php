@@ -34,47 +34,70 @@
     ?>
 
         <div class="col-md-6 col-xl-4">
-            <a href="projects?pid=<?= $project->id; ?>" class="card border-hover-primary">
+        <a href="javascript:;" class="card border-hover-primary">
 
-                <div class="card-header border-0 pt-9">
-                    <div class="card-title m-0">
-                        <?= showProjectIcon($project->style_catg,'small'); ?>
-                    </div>
-                    <div class="card-toolbar">
-                        <?= showStatus($project->status); ?>
-                    </div>
+            <div class="card-header border-0 pt-9">
+                <div class="card-title m-0">
+                    <?= showProjectIcon($project->style_catg,'small'); ?>
                 </div>
                 
-                <div class="card-body p-9">
-                    <div class="fs-3 fw-bolder text-dark"><?= $project->title; ?></div>
-                    <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7"><?= limit_text($project->description, 15); ?></p>
-                    <div class="d-flex flex-wrap mb-5">
-                        
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
-                            <div class="fs-6 text-gray-800 fw-bolder"><?= readableDateTime($project->end, 'dateonly'); ?></div>
-                            <div class="fw-bold text-gray-400">Due Date</div>
+                <div class="card-toolbar">
+                    <button class="btn" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"> 
+                        <?= showStatus($project->status); ?> 
+                    </button>
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
+                        <div class="menu-item px-3">
+                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">SET PROJECT STATUS</div>
                         </div>
-                        
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                            <div class="fs-6 text-gray-800 fw-bolder"><?= $defaultcurrency.$project->income; ?></div>
-                            <div class="fw-bold text-gray-400">Budget</div>
+                        <div class="menu-item px-3"> 
+                            <ul>
+                                <li class="pt-3"> <?= showStatus('Not Started'); ?></li>
+                                <li class="pt-3"> <?= showStatus('In Progress'); ?> </li>
+                                <li class="pt-3"> <?= showStatus('Delayed'); ?> </li>
+                                <li class="pt-3"> <?= showStatus('Completed'); ?> </li>
+                            </ul> 
                         </div>
                         
                     </div>
+                </div>
+            </div>
 
-                    <!--label for="progressbar" class="fw-bold text-gray-400" style="float:right"><?= calculateTimeLeft($project->end); ?> </label-->
-                    <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project 50% completed">
-                        <div class="bg-primary rounded h-4px" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="card-body p-9">
+                <div class="fs-3 fw-bolder text-dark"><?= $project->title; ?></div>
+                <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7"><?= limit_text($project->description, 15); ?></p>
+                <div class="d-flex flex-wrap mb-5">
+                    
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bolder"><?= readableDateTime($project->end, 'dateonly'); ?></div>
+                        <div class="fw-bold text-gray-400">Due Date</div>
                     </div>
                     
-                    <div class="symbol-group symbol-hover">
-                        <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="<?= getuserDataById('username', $project->customerid); ?>">
-                            <?= showCustomerIcon($project->customerid, getInitials(getuserDataById('fullname', $project->customerid))); ?>
-                            <span class=""><?= getuserDataById('username', $project->customerid); ?></span>
-                        </div>
+                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                        <div class="fs-6 text-gray-800 fw-bolder"><?= $project->income; ?></div>
+                        <div class="fw-bold text-gray-400">Budget</div>
                     </div>
-
+                    
                 </div>
+
+                <!--label for="progressbar" class="fw-bold text-gray-400" style="float:right"><?= calculateTimeLeft($project->end); ?> </label-->
+                <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project 5% completed">
+                    <div class="bg-primary rounded h-4px" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                <div class="symbol-group symbol-hover">
+                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="<?= getuserDataById('username', $project->customerid); ?>">
+                        <?= showCustomerIcon($project->customerid, getInitials(getuserDataById('fullname', $project->customerid))); ?>
+                        <span class=""><?= getuserDataById('username', $project->customerid); ?></span>
+                    </div>
+                </div>
+
+                <span style="float:right">
+                    <button onClick="goTo('projects?pid=<?= $project->id; ?>')" class="btn text-primary">
+                        View details &nbsp; <i class="fa fa-arrow-right"></i>
+                    </button>
+                </span>
+            </div>
+
             </a>
         </div>
     <?php } } ?>
