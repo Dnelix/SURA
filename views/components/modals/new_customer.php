@@ -8,7 +8,7 @@
                 </div>
                 
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="modal_new_customer_form" class="form" action="#">
+                    <form id="modal_new_customer_form" class="form d-none" action="#">
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">Add a Customer</h1>
                             <div class="text-muted fw-bold fs-5">Enter the customer details below. It's that simple.</div>
@@ -37,7 +37,7 @@
                         </div>
                     </form>
 
-                    <div id="new_customer_success" class="d-none">
+                    <div id="new_customer_success" class="#">
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">Success!</h1>
                             <div class="text-muted fw-bold fs-5">Customer has been created successfully.</div>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="text-center">
                             <button type="button" id="create_another" class="btn btn-light me-3">Create another customer</button>
-                            <button type="button" id="add_measurement" class="btn btn-primary">Continue to measurements</button>
+                            <button type="button" id="add_measurement" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_add_measurements">Continue to measurements</button>
                         </div>
                     </div>
                 </div>

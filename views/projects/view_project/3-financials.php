@@ -11,19 +11,28 @@
                 <div class="row mb-6">
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Total Charge (modify at any time)</label>
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="charge" class="form-control form-control-lg form-control-solid" value="<?= $defaultcurrency.' '.$income; ?>" />
+                        <div class="input-group input-group-solid mb-5">
+                            <span class="input-group-text"><?= $defaultcurrency; ?></span>
+                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $income; ?>" />
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-6">
                     <label class="col-lg-4 col-form-label fw-bold fs-6">Total Expense (update at any time)</label>
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="expense" class="form-control form-control-lg form-control-solid" value="<?= $defaultcurrency.' '.$expense; ?>" />
+                        <div class="input-group input-group-solid mb-5">
+                            <span class="input-group-text"><?= $defaultcurrency; ?></span>
+                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $expense; ?>" />
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-6">
                     <label class="col-lg-4 col-form-label fw-bold fs-6">Profit/Loss (calculated automatically)</label>
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="earn" class="form-control form-control-lg form-control-solid" value="<?= $defaultcurrency.' '.$profit_loss; ?>" disabled />
+                        <div class="input-group input-group-solid mb-5">
+                            <span class="input-group-text"><?= $defaultcurrency; ?></span>
+                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $profit_loss; ?>" disabled />
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-6">

@@ -40,8 +40,12 @@
                 <?php include_once('views/general/scrolltop.php'); ?>
                 
                 <!-- Include Modals -->
-                <?php include_once('views/components/modals/upper_body.php'); ?>
-                <?php include_once('views/components/modals/lower_body.php'); ?>
+                <?php 
+                if (isset($_GET['cid'])){
+                    include_once('views/components/modals/upper_body.php');
+                    include_once('views/components/modals/lower_body.php'); 
+                }
+                ?>
 
                 <?php include_once('views/components/modals/share_link.php'); ?>
                 <?php include_once('views/components/modals/new_customer.php'); ?>

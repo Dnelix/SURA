@@ -3,7 +3,9 @@
         <div class="card-title m-0">
             <h3 class="fw-bolder m-0">Project Details</h3>
         </div>
-        <a href="#" class="btn btn-sm btn-primary align-self-center">Edit details</a>
+        <a href="javascript:;" class="btn btn-sm btn-primary align-self-center" onClick="toggleView('#project_details_view', '#project_details_edit')">
+            Edit details
+        </a>
     </div>
     <div class="card-body p-9">
         <div class="row mb-7">
@@ -38,24 +40,24 @@
 
         <div class="row mb-10 row-cols-2 row-cols-lg-5">
             <div class="col">
-                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/stock/900x600/16.jpg">
-                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/stock/900x600/16.jpg')"></div>
+                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/avatars/300-1.jpg">
+                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/avatars/300-1.jpg')"></div>
                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                         <i class="bi bi-eye-fill fs-2x text-white"></i>
                     </div>
                 </a>
             </div>
             <div class="col">
-                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/stock/900x600/16.jpg">
-                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/stock/900x600/16.jpg')"></div>
+                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/avatars/300-2.jpg">
+                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/avatars/300-2.jpg')"></div>
                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                         <i class="bi bi-eye-fill fs-2x text-white"></i>
                     </div>
                 </a>
             </div>
             <div class="col">
-                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/stock/900x600/16.jpg">
-                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/stock/900x600/16.jpg')"></div>
+                <a class="d-block overlay" data-fslightbox="lightbox-hot-sales" href="assets/media/avatars/300-3.jpg">
+                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px" style="background-image:url('assets/media/avatars/300-3.jpg')"></div>
                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
                         <i class="bi bi-eye-fill fs-2x text-white"></i>
                     </div>

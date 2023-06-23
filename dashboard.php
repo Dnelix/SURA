@@ -29,10 +29,11 @@ $completeProjects;
                 <?php include_once('views/components/modals/share_link.php'); ?>
                 <?php include_once('views/components/modals/new_customer.php'); ?>
                 <?php include_once('views/components/modals/new_project.php'); ?>
-                <?php include_once('views/components/modals/create_app.php'); ?>
-                <?php include_once('views/components/modals/create_campaign.php'); ?>
-                <?php include_once('views/components/modals/upgrade_plan.php'); ?>
-                <?php include_once('views/components/modals/search_users.php'); ?>
+                <?php include_once('views/components/modals/add_measurements.php'); ?>
+
+                <?//php include_once('views/components/modals/create_campaign.php'); ?>
+                <?//php include_once('views/components/modals/upgrade_plan.php'); ?>
+                <?//php include_once('views/components/modals/search_users.php'); ?>
 
             </div>
         </div>

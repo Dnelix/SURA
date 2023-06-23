@@ -3,13 +3,13 @@
         <div class="modal-dialog modal-dialog-centered mw-700px">
             <div class="modal-content rounded">
                 <div class="modal-header pb-0 border-0 justify-content-end">
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal" onClick="reloadPage()">
                         <i class="las la-times fs-2x"></i>
                     </div>
                 </div>
                 
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="modal_UB_form" class="form" action="#">
+                    <form id="modal_UB_form" class="form" onSubmit="return false">
                         <div class="mb-13 text-center">
                             <h2 class="fw-bolder text-center text-dark">Upper Body Measurements 
                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Your upper body measurements include measurements for shirts, tops, gowns, jackets etc. You should get someone else to measure you."></i>
@@ -19,8 +19,6 @@
                                 <br/>All measurements MUST be done in <?= strtoupper($measureunit_text)." (".$measureunit.")"; ?>
                             </div>
                         </div>
-
-                        <!--input type="hidden" name="tailor" value="<?//= $loguserid; ?>" /-->
                         
                         <div class="d-flex flex-column mb-8">
                             <div class="col-md-12">
@@ -32,9 +30,9 @@
                                             <div class="col-4 mb-10">
                                                 <label class="fs-6 fw-bold form-label">
                                                     <?= $metadata->label . '(' . $measureunit . ')';  ?> 
-                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="<?= $metadata->tooltip;  ?>"></i>
+                                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="<?= $metadata->tooltip; ?>"></i>
                                                 </label>
-                                                <input name="<?= $metadata->name;  ?>" class="form-control form-control-lg form-control-solid" value="<?= $data->value; ?>" />
+                                                <input type="number" name="<?= $metadata->name;  ?>" class="form-control form-control-lg form-control-solid" value="<?= $data->value; ?>" />
                                                 <!--div class="form-text fs-8">Range:  <span class="text-primary"><?//= $data->sizes->$bs . $measureunit; ?></span> </div-->
                                             </div>
 
@@ -47,7 +45,7 @@
                         
                         <div class="text-center">
                             <button type="reset" id="modal_UB_cancel" class="btn btn-light me-3">Reset values</button>
-                            <button type="submit" id="modal_UB_submit" class="btn btn-primary">
+                            <button type="submit" id="modal_UB_submit" class="btn btn-primary" onClick="javascript:submitUB()">
                                 <?= displayLoadingIcon('Save'); ?>
                             </button>
                         </div>
@@ -57,3 +55,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function submitUB(){
+            var cid = '<?= $_GET['cid']; ?>';
+            var web = '<?= $c_website; ?>';
+
+            var formID = "#modal_UB_form";
+            var submitButton = document.querySelector('#modal_UB_submit');
+            var type = "PATCH";
+            var url = web+"controllers/measurements.php?customer="+cid;
+
+            AJAXcall(formID, submitButton, type, url);
+        }
+    </script>

@@ -13,7 +13,7 @@
                             <?= showStatus($status); ?>
                         </div>
                         <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
-                            <a href="customers?cid=3" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                            <a href="customers?cid=<?= $customerid; ?>" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                             <span class="svg-icon svg-icon-4 me-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path opacity="0.3" d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z" fill="currentColor"></path>
@@ -26,7 +26,7 @@
                     </div>
                     
                     <div class="d-flex mb-4">
-                        <a href="#" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
+                        <a href="javascript:;" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
                         <a href="#" class="btn btn-sm btn-danger me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Close this Project</a>
                     </div>
                 </div>

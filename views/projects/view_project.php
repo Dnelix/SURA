@@ -19,6 +19,7 @@
 
         include_once('view_project/1-projectsummary.php');
         include_once('view_project/2-styledetails.php');
+        include_once('view_project/2b-editdetails.php');
         include_once('view_project/3-financials.php');
 
     } else {

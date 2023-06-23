@@ -1,5 +1,7 @@
 "use strict";
-
+//#######################//
+//####### GENERIC #######//
+//#######################//
 function _(x){
 	return document.getElementById(x);
 }
@@ -10,6 +12,14 @@ function goTo(here){
 
 function reloadPage(){
     window.location.reload();
+}
+
+//Show an element and hide others
+function toggleView(elem1, elem2=null, elem3=null, elem4=null){
+    $(elem1).toggleClass('d-none');
+    $(elem2).toggleClass('d-none');
+    $(elem3).toggleClass('d-none');
+    $(elem4).toggleClass('d-none');
 }
 
 //Sweetalert pop-ups
@@ -104,6 +114,36 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null){
     return responseType;
 }
 
+//--clipboard
+function copyToClipboard() {
+    var button = document.querySelector('#copy_clipboard_btn');
+    var input = document.querySelector('#copy_clipboard_input');
+
+    var buttonCaption = button.innerHTML;
+    var clipboard = new ClipboardJS(button);
+    button.innerHTML = 'Double click to copy';
+
+    clipboard.on('success', function(e) {
+        input.classList.add('bg-success');
+        input.classList.add('text-inverse-success');
+
+        button.innerHTML = 'Copied!';
+
+        setTimeout(function() {
+            button.innerHTML = buttonCaption;
+
+            // Remove bgcolor
+            input.classList.remove('bg-success'); 
+            input.classList.remove('text-inverse-success'); 
+        }, 3000);
+
+        e.clearSelection();
+    });
+}
+
+//#######################//
+//###### SPECIFIC #######//
+//#######################//
 // sendMail
 function sendMail(type, subject, to_mail, to_name='', message='', sender=''){
     var params = {
@@ -161,31 +201,3 @@ function logout(sessionid, accesstoken){
         }
     });
 }
-
-//--clipboard
-function copyToClipboard() {
-    var button = document.querySelector('#copy_clipboard_btn');
-    var input = document.querySelector('#copy_clipboard_input');
-
-    var buttonCaption = button.innerHTML;
-    var clipboard = new ClipboardJS(button);
-    button.innerHTML = 'Double click to copy';
-
-    clipboard.on('success', function(e) {
-        input.classList.add('bg-success');
-        input.classList.add('text-inverse-success');
-
-        button.innerHTML = 'Copied!';
-
-        setTimeout(function() {
-            button.innerHTML = buttonCaption;
-
-            // Remove bgcolor
-            input.classList.remove('bg-success'); 
-            input.classList.remove('text-inverse-success'); 
-        }, 3000);
-
-        e.clearSelection();
-    });
-}
-

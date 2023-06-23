@@ -7,6 +7,10 @@
         <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
         <script src="assets/js/custom/custom.js"></script>
         <script src="assets/js/custom/modals/new-customer.js"></script>
+        <script src="assets/js/custom/modals/add_measurements/complete.js"></script>
+        <script src="assets/js/custom/modals/add_measurements/add_UB.js"></script>
+        <script src="assets/js/custom/modals/add_measurements/add_LB.js"></script>
+        <script src="assets/js/custom/modals/add_measurements.js"></script>
         
         <!--begin::Page Level Javascript-->
         <?php 
@@ -38,10 +42,10 @@
             }
         } else if($curPage == "customers"){
             echo '
-                <script src="assets/js/custom/pages/dataTablesInit.js"></script>
-                <script src="assets/js/custom/modals/upper_body.js"></script>
-                <script src="assets/js/custom/modals/lower_body.js"></script>
-            ';
+                <script src="assets/js/custom/pages/dataTablesInit.js"></script>';
+            //     <script src="assets/js/custom/modals/upper_body.js"></script>
+            //     <script src="assets/js/custom/modals/lower_body.js"></script>
+            // ';
         } else if($curPage == "add_customer"){  
             echo '<script src="assets/js/custom/pages/add-customer.js"></script>';
         } else {

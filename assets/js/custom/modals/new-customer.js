@@ -146,7 +146,6 @@ var ModalNewCustomer = function () {
 
 		addMeasurebtn.addEventListener('click', function (e) {
 			e.preventDefault();
-			goTo('add_customer');
 		});
 	}
 
