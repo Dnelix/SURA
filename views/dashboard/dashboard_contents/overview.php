@@ -45,7 +45,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1">10</span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= count($openProjects); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">Open <?= $alt_job.'s'; ?></span>
                             </div>
                         </div>

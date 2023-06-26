@@ -57,14 +57,14 @@
                                     <span class="text-muted fw-bold text-muted d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
                                 <td>
-                                    <span class="badge badge-light-warning"><?= showStatus($item->status); ?></span>
+                                    <?= showStatus($item->status); ?>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
                                         <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Update project status">
                                             <?= $svg_optionsicon; ?>
                                         </a>
-                                        <a href="javascript:editProjectDetails()" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Edit details">
+                                        <a href="javascript:editProjectDetails('<?= $loguserid; ?>','<?= $item->id; ?>')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Edit details">
                                             <?= $svg_editicon; ?>
                                         </a>
                                         <a href="javascript:deleteProject();" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Delete project">
@@ -88,21 +88,21 @@
 </div>
 
 <script>
-    function editProjectDetails(cid,pid){
+    function editProjectDetails(tid,pid){
         var web = '<?= $c_website; ?>';
 
-        var confirm = swal_confirm('Edit this project?');
+        var confirm = swal_confirm('Edit this project? '+tid+pid);
 
         if(confirm == true){
             console.log('Confirmed'); return false;
         } else {
-            console.log('rejected'); return false;
+            console.log(confirm); return false;
         }
 
         var formID = "#modal_LB_form";
         var submitButton = document.querySelector('#modal_LB_submit');
         var type = "PATCH";
-        var url = web+"controllers/measurements.php?customer="+cid;
+        var url = web+"controllers/projects.php?customer="+cid;
 
         AJAXcall(formID, submitButton, type, url);
     }

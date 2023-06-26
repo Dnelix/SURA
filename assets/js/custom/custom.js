@@ -99,8 +99,8 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null){
                     submitButton.setAttribute('data-kt-indicator', 'off');
                 }
             } else {
-                //responseMessage = response.messages[0];
-                responseMessage = "SUCCESS: "+JSON.stringify(response);
+                responseMessage = response.messages[0];
+                //responseMessage = "SUCCESS: "+JSON.stringify(response);
                 responseType = 'success';
                 swal_Popup(responseType, responseMessage, 'Okay. Got it!');
                 if(submitButton !== null){

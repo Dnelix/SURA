@@ -1,7 +1,7 @@
 <?php
 
 try{
-    $fields = 'id, tailorid, customerid, title, description, DATE_FORMAT(start_date, "'.$read_dateformat.'") as start, DATE_FORMAT(end_date, "'.$read_dateformat.'") as end, DATE_FORMAT(remind_on, "'.$read_dateformat.'") as remind, status, style_category, style_details, style_img1, style_img2, style_img3, income, expense, notes';
+    $fields = 'id, tailorid, customerid, title, description, DATE_FORMAT(start_date, "'.$read_dateformat.'") as start, DATE_FORMAT(end_date, "'.$read_dateformat.'") as end, DATE_FORMAT(remind_on, "'.$read_dateformat.'") as remind, status, completion, style_category, style_details, style_img1, style_img2, style_img3, income, expense, notes';
 
     //connect to the $readDB to perform this query
     $query = $readDB -> prepare ('SELECT '.$fields.' FROM tbl_projects WHERE tailorid=:tailorid ORDER BY id DESC');
@@ -27,6 +27,7 @@ try{
             "end"           => $row['end'], 
             "remind"        => $row['remind'], 
             "status"        => $row['status'], 
+            "completion"    => $row['completion'], 
             "style_catg"    => $row['style_category'],
             "style_det"     => $row['style_details'],
             "style_img1"    => $row['style_img1'],

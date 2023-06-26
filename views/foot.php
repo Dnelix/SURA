@@ -3,7 +3,6 @@
         <script src="assets/plugins/global/plugins.bundle.js"></script>
         <script src="assets/js/scripts.bundle.js"></script>
         <!--end::Global Javascript Bundle-->
-        <!-- datatables-->
         <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
         <script src="assets/js/custom/custom.js"></script>
         <script src="assets/js/custom/modals/new-customer.js"></script>
@@ -43,9 +42,6 @@
         } else if($curPage == "customers"){
             echo '
                 <script src="assets/js/custom/pages/dataTablesInit.js"></script>';
-            //     <script src="assets/js/custom/modals/upper_body.js"></script>
-            //     <script src="assets/js/custom/modals/lower_body.js"></script>
-            // ';
         } else if($curPage == "add_customer"){  
             echo '<script src="assets/js/custom/pages/add-customer.js"></script>';
         } else {

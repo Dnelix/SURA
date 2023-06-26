@@ -44,7 +44,9 @@ if(array_key_exists('tailor', $_GET)){
         if($_SERVER['REQUEST_METHOD'] === 'PATCH') {
             $jsonData = validateJsonRequest();
         
-            if (isset($jsonData->title) && isset($jsonData->start)){
+            if (isset($jsonData->status)){
+                require_once('projects/update_project_status.php');
+            } else if (isset($jsonData->title) && isset($jsonData->start)){
                 require_once('projects/update_project_data.php');
             } else if (isset($jsonData->income)){
                 require_once('projects/update_financials.php');

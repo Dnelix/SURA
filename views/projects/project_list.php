@@ -51,10 +51,10 @@
                         </div>
                         <div class="menu-item px-3"> 
                             <ul>
-                                <li class="pt-3"> <?= showStatus('Not Started'); ?></li>
-                                <li class="pt-3"> <?= showStatus('In Progress'); ?> </li>
-                                <li class="pt-3"> <?= showStatus('Delayed'); ?> </li>
-                                <li class="pt-3"> <?= showStatus('Completed'); ?> </li>
+                                <li class="pt-3" onClick="updateStatus('<?= $project->id; ?>', 'Not Started')"> <?= showStatus('Not Started'); ?></li>
+                                <li class="pt-3" onClick="updateStatus('<?= $project->id; ?>', 'In Progress')"> <?= showStatus('In Progress'); ?> </li>
+                                <li class="pt-3" onClick="updateStatus('<?= $project->id; ?>', 'Delayed')"> <?= showStatus('Delayed'); ?> </li>
+                                <li class="pt-3" onClick="updateStatus('<?= $project->id; ?>', 'Completed')"> <?= showStatus('Completed'); ?> </li>
                             </ul> 
                         </div>
                         
@@ -80,8 +80,8 @@
                 </div>
 
                 <!--label for="progressbar" class="fw-bold text-gray-400" style="float:right"><?= calculateTimeLeft($project->end); ?> </label-->
-                <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project 5% completed">
-                    <div class="bg-primary rounded h-4px" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project <?= $project->completion; ?>% completed">
+                    <div class="bg-primary rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 
                 <div class="symbol-group symbol-hover">
@@ -92,7 +92,7 @@
                 </div>
 
                 <span style="float:right">
-                    <button onClick="goTo('projects?pid=<?= $project->id; ?>')" class="btn text-primary">
+                    <button onClick="goTo('projects?pid='<?= $project->id; ?>'')" class="btn text-primary">
                         View details &nbsp; <i class="fa fa-arrow-right"></i>
                     </button>
                 </span>
@@ -102,3 +102,19 @@
         </div>
     <?php } } ?>
 </div>
+
+<script>
+    function updateStatus(pid, status){
+        var tid = '<?= $loguserid; ?>';
+        var web = '<?= $c_website; ?>';
+        var submitButton = _('fs'+pid);
+        var type = "PATCH";
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
+        var data = {
+            "status" : status
+        };
+
+        AJAXcall(null, submitButton, type, url, data);
+        setTimeout(reloadPage(), 500);
+    }
+</script>

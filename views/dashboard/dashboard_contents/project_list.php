@@ -43,22 +43,13 @@
                     </div>
                     
                     <div class="card-toolbar">
-                        <button class="btn" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"> 
-                            <?= showStatus($project->status); ?> 
-                        </button>
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
-                            <div class="menu-item px-3">
-                                <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">SET PROJECT STATUS</div>
-                            </div>
-                            <div class="menu-item px-3"> 
-                                <ul>
-                                    <li class="pt-3"> <?= showStatus('Not Started'); ?></li>
-                                    <li class="pt-3"> <?= showStatus('In Progress'); ?> </li>
-                                    <li class="pt-3"> <?= showStatus('Delayed'); ?> </li>
-                                    <li class="pt-3"> <?= showStatus('Completed'); ?> </li>
-                                </ul> 
-                            </div>
-                            
+                        <div class="me-6 my-1">
+                            <select id="fs<?= $project->id ;?>" name="filter_status" onChange="updateStatus('<?= $project->id ;?>')" data-control="select2" data-hide-search="true" class="w-125px form-select form-select-solid form-select-sm">
+                                <option value="In Progress" <?= ($project->status === 'In Progress' ? 'selected="selected"' : ''); ?>>In Progress</option>
+                                <option value="Not Started" <?= ($project->status === 'Not Started' ? 'selected="selected"' : ''); ?>>Not Started</option>
+                                <option value="Delayed" <?= ($project->status === 'Delayed' ? 'selected="selected"' : ''); ?>>Delayed</option>
+                                <option value="Completed" <?= ($project->status === 'Completed' ? 'selected="selected"' : ''); ?>>Completed</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -80,9 +71,8 @@
                         
                     </div>
 
-                    <!--label for="progressbar" class="fw-bold text-gray-400" style="float:right"><?= calculateTimeLeft($project->end); ?> </label-->
-                    <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project 5% completed">
-                        <div class="bg-primary rounded h-4px" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project <?= $project->completion; ?>% completed">
+                        <div class="bg-primary rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     
                     <div class="symbol-group symbol-hover">
@@ -112,3 +102,19 @@
 
     <?php } ?>
 </div>
+
+<script>
+    function updateStatus(pid){
+        var status = _('fs'+pid).value;
+        var tid = '<?= $loguserid; ?>';
+        var web = '<?= $c_website; ?>';
+        var submitButton = _('fs'+pid);
+        var type = "PATCH";
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
+        var data = {
+            "status" : status
+        };
+
+        AJAXcall(null, submitButton, type, url, data);
+    }
+</script>
