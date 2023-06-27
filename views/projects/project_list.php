@@ -1,3 +1,7 @@
+<?php
+$filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
+?>
+
 <div class="card mb-8">
     <div class="card-body pt-9 pb-0">   
         <div class="d-flex flex-wrap flex-stack mb-6">
@@ -6,11 +10,12 @@
             
             <div class="d-flex flex-wrap my-2">
                 <div class="me-4">
-                    <select name="status" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
-                        <option value="Active" selected="selected">In Progress</option>
-                        <option value="Not started">Not Started</option>
-                        <option value="Declined">Terminated</option>
-                        <option value="Completed">Completed</option>
+                    <select name="status" id="status_filter" onChange="filterStatus('status_filter')" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
+                        <option value="ALL"         <?= ($filter == 'ALL' || empty($filter)) ? 'selected':''; ?>>ALL</option>
+                        <option value="In Progress" <?= ($filter == 'In Progress') ? 'selected':''; ?>> In Progress </option>
+                        <option value="Not Started" <?= ($filter == 'Not Started') ? 'selected':''; ?>> Not Started </option>
+                        <option value="Delayed"     <?= ($filter == 'Delayed') ? 'selected':''; ?>>         Delayed </option>
+                        <option value="Completed"   <?= ($filter == 'Completed') ? 'selected':''; ?>>     Completed </option>
                     </select>
                 </div>
                 <!--a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">New Project</a-->
@@ -29,7 +34,13 @@
 
     <?php 
         } else { 
-            foreach($projects->projectlist as $project) {
+            $projectList = $projects->projectlist;
+
+            if(isset($_GET['filter']) && !empty($_GET['filter']) && $_GET['filter'] !== 'ALL'){
+                $projectList = array_filter($projects->projectlist, function($item) { return $item->status == $_GET['filter']; });
+            }
+
+            foreach($projectList as $project) {
         
     ?>
 
@@ -81,7 +92,7 @@
 
                 <!--label for="progressbar" class="fw-bold text-gray-400" style="float:right"><?= calculateTimeLeft($project->end); ?> </label-->
                 <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project <?= $project->completion; ?>% completed">
-                    <div class="bg-primary rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="bg-success rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 
                 <div class="symbol-group symbol-hover">
@@ -92,7 +103,7 @@
                 </div>
 
                 <span style="float:right">
-                    <button onClick="goTo('projects?pid='<?= $project->id; ?>'')" class="btn text-primary">
+                    <button onClick="goTo('projects?pid=<?= $project->id; ?>')" class="btn text-primary">
                         View details &nbsp; <i class="fa fa-arrow-right"></i>
                     </button>
                 </span>
@@ -104,6 +115,11 @@
 </div>
 
 <script>
+    function filterStatus(inputID){
+        var status = _(inputID).value;
+        goTo('?filter='+status);
+    }
+
     function updateStatus(pid, status){
         var tid = '<?= $loguserid; ?>';
         var web = '<?= $c_website; ?>';

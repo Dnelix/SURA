@@ -4,14 +4,15 @@
     
     <div class="d-flex flex-wrap my-2">
         <div class="me-4">
-            <select name="status" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
-                <option value="Active" selected="selected">In Progress</option>
-                <option value="Not started">Not Started</option>
-                <option value="Declined">Terminated</option>
+            <select name="status" id="status_filter" onChange="filterStatus('status_filter')" data-control="select2" data-hide-search="true" class="form-select form-select-sm bg-body border-body w-125px">
+                <option value="ALL" selected="selected">ALL</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Not Started">Not Started</option>
+                <option value="Delayed">Delayed</option>
                 <option value="Completed">Completed</option>
             </select>
         </div>
-        <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_new_project">New <?= $alt_job; ?></a>
+        <a href="javascript:;" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_new_project">New <?= $alt_job; ?></a>
     </div>
 </div>
 
@@ -72,7 +73,7 @@
                     </div>
 
                     <div class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title="This project <?= $project->completion; ?>% completed">
-                        <div class="bg-primary rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="bg-success rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     
                     <div class="symbol-group symbol-hover">
@@ -104,6 +105,10 @@
 </div>
 
 <script>
+    function filterStatus(inputID){
+        var status = _(inputID).value;
+        goTo('projects?filter='+status);
+    }
     function updateStatus(pid){
         var status = _('fs'+pid).value;
         var tid = '<?= $loguserid; ?>';

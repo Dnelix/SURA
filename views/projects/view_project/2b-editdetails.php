@@ -1,3 +1,8 @@
+<?php
+    $start_date = DateTime::createFromFormat('d/m/Y H:i', $start);
+    $end_date = date_create($end);
+?>
+
 <div class="card mb-5 mb-xl-10 d-none" id="project_details_edit">
     <div class="card-header cursor-pointer">
         <div class="card-title m-0">
@@ -21,7 +26,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Description</label>
                     <div class="col-lg-9 fv-row">
-                        <input type="text" name="description" class="form-control form-control-lg form-control-solid" value="<?= $description; ?>" />
+                        <textarea class="form-control form-control-lg form-control-solid"><?= $description; ?></textarea>
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -29,11 +34,11 @@
                     <div class="col-lg-9 fv-row">
                         <div class="row">
                             <div class="col-lg-6 fv-row form-floating">
-                                <input type="date" name="start_date" class="form-control form-control-lg form-control-solid" value="<?= $start; ?>" />
+                                <input type="date" name="start_date" class="form-control form-control-lg form-control-solid" value="<?= $start_date->format('Y-m-d'); ?>" />
                                 <label>Start Date</label>
                             </div>
                             <div class="col-lg-6 fv-row form-floating">
-                                <input type="date" name="end_date" class="form-control form-control-lg form-control-solid" value="<?= $end; ?>" />
+                                <input type="date" name="end_date" class="form-control form-control-lg form-control-solid" value="<?= date_format($end_date, 'Y-m-d'); ?>" />
                                 <label>Due Date</label>
                             </div>
                         </div>
@@ -42,7 +47,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Set Reminder</label>
                     <div class="col-lg-9 fv-row">
-                        <select class="form-select " name="remind_on">
+                        <select name="remind_on" data-control="select2" data-hide-search="true" class="form-select form-select-lg bg-light border-body">
                             <option value="1">One day to due date</option>
                             <option value="3">Three days to due date</option>
                             <option value="7">One week to due date</option>
@@ -53,7 +58,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Style Details (optional)</label>
                     <div class="col-lg-9 fv-row">
-                        <input type="text" name="style_details" class="form-control form-control-lg form-control-solid" value="<?= $style_det; ?>" />
+                        <textarea class="form-control form-control-lg form-control-solid"><?= $style_det; ?></textarea>
                     </div>
                 </div>
                 <div class="row mb-6">

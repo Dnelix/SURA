@@ -1,4 +1,12 @@
-    <div class="modal fade" id="modal_new_project" tabindex="-1" aria-hidden="true">
+<?php
+if (!isset($customers)){
+    $customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid) -> data;
+}
+$customerList = (isset($customers->customerlist) ? $customers->customerlist : null);
+
+?>
+
+   <div class="modal fade" id="modal_new_project" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content rounded">
                 <div class="modal-header pb-0 border-0 justify-content-end">
@@ -17,6 +25,23 @@
                             </div>
                         </div>
                         
+                        <!--div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span class="required">Select a Customer</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Start typing a customer name or phone number to search"></i>
+                            </label>
+                            <div class="me-6 my-1 bg-light-primary">
+                                <select name="customers" data-control="select2" data-hide-search="false" class="form-select form-select-sm bg-light-primary border-body">
+                                    <?php/*
+                                        foreach ($customerList as $customer){
+                                            $name = ($customer->fullname !== null) ? $customer->fullname : $customer->username;
+                                            echo '<option value="'. $customer->id .'">'. $name .'</option>';
+                                        }*/
+                                    ?>
+                                </select>
+                            </div>
+                        </div-->
+
                         <div class="d-flex flex-column mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-bold mb-2">
                                 <span class="required">Select a Customer</span>
@@ -25,7 +50,7 @@
                             <input class="form-control form-control-solid" value="Important, Urgent" name="customer" />
                         </div>
 
-                        <div class="fv-row mb-8">
+                        <!--div class="fv-row mb-8">
                             <div class="col-md-12">
                                 <div class="row fv-row">
                                     <div class="col-6 mb-10">
@@ -42,14 +67,14 @@
                                         <div class="position-relative d-flex align-items-center">
                                             <?= $svg_calendericon; ?>
                                             <input class="form-control form-control-solid ps-12 flatpickr-input" value="2023-03-10" name="due_date" type="date">
-                                            <!-- input type date only accepts and returns value the format: yyyy-mm-dd -->
+                                            <!-- input type date only accepts and returns value the format: yyyy-mm-dd ->
                                         </div>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
 
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                         
                         <div class="text-center">
                             <button type="reset" id="modal_new_project_cancel" class="btn btn-light me-3">Cancel</button>
