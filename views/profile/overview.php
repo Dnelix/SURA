@@ -47,7 +47,7 @@
                                     <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Account Options</div>
                                 </div>
 
-                                <div class="menu-item px-3"><a href="#" class="menu-link px-3">Close my account</a></div>
+                                <div class="menu-item px-3"><a href="javascript:swal_Popup('info', 'Sorry we can\'t do this now');" class="menu-link px-3">Close my account</a></div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-arrow-up text-success me-2"></i>
-                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="4500">4,500</div>
+                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="<?= $customerCount; ?>"><?= $customerCount; ?></div>
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Total Customers</div>
                             </div>
@@ -68,7 +68,7 @@
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-arrow-up text-info me-2"></i>
-                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="4500">4,500</div>
+                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="<?= $projectCount; ?>"><?= $projectCount; ?></div>
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Total <?= $alt_job.'s'; ?></div>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-arrow-up text-info me-2"></i>
-                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="60500" data-kt-countup-prefix="N">N60500</div>
+                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="60500" data-kt-countup-prefix="N"><?= formatNumber(60500); ?></div>
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Profit Earned</div>
                             </div>

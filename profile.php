@@ -1,6 +1,20 @@
 <?php include_once('views/head.php'); ?>
 
-<?php //$userdata = retrieveDataFrom($c_website.'controllers/users.php?userid='.$loguserid); // already called in header.php ?>
+<?php 
+// $users called in from header.php
+$customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid) -> data;
+$customerCount = (isset($customers->count) ? $customers->count : 0);
+
+$projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
+$projectCount = (isset($projects->count) ? $projects->count : 0);
+
+$biz = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid);
+$bizdata = (isset($biz->data) ? $biz->data : null);
+
+$country_list = getCountries();
+
+
+?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
     <!--begin::Root-->

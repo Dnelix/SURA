@@ -23,7 +23,7 @@
         } else if ($curPage == "profile"){
             switch($curSubpage){
                 case 'business':
-                echo '';
+                echo '<script src="assets/js/custom/pages/profile/business.js"></script>';
                 break;
                 case 'security':
                 echo '';

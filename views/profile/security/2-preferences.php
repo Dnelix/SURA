@@ -5,7 +5,7 @@
         </div>
     </div>
     <div id="kt_account_settings_email_preferences" class="collapse show">
-        <form class="form">
+        <form class="form" onSubmit="return false;">
             <div class="card-body border-top px-9 py-9">
                 <label class="form-check form-check-custom form-check-solid align-items-start">
                     <input class="form-check-input me-3" type="checkbox" name="email-preferences[]" value="1" />
@@ -78,7 +78,7 @@
             
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <button class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                <button class="btn btn-primary px-6">Save Changes</button>
+                <button class="btn btn-primary px-6" disabled>Save Changes</button>
             </div>
         </form>
     </div>

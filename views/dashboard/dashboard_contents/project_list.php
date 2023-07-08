@@ -85,7 +85,7 @@
 
                     <span style="float:right">
                         <button onClick="goTo('projects?pid=<?= $project->id; ?>')" class="btn text-primary">
-                            View details &nbsp; <i class="fa fa-arrow-right"></i>
+                            Details &nbsp; <i class="fa fa-arrow-right"></i>
                         </button>
                     </span>
                 </div>

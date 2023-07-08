@@ -61,13 +61,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
-                                        <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Update project status">
-                                            <?= $svg_optionsicon; ?>
-                                        </a>
-                                        <a href="javascript:editProjectDetails('<?= $loguserid; ?>','<?= $item->id; ?>')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Edit details">
+                                        <!--a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Update project status">
+                                            <?//= $svg_optionsicon; ?>
+                                        </a-->
+                                        <a href="projects?pid=<?= $item->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="View/Edit Project details">
                                             <?= $svg_editicon; ?>
                                         </a>
-                                        <a href="javascript:deleteProject();" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Delete project">
+                                        <a href="javascript:deleteProject('<?= $loguserid; ?>','<?= $item->id; ?>')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Delete project">
                                             <?= $svg_deleteicon; ?>
                                         </a>
                                     </div>
@@ -88,10 +88,10 @@
 </div>
 
 <script>
-    function editProjectDetails(tid,pid){
+    function deleteProject(tid,pid){
         var web = '<?= $c_website; ?>';
 
-        var confirm = swal_confirm('Edit this project? '+tid+pid);
+        var confirm = swal_confirm('Delete this project? '+tid+pid);
 
         if(confirm == true){
             console.log('Confirmed'); return false;

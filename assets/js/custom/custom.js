@@ -45,14 +45,14 @@ function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
 function swal_confirm(msg, btn_yes='YES', btn_no='NO'){
     return swal.fire({
         text: msg,
-        icon: "warning",
+        icon: "question",
         buttonsStyling: false,
         showDenyButton: true,
         confirmButtonText: btn_yes,
         denyButtonText: btn_no,
         customClass: {
-            confirmButton: "btn btn-light-primary",
-            denyButton: "btn btn-primary"
+            confirmButton: "btn btn-primary",
+            denyButton: "btn btn-light"
         }
     })
 }
@@ -200,4 +200,71 @@ function logout(sessionid, accesstoken){
             }
         }
     });
+}
+
+//Populate States and cities based on selected country
+function populateStates() {
+    var countrySelect = document.getElementById("country");
+    var stateSelect = document.getElementById("state");
+    var citySelect = document.getElementById("city");
+    // Get selected country value
+    var selectedCountry = countrySelect.value;
+    // Clear previous state and city options
+    stateSelect.innerHTML = ""; //"<option value=''>States in "+selectedCountry+"</option>";
+    citySelect.innerHTML = ""; //"<option value=''>Select a city</option>";
+
+    // Fetch the data from JSON DB
+    fetch('models/databases/city-state-country.json')
+    .then(response => response.json())
+    .then(data => {
+        var states = [];
+        data.Countries.forEach(country => {
+            if (country.CountryName === selectedCountry) {
+                states = country.States.map(state => state.StateName);
+            }
+        });
+        for (var i = 0; i < states.length; i++) {
+            var state = states[i];
+            var option = document.createElement("option");
+            option.value = state;
+            option.text = state;
+            stateSelect.appendChild(option);
+        }
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
+}
+
+function populateCities() {
+    var stateSelect = document.getElementById("state");
+    var citySelect = document.getElementById("city");
+    // Get selected state values
+    var selectedState = stateSelect.value;
+    // Clear previous city options
+    citySelect.innerHTML = ""; //"<option value=''>Cities in "+selectedState+"</option>";
+
+    fetch('models/databases/city-state-country.json')
+    .then(response => response.json())
+    .then(data => {
+        var cities = [];
+        data.Countries.forEach(country => {
+            country.States.forEach(state => {
+                if (state.StateName === selectedState) {
+                    cities = state.Cities;
+                }
+            });
+        });
+        for (var i = 0; i < cities.length; i++) {
+            var city = cities[i];
+            var option = document.createElement("option");
+            option.value = city;
+            option.text = city;
+            citySelect.appendChild(option);
+        }
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
+
 }

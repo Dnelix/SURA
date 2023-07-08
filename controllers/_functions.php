@@ -67,9 +67,13 @@ function validateJsonRequest() {
   return $jsonData;
 }
 
-// Get JSON 
-function retrieveDataFrom($url='php://input'){
-  return json_decode(file_get_contents($url));
+// Get JSON as either php object(false) or array(true)
+function retrieveDataFrom($url='php://input', $stat = false){
+  if($stat === true){
+    return json_decode(file_get_contents($url), true);
+  } else {
+    return json_decode(file_get_contents($url));
+  }
 }
 
 // Random Password Generator
@@ -111,7 +115,7 @@ function getuserDevice($userAgent){
   return $browser;
 }
 
-// Make JSON API call: Opt 1&2
+//* Make JSON API call: Opt 1&2
 function callJSONAPI($url, $data=[], $accesstoken=null, $type='POST'){
   $ch = curl_init(); //initialize a session
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -175,7 +179,7 @@ function setJSONRequestHeaders($jsonData){
   return $context;
 }
 
-// Send data to controller
+//* Send data to controller
 function sendToController($data, $controllerURL){
   $jsonData = json_encode($data);               // Convert the data to JSON
   $context = setJSONRequestHeaders($jsonData);  // set request headers
@@ -294,6 +298,33 @@ function addtoDate($givenDate, $num, $unit='day') {
   return $newDate;
 }
 
+//* Process Image Upload
+function processImageUpload($inputName, $targetDirectory) {
+  // Check if the file was uploaded without errors
+  if ($_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
+    $tempFilePath = $_FILES[$inputName]['tmp_name'];
+    $originalFileName = $_FILES[$inputName]['name'];
+
+    // Generate a unique filename to prevent overwriting existing files
+    $uniqueFileName = uniqid() . '_' . $originalFileName;
+
+    // Build the target path for storing the uploaded image
+    $targetPath = $targetDirectory . '/' . $uniqueFileName;
+
+    // Move the uploaded file to the target directory
+    if (move_uploaded_file($tempFilePath, $targetPath)) {
+      // File successfully uploaded
+      return $targetPath;
+    } else {
+      // Error while moving the uploaded file
+      return null;
+    }
+  } else {
+    // Error in the uploaded file
+    return null;
+  }
+}
+
 ##########################################
 # DATABASE CALLS
 ##########################################
@@ -302,6 +333,44 @@ function getuserDataById($data, $id){
   $users = retrieveDataFrom($c_website.'controllers/users.php?userid='.$id);
   $userdata = (($users -> data !== null) ? $users->data->$data : null);
   return $userdata;
+}
+
+//GET COUNTRIES, STATES & CITIES
+function country_state_city(){
+  global $c_website;
+  return retrieveDataFrom($c_website.'models/databases/city-state-country.json', true); //read file from JSON DB
+}
+
+function getCountries(){
+  $data = country_state_city();
+  $country_list = array_column($data['Countries'], 'CountryName');
+  return $country_list;
+}
+
+function getStates($targetCountry){
+  $data = country_state_city();
+  $states = [];
+  foreach ($data['Countries'] as $country) {
+      if ($country['CountryName'] === $targetCountry) {
+          $states = array_column($country['States'], 'StateName');
+          break;
+      }
+  }
+  return $states;
+}
+
+function getCities($targetState){
+  $data = country_state_city();
+  $cities = [];
+  foreach ($data['Countries'] as $country) {
+    foreach ($country['States'] as $state) {
+      if ($state['StateName'] === $targetState) {
+          $cities = $state['Cities'];
+          break;
+      }
+    }
+  }
+  return $cities;
 }
 
 ##########################################
@@ -493,6 +562,27 @@ function limit_text($text, $limit) {
       $text = substr($text, 0, $pos[$limit]) . '...';
   }
   return $text;
+}
+
+function formatNumber($number) {
+  $suffixes = array('', 'K', 'M', 'B', 'T'); // Suffixes for thousand, million, billion, trillion, etc.
+
+  $suffixIndex = 0;
+  while ($number >= 1000 && $suffixIndex < count($suffixes) - 1) {
+      $number /= 1000;
+      $suffixIndex++;
+  }
+
+  $formattedNumber = number_format($number, 3);   // Format number to maximum three decimal places
+
+  // Remove trailing zeroes and decimal point if not needed
+  $formattedNumber = rtrim($formattedNumber, '0');
+  $formattedNumber = rtrim($formattedNumber, '.');
+
+  // Append the appropriate suffix
+  $formattedNumber .= $suffixes[$suffixIndex];
+
+  return $formattedNumber;
 }
 
 ?>

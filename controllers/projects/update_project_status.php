@@ -20,7 +20,7 @@ try{
             break;
     }
 
-    //update password and loginattempts
+    //update project status and completion
     $query = $writeDB -> prepare('UPDATE tbl_projects SET status = :status, completion = :completion WHERE id = :pid AND tailorid = :tid');
     $query -> bindParam(':status', $status, PDO::PARAM_STR);
     $query -> bindParam(':completion', $completion, PDO::PARAM_STR);

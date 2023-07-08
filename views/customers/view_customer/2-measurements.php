@@ -13,7 +13,7 @@
                             <img src="assets/media/illustrations/measurements/ub.jpg" alt="upper body">
                             <div class="bg-success position-absolute border border-4 border-white h-15px w-15px rounded-circle translate-middle start-100 top-100 ms-n3 mt-n3"></div>
                         </div>
-                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Upper Body</a>
+                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Upper Body (<?= $measureunit_text; ?>)</a>
                         <div class="fw-bold text-gray-400 mb-6">Measurements for tops and gowns</div>
 
                         <div class="d-flex flex-center flex-wrap">
@@ -47,7 +47,7 @@
                             <img src="assets/media/illustrations/measurements/lb.jpg" alt="lower body">
                             <div class="bg-success position-absolute border border-4 border-white h-15px w-15px rounded-circle translate-middle start-100 top-100 ms-n3 mt-n3"></div>
                         </div>
-                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Lower Body</a>
+                        <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Lower Body (<?= $measureunit_text; ?>)</a>
                         <div class="fw-bold text-gray-400 mb-6">Measurements for trousers, skirts, etc</div>
 
                         <div class="d-flex flex-center flex-wrap">

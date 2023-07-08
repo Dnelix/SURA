@@ -14,20 +14,13 @@ try{
         sendResponse(404, false, 'Invalid tailor and customer combination');
     }
     
-    $row = $query -> fetch(PDO::FETCH_ASSOC);
+    $customerData = array();
 
-    $customerData = [
-        "id" => $row['id'],
-        "username" => $row['username'],
-        "email" => $row['email'],
-        "phone" => $row['phone'],
-        "fullname" => $row['fullname'],
-        "photo" => $row['photo'],
-        "active" => $row['active'],
-        "lastlogin" => $row['lastlogin'],
-        "role" => $row['role'],
-        "createdon" => $row['createdon'],
-    ];
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+        foreach ($row as $columnName => $value){
+            $customerData[$columnName] = $value;
+        }
+    }
 
     // Get customer measurements
 
