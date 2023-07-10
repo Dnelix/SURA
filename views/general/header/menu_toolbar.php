@@ -17,7 +17,7 @@
         <div class="d-flex align-items-center me-n3 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
             <div class="btn btn-icon btn-active-light-primary btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                 <!--img class="h-30px w-30px rounded" src="assets/media/avatars/300-2.jpg" alt="" /-->
-                <?= showCustomerIcon($userdata->id, $initials); ?>
+                <?= showCustomerIcon($userdata->id, $user_initials); ?>
             </div>
             <!--begin::User account menu-->
             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -25,7 +25,7 @@
                     <div class="menu-content d-flex align-items-center px-3">
                         <div class="symbol symbol-50px me-5">
                             <!--img alt="Logo" src="assets/media/avatars/300-2.jpg" /-->
-                            <?= showCustomerIcon($userdata->id, $initials); ?>
+                            <?= showCustomerIcon($userdata->id, $user_initials); ?>
                         </div>
                         <div class="d-flex flex-column">
                             <div class="fw-bolder d-flex align-items-center fs-5"><?= $logusername; ?> 
@@ -38,7 +38,7 @@
                 <div class="separator my-2"></div>
                 
                 <div class="menu-item px-5">
-                    <a href="profile" class="menu-link px-5">My Profile</a>
+                    <a href="profile?page=business" class="menu-link px-5">Business Profile</a>
                 </div>
                 <div class="menu-item px-5">
                     <a href="projects" class="menu-link px-5">
@@ -95,7 +95,7 @@
                 </div>
                 <!--end::Menu item-->
                 <div class="menu-item px-5 my-1">
-                    <a href="#" class="menu-link px-5">Account Settings</a>
+                    <a href="profile" class="menu-link px-5">Account Settings</a>
                 </div>
                 <div class="menu-item px-5">
                     

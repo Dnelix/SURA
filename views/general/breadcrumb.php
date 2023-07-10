@@ -80,9 +80,9 @@
                     </div>
                 </div>
 
-                <a href="#" class="btn btn-bg-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#modal_new_project">
-                    <i class="fa fa-plus"></i>New <?= $alt_job; ?>
-                </a>
+                <!--a href="#" class="btn btn-bg-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#modal_new_project">
+                    <i class="fa fa-plus"></i>New <?//= $alt_job; ?>
+                </a-->
 
             </div>
             <!--end::Actions-->

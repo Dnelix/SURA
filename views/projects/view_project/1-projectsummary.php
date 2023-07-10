@@ -10,8 +10,25 @@
                     <div class="d-flex flex-column">
                         <div class="d-flex align-items-center mb-1">
                             <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-3"><?= $title; ?></a>
-                            <?= showStatus($status); ?>
+
+                            <div class="card-toolbar">
+                                <button class="btn" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><?= showStatus($status); ?></btn>
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">SET PROJECT STATUS</div>
+                                    </div>
+                                    <div class="menu-item px-3"> 
+                                        <ul>
+                                            <li class="pt-3" onClick="updateStatus('<?= $id; ?>', 'Not Started')"> <?= showStatus('Not Started'); ?></li>
+                                            <li class="pt-3" onClick="updateStatus('<?= $id; ?>', 'In Progress')"> <?= showStatus('In Progress'); ?> </li>
+                                            <li class="pt-3" onClick="updateStatus('<?= $id; ?>', 'Delayed')"> <?= showStatus('Delayed'); ?> </li>
+                                            <li class="pt-3" onClick="updateStatus('<?= $id; ?>', 'Completed')"> <?= showStatus('Completed'); ?> </li>
+                                        </ul> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
                             <a href="customers?cid=<?= $customerid; ?>" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                             <span class="svg-icon svg-icon-4 me-1">
@@ -27,7 +44,20 @@
                     
                     <div class="d-flex mb-4">
                         <a href="javascript:;" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
-                        <a href="#" class="btn btn-sm btn-danger me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Close this Project</a>
+
+                        <div class="me-0">
+                            <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <i class="bi bi-three-dots fs-3"></i>
+                            </button>
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true" style="">
+                                <div class="menu-item px-3">
+                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Project Options</div>
+                                </div>
+
+                                <div class="menu-item px-3"><a href="#" class="menu-link px-3">Delete Project</a></div>
+                                <div class="menu-item px-3"><a href="#" class="menu-link px-3">Cancel Project</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -75,3 +105,19 @@
         <div><p><br/></p></div>
     </div>
 </div>
+
+<script>
+    function updateStatus(pid, status){
+        var tid = '<?= $loguserid; ?>';
+        var web = '<?= $c_website; ?>';
+        var submitButton = _('fs'+pid);
+        var type = "PATCH";
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
+        var data = {
+            "status" : status
+        };
+
+        AJAXcall(null, submitButton, type, url, data);
+        setTimeout(reloadPage(), 500);
+    }
+</script>

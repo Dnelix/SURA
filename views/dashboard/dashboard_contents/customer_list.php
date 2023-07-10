@@ -65,7 +65,7 @@
                                     <a href="customers?cid=<?= $customer->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="View details">
                                         <span class="svg-icon svg-icon-3"><i class="fa fa-eye"></i></span>
                                     </a>
-                                    <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Start new project">
+                                    <a href="add_project?cid=<?= $customer->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Start new project">
                                         <span class="svg-icon svg-icon-3"><i class="fa fa-plus"></i></span>
                                     </a>
                                 </div>

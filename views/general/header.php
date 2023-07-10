@@ -1,7 +1,7 @@
 <?php
 $userdata = retrieveDataFrom($c_website.'controllers/users.php?userid='.$loguserid) -> data;
 $displayUserName = isset($userdata->fullname) ? $userdata->fullname : $userdata->username;
-$initials = getInitials($displayUserName);
+$user_initials = getInitials($displayUserName);
 ?>
 
     <div id="kt_header" class="header align-items-stretch" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">

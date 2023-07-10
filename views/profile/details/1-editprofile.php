@@ -33,7 +33,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Avatar</label>
                     <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
-                        <?= showCustomerIcon($loguserid, $initials, 0, 'large'); ?>
+                        <?= showCustomerIcon($loguserid, $user_initials, 0, 'large'); ?>
                     </div>
                 </div>
 

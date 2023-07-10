@@ -49,7 +49,7 @@
                 <div class="menu-item <?= ($curPage=='profile') ? 'here show':'';?> menu-lg-down-accordion me-lg-1" >
                     <a class="menu-link py-3" href="profile">
                         <?= ($curPage=='profile') ? '<span class="menu-icon"><i class="fa fa-user"></i></span>' : ''; ?>
-                        <span class="menu-title">My Profile</span>
+                        <span class="menu-title"> Account</span>
                     </a>
                 </div>
 
