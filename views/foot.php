@@ -15,7 +15,6 @@
         <!--begin::Page Level Javascript-->
         <?php 
         if ($curPage == "" || $curPage == $home){
-            //Auth pages
             echo '<script src="assets/js/custom/auth/sign-in.js"></script>';
             echo '<script src="assets/js/custom/auth/sign-up.js"></script>';
             echo '<script src="assets/js/custom/auth/password-reset.js"></script>';
@@ -45,19 +44,9 @@
                 <script src="assets/js/custom/pages/dataTablesInit.js"></script>';
         } else if($curPage == "add_customer"){  
             echo '<script src="assets/js/custom/pages/add-customer.js"></script>';
-        } else {
-            /*Dashboard & others
-            echo '<script src="assets/js/widgets.bundle.js"></script>
-            <script src="assets/js/custom/widgets.js"></script>
-            <script src="assets/js/custom/apps/chat/chat.js"></script>
-            <script src="assets/js/custom/intro.js"></script>
-            <script src="assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-            <script src="assets/js/custom/utilities/modals/create-app.js"></script>
-            <script src="assets/js/custom/utilities/modals/create-campaign.js"></script>
-            <script src="assets/js/custom/utilities/modals/users-search.js"></script>';*/
-        } 
+        } else if($curPage == "add_project"){
+            echo '<script src="assets/js/custom/pages/add-project.js"></script>';
+        }
         ?>
-        <!-- end::Page Level Javascript-->
-        <!--end::Javascript-->
 	</body>
 </html>

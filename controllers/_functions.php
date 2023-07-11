@@ -335,6 +335,18 @@ function getuserDataById($data, $id){
   return $userdata;
 }
 
+function getCount($url){
+  $item = retrieveDataFrom($url);
+  $itemsCount = (empty($item->data->count)) ? 0 : $item->data->count;
+  return $itemsCount; 
+}
+
+function countProjects($tid, $cid){
+  global $c_website;
+  $url = $c_website.'controllers/projects.php?tailor='. $tid .'&customer='. $cid;
+  return getCount($url);
+}
+
 //GET COUNTRIES, STATES & CITIES
 function country_state_city(){
   global $c_website;
@@ -523,6 +535,12 @@ function showStatus($status){
   $html = '<span class="badge badge-'.$state.' fw-bolder me-auto px-4 py-3">'.$status.'</span>';
 
   echo $html;
+}
+
+function progressPosition($num, $max=10){
+  $num = ($num > $max) ? $max : $num;
+  $position = ($num/$max)*100;
+  return $position;
 }
 
 function readableDateTime($timeString, $show=null) {

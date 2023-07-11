@@ -14,11 +14,11 @@ PAYLOAD
     $jsonData = validateJsonRequest();
 
     //1. ensure all mandatory fields are provided
-    if(!isset($jsonData->tailorid) || !isset($jsonData->title) || !isset($jsonData->start)){
+    if(!isset($jsonData->tailorid) || !isset($jsonData->title) || !isset($jsonData->start_date)){
         $message = "";
         $message .= (!isset($jsonData->tailorid) ? 'A project cannot exist without a tailor' : false);
         $message .= (!isset($jsonData->title) ? 'You must provide a title for the project' : false);
-        $message .= (!isset($jsonData->start) ? 'You must specify a start date for the project' : false);
+        $message .= (!isset($jsonData->start_date) ? 'You must specify a start date for the project' : false);
 
         sendResponse(400, false, $message);
     }
@@ -39,15 +39,15 @@ PAYLOAD
     $tailorid   = $jsonData->tailorid;
     $custid     = $jsonData->customerid;
     $title      = trim($jsonData->title);
-    $desc       = (isset($jsonData->description) ? trim($jsonData->description) : "" );
-    $start      = $jsonData->start;
-    $end        = (isset($jsonData->end) ? $jsonData->end : addtoDate($start, 1, 'week'));
-    $remind     = (isset($jsonData->remind) ? $jsonData->remind : null );
-    $status     = (isset($jsonData->status) ? $jsonData->status : "Not started" );
-    $style_catg = (isset($jsonData->style_catg) ? $jsonData->style_catg : "" );
     $style_det  = (isset($jsonData->style_det) ? $jsonData->style_det : "" );
-    $income     = (isset($jsonData->income) ? $jsonData->income : "" );
-    $expense    = (isset($jsonData->expense) ? $jsonData->expense : "" );
+    $desc       = (isset($jsonData->description) ? trim($jsonData->description) : $style_det );
+    $start      = date('d/m/Y H:i', strtotime($jsonData->start_date));
+    $end        = (isset($jsonData->end_date) ? date('d/m/Y H:i', strtotime($jsonData->end_date)) : addtoDate($start, 1, 'week'));
+    $remind     = (isset($jsonData->remind_on) ? $jsonData->remind_on : null );
+    $status     = (isset($jsonData->status) ? $jsonData->status : "Not Started" );
+    $style_catg = (isset($jsonData->style_catg) ? $jsonData->style_catg : "" );
+    $income     = (isset($jsonData->income) ? $jsonData->income : 0 );
+    $expense    = (isset($jsonData->expense) ? $jsonData->expense : 0 );
     $notes      = (isset($jsonData->notes) ? $jsonData->notes : "" );
     //4. Handle Images
     $style_img1 = (isset($jsonData->style_img1) ? $jsonData->style_img1 : "" );
@@ -69,8 +69,8 @@ PAYLOAD
         $query -> bindParam(':end', $end, PDO::PARAM_STR);
         $query -> bindParam(':remind', $remind, PDO::PARAM_STR);
         $query -> bindParam(':status', $status, PDO::PARAM_STR);
-        $query -> bindParam(':stylecatg', $stylecatg, PDO::PARAM_STR);
-        $query -> bindParam(':styledet', $styledet, PDO::PARAM_STR);
+        $query -> bindParam(':stylecatg', $style_catg, PDO::PARAM_STR);
+        $query -> bindParam(':styledet', $style_det, PDO::PARAM_STR);
         $query -> bindParam(':styleimg1', $styleimg1, PDO::PARAM_STR);
         $query -> bindParam(':styleimg2', $styleimg2, PDO::PARAM_STR);
         $query -> bindParam(':styleimg3', $styleimg3, PDO::PARAM_STR);

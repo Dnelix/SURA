@@ -45,8 +45,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6"><?= getuserDataById('fullname', $item->customerid); ?> </a>
-                                    <span class="text-muted fw-bold text-muted d-block fs-7"><?= $item->title; ?></span>
+                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6"><?= $item->title; ?> </a>
+                                    <span class="text-muted fw-bold text-muted d-block fs-7"><?= limit_text($item->description, 7); ?></span>
                                 </td>
                                 <td>
                                     <span class="text-dark fw-bolder text-hover-primary fs-6"><?= readableDateTime($item->start, 'dateonly'); ?></span>

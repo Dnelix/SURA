@@ -66,6 +66,19 @@ function serializeToJSON(formID){
     return formData;
 }
 
+// Extract all elements from any form as JSON data
+function formdataJSON(form){
+    var formElements = form.elements;
+    var formData = {};
+    for (var i = 0; i < formElements.length; i++) {
+        var element = formElements[i];
+        if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+            formData[element.name] = element.value;
+        }
+    }
+    return formData;
+}
+
 // AJAX Calls
 function AJAXcall(formID, submitButton=null, type, url, formData=null){
     var responseMessage;
