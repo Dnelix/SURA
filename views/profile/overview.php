@@ -1,3 +1,7 @@
+<?php
+    $profileCompletion = calcProfileCompletion($userdata->fullname, $bizdata->name, $bizdata->description, $bizdata->address, $bizdata->state);
+?>
+
 <div class="card mb-5 mb-xl-10">
     <div class="card-body pt-9 pb-0">
         <!--begin::Details-->
@@ -13,7 +17,7 @@
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                     <div class="d-flex flex-column">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">   <?= $userdata->username; ?> </a>
+                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">   <?= $displayUserName; ?> </a>
                             <a href="#"><!--VERIFICATION BADGE-->
                                 <?= $svg_verifiedicon; ?>
                             </a>
@@ -27,7 +31,7 @@
                             </a>
                             <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                 <?= $svg_locationicon; ?>
-                                Lagos, Nigeria
+                                <?= $location; ?>
                             </a>
                             <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                 <?= $svg_mailicon; ?>
@@ -87,10 +91,10 @@
                     <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                         <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                             <span class="fw-bold fs-6 text-gray-400">Profile Completion</span>
-                            <span class="fw-bolder fs-6"><?= $userdata->profile_completion; ?>%</span>
+                            <span class="fw-bolder fs-6"><?= $profileCompletion; ?>%</span>
                         </div>
                         <div class="h-5px mx-3 w-100 bg-light mb-3">
-                            <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="<?= $userdata->profile_completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="bg-success rounded h-5px" role="progressbar" style="width: <?= $profileCompletion; ?>%;" aria-valuenow="<?= $profileCompletion ?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <!--end::Progress-->
@@ -105,15 +109,16 @@
         ?>
 
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder">
-            <li class="nav-item mt-2">
-                <a class="nav-link text-active-primary ms-0 me-10 py-5 <?= ($path=='details') ? 'active':'';?>" href="profile?page=details">Profile Details</a>
-            </li>
 
             <?php if ($userdata->role === "business") { ?>
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 <?= ($path=='business') ? 'active':'';?>" href="profile?page=business">Business Details</a>
             </li>
             <?php } ?>
+
+            <li class="nav-item mt-2">
+                <a class="nav-link text-active-primary ms-0 me-10 py-5 <?= ($path=='details') ? 'active':'';?>" href="profile?page=details">Profile Details</a>
+            </li>
             
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 <?= ($path=='security') ? 'active':'';?>" href="profile?page=security">Security & Alerts</a>

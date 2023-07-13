@@ -10,9 +10,9 @@ $projectCount = (isset($projects->count) ? $projects->count : 0);
 
 $biz = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid);
 $bizdata = (isset($biz->data) ? $biz->data : null);
+$location = (isset($bizdata->city) ? $bizdata->city.', '.$bizdata->state : 'Unknown');
 
 $country_list = getCountries();
-
 
 ?>
 <!---------------------------------------->

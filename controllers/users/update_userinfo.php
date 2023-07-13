@@ -2,7 +2,7 @@
 
 try {
     //keep track of all columns in the db_table that can potentially be updated
-    $columns = array('email','phone','fullname','photo','active','role','profile_completion');
+    $columns = array('email','phone','fullname','photo','active','role');
     foreach($columns as $field){ $$field = false; }     // create a variable with the column name and set to false
     $updated = false;
 

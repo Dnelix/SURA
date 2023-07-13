@@ -22,6 +22,13 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
                         <a href="customers" class="link-primary fw-bolder">Customers Directory</a>.</div>
                     </div>
                     <div class="mb-15">
+                        <?php
+                            if(empty($customerList)){
+                                echo '<div class="mh-375px scroll-y me-n7 pe-7"><div class="d-flex align-items-center">
+                                    <h3>You don\'t have any customers yet!</h3> To get started with customer projects, close this window and create a customer first.
+                                </div></div>';
+                            } else {
+                        ?>
                         <div class="mh-375px scroll-y me-n7 pe-7">
                             <?php
                                 foreach ($customerList as $customer){
@@ -49,7 +56,7 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
                             </div>
 
                             <?php
-                                }
+                                }}
                             ?>
                             
                         </div>
@@ -59,7 +66,7 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
                             <label class="fs-6">Or create a personal <?= strtolower($alt_job); ?></label>
                             <div class="fs-7 text-muted">Use this option if the <?= strtolower($alt_job); ?> is not for a specific client </div>
                         </div>
-                        <a href="add_project?personal" class="btn btn-danger btn-sm">Personal <?= $alt_job; ?></a>
+                        <a href="add_project?cid=<?= $loguserid; ?>" class="btn btn-danger btn-sm">Personal <?= $alt_job; ?></a>
                     </div>
                 </div>
             </div>

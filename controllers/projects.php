@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once('projects/create_project.php'); //alternate create project with tid & cid in JSON
+    require_once('projects/create_project.php'); //create project with tid & cid in JSON
 }
 
 if(array_key_exists('tailor', $_GET)){

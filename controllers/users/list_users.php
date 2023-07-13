@@ -2,7 +2,7 @@
 
 try{
 
-    $query = $writeDB -> prepare ('SELECT id, username, email, phone, fullname, photo, active, DATE_FORMAT(lastlogin, "'.$read_dateformat.'") as lastlogin, loginattempts, role, DATE_FORMAT(createdon, "'.$read_dateformat.'") as createdon, profile_completion FROM tbl_users');
+    $query = $writeDB -> prepare ('SELECT id, username, email, phone, fullname, photo, active, DATE_FORMAT(lastlogin, "'.$read_dateformat.'") as lastlogin, loginattempts, role, DATE_FORMAT(createdon, "'.$read_dateformat.'") as createdon FROM tbl_users');
     $query -> execute();
 
     $rowCount = $query->rowCount();
@@ -27,7 +27,6 @@ try{
             "loginattempts" => $row['loginattempts'],
             "role" => $row['role'],
             "createdon" => $row['createdon'],
-            "profile_completion" => $row['profile_completion']
         ];
     }
     //return data in an array

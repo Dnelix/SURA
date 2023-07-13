@@ -71,7 +71,7 @@ PAYLOAD
         $hash_pass = password_hash($password, PASSWORD_DEFAULT); //hash using the standard PHP hashing
 
         //Insert record into user table
-        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, active, role, createdon, profile_completion) VALUES(:username, :password, :email, :phone, "1", :role, STR_TO_DATE(:createdon, '.$write_dateformat.'), 50)');
+        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, active, role, createdon) VALUES(:username, :password, :email, :phone, "1", :role, STR_TO_DATE(:createdon, '.$write_dateformat.'))');
         $query -> bindParam(':username', $username, PDO::PARAM_STR);
         $query -> bindParam(':password', $hash_pass, PDO::PARAM_STR);
         $query -> bindParam(':email', $email, PDO::PARAM_STR);
@@ -128,7 +128,6 @@ PAYLOAD
         $returnData['phone'] = $phone;
         $returnData['active'] = 1;
         $returnData['createdon'] = $createdon;
-        $returnData['profile_completion'] = '50%';
 
         sendResponse(201, true, 'User Created', $returnData);
 

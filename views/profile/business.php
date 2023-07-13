@@ -1,3 +1,9 @@
+<?php
+if($userdata->role !== "business"){
+    echo '<script>window.location.href="profile?page=details";</script>';
+}
+?>
+
 <div class="card mb-5 mb-xl-10">
     <div class="card-header border-0 cursor-pointer" >
         <div class="card-title m-0">

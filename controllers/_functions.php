@@ -603,4 +603,20 @@ function formatNumber($number) {
   return $formattedNumber;
 }
 
+function calcProfileCompletion($opt1, $opt2, $opt3, $opt4, $opt5){
+    $requiredFields = array($opt1, $opt2, $opt3, $opt4, $opt5);
+
+    $totalFields = count($requiredFields);
+    $completedFields = 0;
+
+    foreach ($requiredFields as $field) {
+        if (isset($field) && !empty($field)) {
+            $completedFields++;
+        }
+    }
+
+    $completionPercentage = ($completedFields / $totalFields) * 100;
+
+    return $completionPercentage;
+}
 ?>

@@ -1,15 +1,25 @@
 <?php include_once('views/head.php'); ?>
 <?php
 $cid = (isset($_GET['cid']) ? $_GET['cid'] : '');
-$record = retrieveDataFrom($c_website.'controllers/customers.php?tailor='. $loguserid .'&customer='. $cid);
-if($record->data !== NULL){
-    $customerdata = $record->data->customerdata;
+
+if($cid == $loguserid){ //personal project
+    $record = retrieveDataFrom($c_website.'controllers/users.php?userid='. $cid);
+    $customerdata = $record->data;
     $customerName = isset($customerdata->fullname) ? $customerdata->fullname : $customerdata->username;
     $c_initials = getInitials($customerName);
 
-    $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
-    $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
+} else { //customer project
+    $record = retrieveDataFrom($c_website.'controllers/customers.php?tailor='. $loguserid .'&customer='. $cid);
+    if($record->data !== NULL){
+        $customerdata = $record->data->customerdata;
+        $customerName = isset($customerdata->fullname) ? $customerdata->fullname : $customerdata->username;
+        $c_initials = getInitials($customerName);
+    }
 }
+
+$projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
+$projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
+
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">

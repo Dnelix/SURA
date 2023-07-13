@@ -179,6 +179,32 @@ function randomizeSpans() {
     setInterval(showRandomSpan, 5000);
 }
 
+// Show Toast Message
+function showToastMsg(msg){
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toastr-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": 0,
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    };
+
+    if (msg == "incomplete"){
+        toastr.error('Please complete your business profile to continue enjoying our services<br /><br /><button type="button" class="btn btn-bg-light btn-sm" onClick="goTo(\'profile?page=business\')">Go to Profile</button>', "Complete your profile");
+    }
+}
+
 //#######################//
 //###### SPECIFIC #######//
 //#######################//
