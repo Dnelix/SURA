@@ -8,7 +8,7 @@
                     <span class="text-muted mt-1 fw-bold fs-7">You have <?= $projectsCount.' '.$alt_job; ?>(s) with this customer</span>
                 </h3>
                 <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to start a new project">
-                    <a href="javascript:;" class="btn btn-sm btn-dark btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                    <a href="add_project.php?cid=<?= $cid; ?>" class="btn btn-sm btn-dark btn-active-primary">
                     <i class="fa fa-plus"></i> New <?= $alt_job; ?></a>
                 </div>
             </div>

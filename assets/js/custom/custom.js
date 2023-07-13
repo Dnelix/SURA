@@ -154,6 +154,31 @@ function copyToClipboard() {
     });
 }
 
+// Randomize a set of displays
+function randomizeSpans() {
+    var spans = document.querySelectorAll('#showRandom span');
+    var currentSpan = null;
+
+    function showRandomSpan() {
+        //alert('hey');
+        if (currentSpan) {
+        currentSpan.style.display = 'none';
+        }
+        
+        // Randomly select a new span
+        var randomIndex = Math.floor(Math.random() * spans.length);
+        var newSpan = spans[randomIndex];
+        
+        // Display the new span
+        newSpan.style.display = 'inline';
+        currentSpan = newSpan;
+    }
+
+    showRandomSpan();
+    // Switch the displayed span every 10 seconds
+    setInterval(showRandomSpan, 5000);
+}
+
 //#######################//
 //###### SPECIFIC #######//
 //#######################//

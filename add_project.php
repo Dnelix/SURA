@@ -1,6 +1,6 @@
 <?php include_once('views/head.php'); ?>
 <?php
-$cid = $_GET['cid'];
+$cid = (isset($_GET['cid']) ? $_GET['cid'] : '');
 $record = retrieveDataFrom($c_website.'controllers/customers.php?tailor='. $loguserid .'&customer='. $cid);
 if($record->data !== NULL){
     $customerdata = $record->data->customerdata;

@@ -18,7 +18,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
                         <option value="Completed"   <?= ($filter == 'Completed') ? 'selected':''; ?>>     Completed </option>
                     </select>
                 </div>
-                <!--a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">New Project</a-->
+                <a href="javascript:;" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_new_project">New Project</a>
             </div>
         </div>
     </div>

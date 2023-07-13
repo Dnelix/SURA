@@ -8,7 +8,7 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
 $projectCount = (isset($projects->count) ? $projects->count : 0);
 
-$openProjects = array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
+$openProjects = empty($projects) ? null : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
 //$completeProjects = array_filter($projects->projectlist, function($item) { return $item->status === 'Completed'; });;
 ?>
 <!---------------------------------------->
@@ -42,3 +42,7 @@ $openProjects = array_filter($projects->projectlist, function($item) { return $i
     <!--end::Root-->
 <!---------------------------------------->
 <?php include_once('views/foot.php'); ?>
+
+<script>
+    window.addEventListener('DOMContentLoaded', randomizeSpans);
+</script>

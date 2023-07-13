@@ -1,17 +1,30 @@
 
 
-   <div class="card card-flush h-xl-100">
+   <div class="card card-flush h-xl-100" onLoad="javascript:randomizeSpans();">
         
         <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px" style="background-image:url('assets/media/svg/shapes/top-green.png')">
             <h3 class="card-title align-items-start flex-column text-white pt-15">
-                <span class="fw-bolder fs-2x mb-3">Hello, <?= $logusername; ?></span>
+                <span class="fw-bolder fs-2x mb-3" onClick="javascript:randomizeSpans();">Hello, <?= $logusername; ?></span>
                 <div class="fs-4 text-white">
                     <span class="opacity-75">You have</span>
                     <span class="position-relative d-inline-block">
-                        <a href="projects" class="link-white opacity-75-hover fw-bolder d-block mb-1">4 <?= $alt_job.'s'; ?></a>
+                        <span id="showRandom">
+                            <span style="display:none">
+                                <a href="projects" class="link-white opacity-75-hover fw-bolder d-block mb-1"><?= count($openProjects).' unfinished '.$alt_job.'s'; ?></a>
+                            </span>
+                            <span style="display:none">
+                                <a href="finance" class="link-white opacity-75-hover fw-bolder d-block mb-1"> earned <?= $defaultcurrency.formatNumber('200000'); ?></a>
+                            </span>
+                            <span style="display:none">
+                                <a href="customers" class="link-white opacity-75-hover fw-bolder d-block mb-1"> <?= formatNumber($customerCount); ?> customers</a>
+                            </span>
+                            <span style="display:none">
+                                <a href="customers" class="link-white opacity-75-hover fw-bolder d-block mb-1"> created <?= formatNumber($projectCount).' '.$alt_job.'s'; ?> </a>
+                            </span>
+                        </span>
                         <span class="position-absolute opacity-50 bottom-0 start-0 border-2 border-white border-bottom w-100"></span>
                     </span>
-                    <span class="opacity-75">approaching deadline</span>
+                    <span class="opacity-75">as of today</span>
                 </div>
             </h3>
             
@@ -29,7 +42,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $customerCount; ?></span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= formatNumber($customerCount); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">My Customers</span>
                             </div>
                         </div>
@@ -45,7 +58,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= count($openProjects); ?></span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= formatNumber(count($openProjects)); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">Open <?= $alt_job.'s'; ?></span>
                             </div>
                         </div>
@@ -61,7 +74,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $projectCount; ?></span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= formatNumber($projectCount); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">All <?= $alt_job.'s'; ?></span>
                             </div>
                         </div>
@@ -77,7 +90,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $defaultcurrency; ?>8.2k</span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $defaultcurrency.formatNumber('8200100'); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">Profit Earned</span>
                             </div>
                         </div>
