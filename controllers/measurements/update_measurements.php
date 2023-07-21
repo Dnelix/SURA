@@ -11,7 +11,7 @@ try{
     foreach($measurement_parameters_array as $field){ 
         $$field = false;                                // create a variable with the column name and set to false
 
-        if(isset($jsonData->$field)){                   // if the field exists in the decoded json
+        if(isset($jsonData->$field) && !empty($jsonData->$field)){ // if the field exists in the decoded json
             $queryFields .= "{$field} = :{$field}, ";   //append to queryFields string. Don't forget the comma and space (this will not work for date fields)
             $$field = true;                             //update the status of the column variable to true
             $updated = true;                            // show that at least one field is updated

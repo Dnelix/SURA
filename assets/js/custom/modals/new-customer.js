@@ -14,6 +14,7 @@ var ModalNewCustomer = function () {
 
 	var formID = '#modal_new_customer_form';
 	var successWinID = '#new_customer_success';
+	var userID;
 
 	// Handle form validation and submittion
 	var handleForm = function() {
@@ -76,7 +77,9 @@ var ModalNewCustomer = function () {
 									submitButton.disabled = false;
 									submitButton.setAttribute('data-kt-indicator', 'off');
 								} else {
-									responseMessage = "SUCCESS: "+JSON.stringify(response);
+									userID = response.data['user_id'];
+									//console.log(response);
+									//responseMessage = "SUCCESS: "+userID+" : "+JSON.stringify(response);
 									submitButton.disabled = false;
 									submitButton.setAttribute('data-kt-indicator', 'off');
 									form.reset();
@@ -115,6 +118,8 @@ var ModalNewCustomer = function () {
 
 		addMeasurebtn.addEventListener('click', function (e) {
 			e.preventDefault();
+			goTo('add_measurements?cid='+userID);
+			//document.querySelector('#modal_cid').value = userID; //populate the value of the hidden cid field in the modal
 		});
 	}
 

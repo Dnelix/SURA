@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                     <div class="d-flex flex-column">
                         <div class="d-flex align-items-center mb-1">
-                            <a class="text-gray-600 text-hover-primary fs-2 fw-bolder me-3">New <?= $alt_job; ?> for</a>
+                            <a class="text-gray-600 text-hover-primary fs-2 fw-bolder me-3">Add measurements for</a>
                             <span class="badge badge-light-info me-auto"><?= strToUpper($customerName); ?></span>
                         </div>
                         <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
@@ -46,13 +46,6 @@
                             <div class="fw-bold fs-6 text-gray-400"><?= $alt_job; ?>s</div>
                         </div>
                         
-                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-arrow-up me-2"></i>
-                                <div class="fs-4 fw-bolder text-success counted" data-kt-countup="true" data-kt-countup-value="<?= $balance; ?>" data-kt-countup-prefix="$"><?= $defaultcurrency; ?><?= $balance; ?></div>
-                            </div>
-                            <div class="fw-bold fs-6 text-gray-400">Total Gain</div>
-                        </div>
                     </div>
                     
                 </div>

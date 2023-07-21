@@ -11,9 +11,7 @@ $projectCount = (isset($projects->count) ? $projects->count : 0);
 $openProjects = empty($projects) ? null : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
 
 $bizdata = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid) -> data;
-if(empty($bizdata->description) || empty($bizdata->address) || empty($bizdata->state)){
-    $profileStatus = "incomplete";
-}
+$profileStatus = (empty($bizdata->description) || empty($bizdata->address) || empty($bizdata->state)) ? "incomplete" : "complete";
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">

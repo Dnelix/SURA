@@ -2,10 +2,10 @@
 <?php
 $cid = (isset($_GET['cid']) ? $_GET['cid'] : '');
 
-if($cid == $loguserid){ //personal project
+if($cid == $loguserid){ //personal measurements
     $record = retrieveDataFrom($c_website.'controllers/users.php?userid='. $cid);
     $customerdata = $record->data;
-} else { //customer project
+} else { //customer measurements
     $record = retrieveDataFrom($c_website.'controllers/customers.php?tailor='. $loguserid .'&customer='. $cid);
     if($record->data !== NULL){
         $customerdata = $record->data->customerdata;
@@ -16,6 +16,10 @@ $c_initials = getInitials($customerName);
 
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
 $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
+
+$measurements = retrieveDataFrom($c_website.'controllers/measurements.php?customer='. $cid)->data;
+$UBmeasures = (($measurements->UB !== null) ? (array)$measurements->UB : null); //Upperbody measurements
+$LBmeasures = (($measurements->LB !== null) ? (array)$measurements->LB : null); //Lowerbody measurements
 
 ?>
 <!---------------------------------------->
@@ -37,8 +41,9 @@ $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
                         <div class="row g-5 g-xl-10">
                             <?php 
                                 if (isset($_GET['cid']) && !empty($_GET['cid'])){
-                                    include('views/addProject/1-customersummary.php');
-                                    include('views/addProject/2-project_details.php');
+                                    include('views/addMeasure/1-customersummary.php');
+                                    include('views/addMeasure/2-UB_details.php');
+                                    include('views/addMeasure/3-LB_details.php');
                                 } else {
                                     include_once('views/general/404_content.php');
                                 }

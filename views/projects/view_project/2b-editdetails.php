@@ -1,6 +1,6 @@
 <?php
     $start_date = DateTime::createFromFormat('d/m/Y H:i', $start);
-    $end_date = date_create($end);
+    $end_date = DateTime::createFromFormat('d/m/Y H:i', $end);
 ?>
 
 <div class="card mb-5 mb-xl-10 d-none" id="project_details_edit">

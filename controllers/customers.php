@@ -16,6 +16,11 @@ if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
     sendResponse(200, true, '');
 }
 
+//Define measurement parameters
+$measurement_parameters_array = array(
+    'neck','top_length','torso','chest','shoulder','arm_length','sleeve_length','wrist','bicep','full_length','bottom_length','inseam_length','waist','hip','laps','flap','knee_length','round_knee','ankle','shoe_size'
+); //named exactly as in the DB
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('customers/add_customer.php');
 }

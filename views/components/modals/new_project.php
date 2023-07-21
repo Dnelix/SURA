@@ -22,13 +22,22 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
                         <a href="customers" class="link-primary fw-bolder">Customers Directory</a>.</div>
                     </div>
                     <div class="mb-15">
-                        <?php
-                            if(empty($customerList)){
-                                echo '<div class="mh-375px scroll-y me-n7 pe-7"><div class="d-flex align-items-center">
-                                    <h3>You don\'t have any customers yet!</h3> To get started with customer projects, close this window and create a customer first.
-                                </div></div>';
-                            } else {
-                        ?>
+                        <?php if(empty($customerList)){ ?>
+
+                        <div class="mh-375px scroll-y me-n7 pe-7">
+                            <div class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed">
+                                <div class="d-flex align-items-center">
+                                    <div class="ms-6">
+                                        <div class="alert alert-danger">
+                                            <h3 class="mb-1 text-dark">You don't have any customers yet!</h3> 
+                                            <span>To get started with customer projects, close this window and create a customer first.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php } else { ?>
+
                         <div class="mh-375px scroll-y me-n7 pe-7">
                             <?php
                                 foreach ($customerList as $customer){

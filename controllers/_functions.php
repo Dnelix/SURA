@@ -76,6 +76,15 @@ function retrieveDataFrom($url='php://input', $stat = false){
   }
 }
 
+// Clean input data
+function cleanData($data){
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  $data = preg_replace('/\s\s+/', " ", $data);//trim excess white space
+  return $data;
+}
+
 // Random Password Generator
 function getRandomPassword($length = 12) {
   $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";

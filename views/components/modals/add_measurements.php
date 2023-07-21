@@ -34,7 +34,7 @@
 						<!--begin::Form-->
 						<form class="mx-auto mw-500px w-100 pt-15 pb-10" novalidate="novalidate" id="add_new_measures_form">
 							
-							<input type="hidden" name="customer" value="" /> <!-- FIX THIS! -->
+							<input type="hidden" name="customer" id="modal_cid" value="" /> <!-- FIX THIS! -->
 
 							<div class="current" data-kt-stepper-element="content">
 								<div class="w-100">

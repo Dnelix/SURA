@@ -54,8 +54,9 @@ PAYLOAD
 
     //5. Check if customer already exists under this tailor
     try{
-        $query = $writeDB -> prepare('SELECT c.id FROM tbl_customers c INNER JOIN tbl_users u ON c.customerid = u.id WHERE u.phone = :phone AND c.tailorid = :tailorid');
+        $query = $writeDB -> prepare('SELECT c.id FROM tbl_customers c INNER JOIN tbl_users u ON c.customerid = u.id WHERE u.phone = :phone OR u.email = :email AND c.tailorid = :tailorid');
         $query -> bindParam(':phone', $phone, PDO::PARAM_STR);
+        $query -> bindParam(':email', $email, PDO::PARAM_STR);
         $query -> bindParam(':tailorid', $tailor, PDO::PARAM_INT);
         $query -> execute();
 
@@ -68,7 +69,7 @@ PAYLOAD
         $hash_pass = password_hash($password, PASSWORD_DEFAULT); //hash using the standard PHP hashing
 
         //6. Insert record into user table
-        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, fullname, active, role, createdon, profile_completion) VALUES(:username, :password, :email, :phone, :fullname, "1", :role, STR_TO_DATE(:createdon, \'%d/%m/%Y %H:%i\'), 30)');
+        $query = $writeDB -> prepare('INSERT INTO tbl_users (username, password, email, phone, fullname, active, role, createdon) VALUES(:username, :password, :email, :phone, :fullname, "1", :role, STR_TO_DATE(:createdon, \'%d/%m/%Y %H:%i\'))');
         $query -> bindParam(':username', $username, PDO::PARAM_STR);
         $query -> bindParam(':password', $hash_pass, PDO::PARAM_STR);
         $query -> bindParam(':email', $email, PDO::PARAM_STR);
@@ -97,12 +98,10 @@ PAYLOAD
         }
 
         //8. INSERT CUSTOMER MEASUREMENTS IN DB
-        $columns = array('neck','top_length','torso','chest','shoulder','arm_length','sleeve_length','wrist','bicep','full_length','bottom_length','inseam_length','waist','hip','laps','flap','knee_length','round_knee','ankle','shoe_size');
-
         $values = array(); // Define an empty array to store the values of each input
 
-        // Loop over all the column names and get their corresponding values from the form
-        foreach ($columns as $measure) {
+        // Loop over all the column names and get their corresponding values from the form. measurement_parameters_array is defined in customers index page
+        foreach ($measurement_parameters_array as $measure) {
             if (isset($jsonData -> $measure)) {
                 $value = filter_var($jsonData->$measure, FILTER_SANITIZE_STRING); // Sanitize 
                 $values[] = $value; // Add the sanitized value to the array
@@ -111,7 +110,7 @@ PAYLOAD
             }
         }
 
-        $table_columns = implode(", ", $columns);
+        $table_columns = implode(", ", $measurement_parameters_array);
         $table_values = implode(", ", $values);
 
         $sql = 'INSERT INTO tbl_measurements (customerid, ' . $table_columns . ') VALUES (:customerid, ' . $table_values . ')';
@@ -141,7 +140,6 @@ PAYLOAD
     catch (PDOException $e){
         responseServerException($e, 'An error occurred while creating customer account. Please try again');
     }
-
 
 
 ?>
