@@ -1,0 +1,113 @@
+{
+    "formal" : {
+        "name" : "Formal Wear",
+        "icon" : "las la-user-tie",
+        "color" : "primary",
+        "types" : [
+            "Suits",
+            "Tuxedos",
+            "Blazers and sports jackets",
+            "Dress shirts",
+            "Dress trousers and pants"
+        ]
+    },
+    "casual" : {
+        "name" : "Casual Wear",
+        "icon" : "las la-tshirt",
+        "color" : "danger",
+        "types" : [
+            "Casual shirts",
+            "T-shirts",
+            "Polo shirts",
+            "Casual trousers and jeans"
+        ]
+    },
+    "dresses" : {
+        "name" : "Dresses & Gowns",
+        "icon" : "las la-dress",
+        "color" : "success",
+        "types" : [
+            "Cocktail dresses",
+            "Evening gowns",
+            "Maxi dresses",
+            "A-line dresses",
+            "Sheath dresses"
+        ]
+    },
+    "skirts" : {
+        "name" : "Skirts",
+        "icon" : "las la-skirt",
+        "color" : "warning",
+        "types" : [
+            "Pencil skirts",
+            "A-line skirts",
+            "Pleated skirts",
+            "Wrap skirts"
+        ]
+    },
+    "outerwear" : {
+        "name" : "Coats & Outerwear",
+        "icon" : "las la-coat",
+        "color" : "info",
+        "types" : [
+            "Overcoats",
+            "Trench coats",
+            "Pea coats",
+            "Raincoats",
+            "Leather jackets"
+        ]
+    },
+    "ethnic" : {
+        "name" : "Traditional/Ethnic Wear",
+        "icon" : "las la-kaftan",
+        "color" : "dark",
+        "types" : [
+            "Traditional suits",
+            "Ethnic dresses and sarees",
+            "Dashikis and Kaftans"
+        ]
+    },
+    "activity" : {
+        "name" : "Activity Wear",
+        "icon" : "las la-dumbbell",
+        "color" : "secondary",
+        "types" : [
+            "Tracksuits",
+            "Gym wear",
+            "Sportswear"
+        ]
+    },
+    "children" : {
+        "name" : "Children's Wear",
+        "icon" : "las la-child",
+        "color" : "light",
+        "types" : [
+            "Kids' dresses",
+            "Boys' suits and shirts",
+            "Girls' skirts and blouses"
+        ]
+    },
+    "occasion" : {
+        "name" : "Special Occasion Wear",
+        "icon" : "las la-gem",
+        "color" : "primary",
+        "types" : [
+            "Wedding dresses",
+            "Bridesmaid dresses",
+            "Prom dresses",
+            "Pageant gowns"
+        ]
+    },
+    "accessories" : {
+        "name" : "Accessories",
+        "icon" : "las la-user-tie",
+        "color" : "success",
+        "types" : [
+            "Ties and bow ties",
+            "Pocket squares",
+            "Scarves",
+            "Belts",
+            "Custom-made bags"
+        ]
+    }
+}

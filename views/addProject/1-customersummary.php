@@ -49,7 +49,7 @@
                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <div class="d-flex align-items-center">
                                 <i class="fa fa-arrow-up me-2"></i>
-                                <div class="fs-4 fw-bolder text-success counted" data-kt-countup="true" data-kt-countup-value="<?= $balance; ?>" data-kt-countup-prefix="$"><?= $defaultcurrency; ?><?= $balance; ?></div>
+                                <div class="fs-4 fw-bolder text-success counted" data-kt-countup="true" data-kt-countup-value="<?= $balanceTotal; ?>" data-kt-countup-prefix="$"><?= $defaultcurrency; ?><?= $balanceTotal; ?></div>
                             </div>
                             <div class="fw-bold fs-6 text-gray-400">Total Gain</div>
                         </div>

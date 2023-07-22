@@ -14,7 +14,7 @@
     </div>
 
     <div id="project_details_edit_body">
-        <form id="project_details_form" class="form">
+        <form id="project_edit_form" class="form">
             <div class="card-body border-top p-9">
 
                 <div class="row mb-6">
@@ -26,7 +26,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Description</label>
                     <div class="col-lg-9 fv-row">
-                        <textarea class="form-control form-control-lg form-control-solid"><?= $description; ?></textarea>
+                        <textarea class="form-control form-control-lg form-control-solid" name="description"><?= $description; ?></textarea>
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -55,10 +55,27 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-3 col-form-label fw-bold fs-6 required">Style Category</label>
+                    <div class="col-lg-9 fv-row">
+                        <select name="style_catg" data-control="select2" data-hide-search="true" required class="form-select form-select-lg bg-light border-body">
+                            <option value="">Select a category</option>
+                            <?php
+                                $wearOptions = retrieveDataFrom('models/databases/wear-categories.json');
+                                foreach ($wearOptions as $cat){
+                                    $sel = ($cat->name == $style_catg) ? 'selected':'';
+                                    echo '<option value="'.$cat->name.'" '.$sel.' >'. $cat->name .' ('. implode($cat->types, ", ") .')</option>';
+                                } 
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Style Details (optional)</label>
                     <div class="col-lg-9 fv-row">
-                        <textarea class="form-control form-control-lg form-control-solid"><?= $style_det; ?></textarea>
+                        <textarea class="form-control form-control-lg form-control-solid" name="style_det"><?= $style_det; ?></textarea>
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -72,8 +89,23 @@
             
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                <button type="submit" class="btn btn-primary" id="details_edit_submit"><?= displayLoadingIcon('Save Changes'); ?></button>
+                <button type="submit" class="btn btn-primary" id="project_edit_submit" onClick="updProject();"><?= displayLoadingIcon('Save Changes'); ?></button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    function updProject(){
+        var pid = '<?= $_GET['pid']; ?>';
+        var tid = '<?= $loguserid; ?>';
+        var web = '<?= $c_website; ?>';
+
+        var formID = "#project_edit_form";
+        var submitButton = document.querySelector('#project_edit_submit');
+        var type = "PATCH";
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
+
+        AJAXcall(formID, submitButton, type, url);
+    }
+</script>

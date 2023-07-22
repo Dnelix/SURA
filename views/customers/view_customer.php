@@ -5,6 +5,20 @@
     $measurements = retrieveDataFrom($c_website.'controllers/measurements.php?customer='. $cid)->data;
     $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
 
+    $incomeTotal = 0;
+    $expenseTotal = 0;
+    $balanceTotal = 0;
+    if(!empty($projects->data)){
+        $projectlist = $projects->data->projectlist;
+        foreach ($projectlist as $project) {
+            $incomeTotal += $project->income;
+            $expenseTotal += $project->expense;
+        }
+        $balanceTotal = $incomeTotal - $expenseTotal;
+    } else { 
+        $incomeTotal = $expenseTotal = $balanceTotal = 0;
+    }
+
     if($record->data !== NULL){
         
         $customerdata = $record->data->customerdata;

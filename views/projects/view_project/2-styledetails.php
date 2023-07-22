@@ -34,7 +34,7 @@
         </div>
 
         <div class="row mb-10">
-            <h4 class="fw-bolder m-0">Project type : <?= strToUpper($style_catg); ?></h3>
+            <h4 class="fw-bolder m-0"><?= ucwords($alt_job); ?> category : <?= strToUpper($style_catg); ?></h3>
             <span class="col-lg-10 mt-5 fw-bold text-muted"><?= $style_det; ?></span>
         </div>
 

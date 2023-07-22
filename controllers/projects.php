@@ -46,7 +46,7 @@ if(array_key_exists('tailor', $_GET)){
         
             if (isset($jsonData->status)){
                 require_once('projects/update_project_status.php');
-            } else if (isset($jsonData->title) && isset($jsonData->start)){
+            } else if (isset($jsonData->title) && isset($jsonData->start_date)){
                 require_once('projects/update_project_data.php');
             } else if (isset($jsonData->income)){
                 require_once('projects/update_financials.php');

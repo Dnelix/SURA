@@ -466,44 +466,17 @@ function showCustomerIcon($id='', $initials='', $active='0', $size='small'){
 }
 
 function showProjectIcon($category, $size='small'){
-    switch ($category) {
-      case 'image':
-        $color_type = 'danger';
-        $icon = '<img src="assets/media/stock/ecommerce/211.gif" class="w-100px ms-n1 me-1" alt="">';
-        break;
-      case 'top':
-        $color_type = 'danger';
-        $icon = 'las la-tshirt';
-        break;
-      case 'trouser':
-        $color_type = 'warning';
-        $icon = 'las la-street-view';
-        break;
-      case 'skirt':
-        $color_type = 'success';
-        $icon = 'fa fa-vest';
-        break;
-      case 'gown':
-        $color_type = 'primary';
-        $icon = 'las la-restroom';
-        break;
-      case 'suit':
-        $color_type = 'primary';
-        $icon = 'fa fa-vest';
-        break;
-      case 'headwear':
-        $color_type = 'primary';
-        $icon = 'las la-hat-cowboy-side';
-        break;
-      case 'footwear':
-        $color_type = 'primary';
-        $icon = 'las la-shoe-prints';
-        break;
 
-      default:
-        $color_type = 'info';
-        $icon = 'las la-user-tie';
-        break;
+  $weardata = retrieveDataFrom('models/databases/wear-categories.json');
+
+    foreach ($weardata as $cat){
+      if($cat->name == $category){
+        $color_type = $cat->color;
+        $icon = $cat->icon;
+      } else {
+        $color_type = 'danger';
+        $icon = 'las la-dress';
+      }
     }
     
     if ($size === 'small'){

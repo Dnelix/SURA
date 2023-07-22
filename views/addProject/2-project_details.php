@@ -57,16 +57,16 @@
                 <h3 class="fw-bolder m-0">Style Details</h3>
 
                 <div class="row mb-6">
-                    <label class="col-lg-3 col-form-label fw-bold fs-6">Style Category</label>
+                    <label class="col-lg-3 col-form-label fw-bold fs-6 required">Style Category</label>
                     <div class="col-lg-9 fv-row">
-                        <select name="style_catg" data-control="select2" data-hide-search="true" class="form-select form-select-lg bg-light border-body">
-                            <option value="top">Shirts & Tops</option>
-                            <option value="trouser">Pants & Trousers</option>
-                            <option value="skirt">Skirts</option>
-                            <option value="gown">Gown</option>
-                            <option value="suit">Suit</option>
-                            <option value="headwear">Headwear</option>
-                            <option value="footwear">Footwear</option>
+                        <select name="style_catg" data-control="select2" data-hide-search="true" required class="form-select form-select-lg bg-light border-body">
+                            <option value="">Select a category</option>
+                            <?php
+                                $wearOptions = retrieveDataFrom('models/databases/wear-categories.json');
+                                foreach ($wearOptions as $cat){
+                                    echo '<option value="'.$cat->name.'">'. $cat->name .' ('. implode($cat->types, ", ") .')</option>';
+                                } 
+                            ?>
                         </select>
                     </div>
                 </div>

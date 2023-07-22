@@ -23,10 +23,12 @@
                                         <input class="form-check-input" type="checkbox" value="1" data-kt-check="true" data-kt-check-target=".widget-9-check" />
                                     </div>
                                 </th>
-                                <th class="min-w-200px"><?= $alt_job; ?> Info</th>
-                                <th class="min-w-150px">Start Date</th>
-                                <th class="min-w-150px">End Date</th>
-                                <th class="min-w-150px"> Status </th>
+                                <th class="min-w-150px"><?= $alt_job; ?> Info</th>
+                                <th class="min-w-100px">Start Date</th>
+                                <th class="min-w-100px">End Date</th>
+                                <th class="min-w-100px">Income</th>
+                                <th class="min-w-100px">Expense</th>
+                                <th class="min-w-100px"> Status </th>
                                 <th class="min-w-100px text-end">Actions</th>
                             </tr>
                         </thead>
@@ -46,16 +48,18 @@
                                 </td>
                                 <td>
                                     <a href="#" class="text-dark fw-bolder text-hover-primary fs-6"><?= $item->title; ?> </a>
-                                    <span class="text-muted fw-bold text-muted d-block fs-7"><?= limit_text($item->description, 7); ?></span>
+                                    <span class="text-muted fw-bold d-block fs-7"><?= limit_text($item->description, 7); ?></span>
                                 </td>
                                 <td>
-                                    <span class="text-dark fw-bolder text-hover-primary fs-6"><?= readableDateTime($item->start, 'dateonly'); ?></span>
-                                    <span class="text-muted fw-bold text-muted d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
+                                    <span class="text-dark fw-bolder fs-6"><?= readableDateTime($item->start, 'dateonly'); ?></span>
+                                    <span class="text-muted fw-bold d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
                                 <td>
-                                    <span class="text-dark fw-bolder text-hover-primary fs-6"><?= readableDateTime($item->end, 'dateonly'); ?></span>
-                                    <span class="text-muted fw-bold text-muted d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
+                                    <span class="text-dark fw-bolder fs-6"><?= readableDateTime($item->end, 'dateonly'); ?></span>
+                                    <span class="text-muted fw-bold d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
+                                <td><span class="text-success fw-bolder fs-6"><?= $item->income; ?></span></td>
+                                <td><span class="text-danger fw-bolder fs-6"><?= $item->expense; ?></span></td>
                                 <td>
                                     <?= showStatus($item->status); ?>
                                 </td>

@@ -13,7 +13,7 @@
                     <div class="col-lg-8 fv-row">
                         <div class="input-group input-group-solid mb-5">
                             <span class="input-group-text"><?= $defaultcurrency; ?></span>
-                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $income; ?>" />
+                            <input type="number" name="income" class="form-control form-control-lg form-control-solid" value="<?= $income; ?>" />
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="col-lg-8 fv-row">
                         <div class="input-group input-group-solid mb-5">
                             <span class="input-group-text"><?= $defaultcurrency; ?></span>
-                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $expense; ?>" />
+                            <input type="number" name="expense" class="form-control form-control-lg form-control-solid" value="<?= $expense; ?>" />
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="col-lg-8 fv-row">
                         <div class="input-group input-group-solid mb-5">
                             <span class="input-group-text"><?= $defaultcurrency; ?></span>
-                            <input type="number" class="form-control form-control-lg form-control-solid" value="<?= $profit_loss; ?>" disabled />
+                            <input type="number" name="profit_loss" class="form-control form-control-lg form-control-solid" value="<?= $profit_loss; ?>" disabled />
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,23 @@
             
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                <button type="submit" class="btn btn-primary" id="project_finance_submit" onClick="updFinance();">Save Changes</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    function updFinance(){
+        var pid = '<?= $_GET['pid']; ?>';
+        var tid = '<?= $loguserid; ?>';
+        var web = '<?= $c_website; ?>';
+        
+        var formID = "#project_financials_form";
+        var submitButton = document.querySelector('#project_finance_submit');
+        var type = "PATCH";
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
+        
+        AJAXcall(formID, submitButton, type, url);
+    }
+</script>

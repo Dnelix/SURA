@@ -35,6 +35,13 @@ var addProject = function () {
                             }
                         }
                     },
+                    style_catg: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please select a category for the project'
+                            }
+                        }
+                    },
                     income: {
                         validators: {
                             notEmpty: {
