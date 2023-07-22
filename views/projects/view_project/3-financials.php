@@ -64,5 +64,6 @@
         var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
         
         AJAXcall(formID, submitButton, type, url);
+        setTimeout(reloadPage(), 3000);
     }
 </script>

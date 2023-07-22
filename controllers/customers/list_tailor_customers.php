@@ -4,7 +4,7 @@ try{
     $fields = 'u.id, u.username, u.email, u.phone, u.fullname, u.photo, u.active, DATE_FORMAT(u.lastlogin, "'.$read_dateformat.'") as lastlogin, DATE_FORMAT(u.createdon, "'.$read_dateformat.'") as createdon';
 
     //connect to the $readDB to perform this query
-    $query = $readDB -> prepare ('SELECT '.$fields.' FROM tbl_users u INNER JOIN tbl_customers c ON u.id = c.customerid WHERE c.tailorid=:tailorid');
+    $query = $readDB -> prepare ('SELECT '.$fields.' FROM tbl_users u INNER JOIN tbl_customers c ON u.id = c.customerid WHERE c.tailorid=:tailorid ORDER BY u.id DESC');
     $query -> bindParam(':tailorid', $tailorid, PDO::PARAM_INT);
     $query -> execute();
 

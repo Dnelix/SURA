@@ -17,19 +17,16 @@ $c_initials = getInitials($customerName);
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
 $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
 
-$incomeTotal = 0;
-$expenseTotal = 0;
-$balanceTotal = 0;
-if(!empty($projects->data)){
-    $projectlist = $projects->data->projectlist;
-    foreach ($projectlist as $project) {
-        $incomeTotal += $project->income;
-        $expenseTotal += $project->expense;
-    }
-    $balanceTotal = $incomeTotal - $expenseTotal;
-} else { 
     $incomeTotal = $expenseTotal = $balanceTotal = 0;
-}
+    if(!empty($projects->data)){
+        $projectlist = $projects->data->projectlist;
+        foreach ($projectlist as $project) {
+            $incomeTotal += $project->income;
+            $expenseTotal += $project->expense;
+        }
+        $balanceTotal = $incomeTotal - $expenseTotal;
+    }
+
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">

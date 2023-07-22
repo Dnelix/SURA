@@ -8,6 +8,16 @@ $customerCount = (isset($customers->count) ? $customers->count : 0);
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
 $projectCount = (isset($projects->count) ? $projects->count : 0);
 
+    $incomeTotal = $expenseTotal = $balanceTotal = 0;
+    if(!empty($projects)){
+        $projectlist = $projects->projectlist;
+        foreach ($projectlist as $project) {
+            $incomeTotal += $project->income;
+            $expenseTotal += $project->expense;
+        }
+        $balanceTotal = $incomeTotal - $expenseTotal;
+    }
+
 $biz = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid);
 $bizdata = (isset($biz->data) ? $biz->data : null);
 $location = (isset($bizdata->city) ? $bizdata->city.', '.$bizdata->state : 'Unknown');

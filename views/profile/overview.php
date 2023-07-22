@@ -79,8 +79,8 @@
                             
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa fa-arrow-up text-info me-2"></i>
-                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="60500" data-kt-countup-prefix="N"><?= formatNumber(60500); ?></div>
+                                    <i class="fa fa-arrow-up text-success me-2"></i>
+                                    <div class="fs-2 fw-bolder text-success counted" data-kt-countup="true" data-kt-countup-value="<?= $balanceTotal; ?>" data-kt-countup-prefix="<?= $defaultcurrency; ?>"><?= $defaultcurrency.' '.formatNumber($balanceTotal); ?></div>
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Profit Earned</div>
                             </div>

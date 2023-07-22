@@ -24,7 +24,7 @@
     },
     "dresses" : {
         "name" : "Dresses & Gowns",
-        "icon" : "las la-dress",
+        "icon" : "las la-restroom",
         "color" : "success",
         "types" : [
             "Cocktail dresses",
@@ -36,7 +36,7 @@
     },
     "skirts" : {
         "name" : "Skirts",
-        "icon" : "las la-skirt",
+        "icon" : "las la-restroom",
         "color" : "warning",
         "types" : [
             "Pencil skirts",
@@ -47,7 +47,7 @@
     },
     "outerwear" : {
         "name" : "Coats & Outerwear",
-        "icon" : "las la-coat",
+        "icon" : "fa fa-vest",
         "color" : "info",
         "types" : [
             "Overcoats",
@@ -59,8 +59,8 @@
     },
     "ethnic" : {
         "name" : "Traditional/Ethnic Wear",
-        "icon" : "las la-kaftan",
-        "color" : "dark",
+        "icon" : "fa fa-vest",
+        "color" : "secondary",
         "types" : [
             "Traditional suits",
             "Ethnic dresses and sarees",
@@ -70,7 +70,7 @@
     "activity" : {
         "name" : "Activity Wear",
         "icon" : "las la-dumbbell",
-        "color" : "secondary",
+        "color" : "dark",
         "types" : [
             "Tracksuits",
             "Gym wear",
@@ -79,7 +79,7 @@
     },
     "children" : {
         "name" : "Children's Wear",
-        "icon" : "las la-child",
+        "icon" : "las la-street-view",
         "color" : "light",
         "types" : [
             "Kids' dresses",
@@ -100,7 +100,7 @@
     },
     "accessories" : {
         "name" : "Accessories",
-        "icon" : "las la-user-tie",
+        "icon" : "las la-hat-cowboy-side",
         "color" : "success",
         "types" : [
             "Ties and bow ties",

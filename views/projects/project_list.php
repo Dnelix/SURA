@@ -41,6 +41,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
             }
 
             foreach($projectList as $project) {
+                $projBal = ($project->income)-($project->expense);
         
     ?>
 
@@ -84,7 +85,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
                     </div>
                     
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
-                        <div class="fs-6 text-gray-800 fw-bolder"><?= $project->income; ?></div>
+                        <div class="fs-6 <?= ($projBal>999) ? 'text-success':'text-danger'; ?> fw-bolder"><?= $projBal; ?></div>
                         <div class="fw-bold text-gray-400">Budget</div>
                     </div>
                     
@@ -95,7 +96,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
                     <div class="bg-success rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 
-                <div class="symbol-group symbol-hover">
+                <div class="symbol-group symbol-hover" onClick="goTo('customers?cid=<?= $project->customerid; ?>')">
                     <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="<?= getuserDataById('username', $project->customerid); ?>">
                         <?= showCustomerIcon($project->customerid, getInitials(getuserDataById('fullname', $project->customerid))); ?>
                         <span class=""><?= getuserDataById('username', $project->customerid); ?></span>

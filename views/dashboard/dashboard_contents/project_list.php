@@ -76,7 +76,7 @@
                         <div class="bg-success rounded h-4px" role="progressbar" style="width: <?= $project->completion; ?>%" aria-valuenow="<?= $project->completion; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     
-                    <div class="symbol-group symbol-hover">
+                    <div class="symbol-group symbol-hover" onClick="goTo('customers?cid=<?= $project->customerid; ?>')">
                         <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="<?= getuserDataById('username', $project->customerid); ?>">
                             <?= showCustomerIcon($project->customerid, getInitials(getuserDataById('fullname', $project->customerid))); ?>
                             <span class=""><?= getuserDataById('username', $project->customerid); ?></span>

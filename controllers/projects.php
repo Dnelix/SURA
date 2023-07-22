@@ -16,6 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
     sendResponse(200, true, '');
 }
 
+//$all_fields = 'id, tailorid, customerid, title, description, start_date, end_date, remind_on, status, completion, style_category, style_details, style_img1, style_img2, style_img3, income, expense, notes';
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('projects/create_project.php'); //create project with tid & cid in JSON
 }
@@ -33,7 +35,7 @@ if(array_key_exists('tailor', $_GET)){
         }
         sendResponse(401, false, 'Your request cannot be understood');
     }
-
+ 
     if(array_key_exists('pid', $_GET)){
         $pid = $_GET['pid'];
         if($pid == '' || !is_numeric($pid)){ sendResponse(400, false, 'Invalid project Identifier'); }
@@ -47,8 +49,10 @@ if(array_key_exists('tailor', $_GET)){
             if (isset($jsonData->status)){
                 require_once('projects/update_project_status.php');
             } else if (isset($jsonData->title) && isset($jsonData->start_date)){
+                $all_fields = 'title, description, start_date, end_date, remind_on, status, completion, style_category, style_details, style_img1, style_img2, style_img3';
                 require_once('projects/update_project_data.php');
             } else if (isset($jsonData->income)){
+                $all_fields = 'income, expense, notes';
                 require_once('projects/update_financials.php');
             } else {
                 sendResponse(401, false, 'Invalid PATCH request');

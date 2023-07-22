@@ -59,7 +59,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6 required">Style Category</label>
                     <div class="col-lg-9 fv-row">
-                        <select name="style_catg" data-control="select2" data-hide-search="true" required class="form-select form-select-lg bg-light border-body">
+                        <select name="style_category" data-control="select2" data-hide-search="true" required class="form-select form-select-lg bg-light border-body">
                             <option value="">Select a category</option>
                             <?php
                                 $wearOptions = retrieveDataFrom('models/databases/wear-categories.json');
@@ -75,7 +75,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Style Details (optional)</label>
                     <div class="col-lg-9 fv-row">
-                        <textarea class="form-control form-control-lg form-control-solid" name="style_det"><?= $style_det; ?></textarea>
+                        <textarea class="form-control form-control-lg form-control-solid" name="style_details"><?= $style_det; ?></textarea>
                     </div>
                 </div>
                 <div class="row mb-6">
@@ -107,5 +107,7 @@
         var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
 
         AJAXcall(formID, submitButton, type, url);
+
+        setTimeout(reloadPage(), 3000);
     }
 </script>

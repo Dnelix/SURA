@@ -467,16 +467,15 @@ function showCustomerIcon($id='', $initials='', $active='0', $size='small'){
 
 function showProjectIcon($category, $size='small'){
 
-  $weardata = retrieveDataFrom('models/databases/wear-categories.json');
+  $color_type = 'danger';
+  $icon = 'las la-gem ';
 
+  $weardata = retrieveDataFrom('models/databases/wear-categories.json');
     foreach ($weardata as $cat){
       if($cat->name == $category){
         $color_type = $cat->color;
         $icon = $cat->icon;
-      } else {
-        $color_type = 'danger';
-        $icon = 'las la-dress';
-      }
+      } 
     }
     
     if ($size === 'small'){

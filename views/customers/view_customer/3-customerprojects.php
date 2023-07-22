@@ -47,7 +47,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-dark fw-bolder text-hover-primary fs-6"><?= $item->title; ?> </a>
+                                    <a href="projects?pid=<?= $item->id; ?>" class="text-dark fw-bolder text-hover-primary fs-6"><?= $item->title; ?> </a>
                                     <span class="text-muted fw-bold d-block fs-7"><?= limit_text($item->description, 7); ?></span>
                                 </td>
                                 <td>
