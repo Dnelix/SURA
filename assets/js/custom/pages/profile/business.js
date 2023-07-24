@@ -76,8 +76,8 @@ var bizDetails = function () {
                 if (status == 'Valid') {
                     
                     var userid = form.querySelector('[name="userid"]').value;
-                    AJAXcall(formID, submitButton, 'PATCH', 'controllers/business.php?userid='+parseInt(userid));
-                    //setTimeout(reloadPage(), 3000);
+                    var url = 'controllers/business.php?userid='+parseInt(userid);
+                    AJAXcall(formID, submitButton, 'PATCH', url, null, (responseType)=>{handleResponse(responseType, 'reload');} );
                     
                 } else {
                     swal_Popup('error', 'Sorry, some important information missing. Please complete', 'Try Again!');

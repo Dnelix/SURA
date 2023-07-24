@@ -66,7 +66,6 @@
             var type = "PATCH";
             var url = web+"controllers/measurements.php?customer="+cid;
 
-            AJAXcall(formID, submitButton, type, url);
-            setTimeout(reloadPage(), 3000);
+            AJAXcall(formID, submitButton, type, url, null, (responseType)=>{handleResponse(responseType, 'reload');});
         }
     </script>

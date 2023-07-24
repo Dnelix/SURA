@@ -79,8 +79,19 @@ function formdataJSON(form){
     return formData;
 }
 
+// Handle response from ajax call
+function handleResponse(responseType, action, url=null){
+    if (responseType == 'success'){
+        if(action == 'reload'){ reloadPage(); }
+        else if(action == 'redirect'){ goTo(url); }
+        else if(action == 'goback'){ window.history.back(); }
+    } else {
+        console.log(responseType);
+    }
+}
+
 // AJAX Calls
-function AJAXcall(formID, submitButton=null, type, url, formData=null){
+function AJAXcall(formID, submitButton=null, type, url, formData=null, callback){
     var responseMessage;
     var responseType; // error or success
     if(submitButton !== null){
@@ -107,24 +118,22 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null){
                 responseMessage = "ERROR: "+JSON.stringify(response);
                 responseType = 'error';
                 swal_Popup(responseType, responseMessage, 'Okay. Got it!');
-                if(submitButton !== null){
-                    submitButton.disabled = false;
-                    submitButton.setAttribute('data-kt-indicator', 'off');
-                }
             } else {
                 responseMessage = response.messages[0];
                 //responseMessage = "SUCCESS: "+JSON.stringify(response);
                 responseType = 'success';
                 swal_Popup(responseType, responseMessage, 'Okay. Got it!');
-                if(submitButton !== null){
-                    submitButton.disabled = false;
-                    submitButton.setAttribute('data-kt-indicator', 'off');
-                }
             }
+
+            if(callback) callback(responseType);
+
+            if(submitButton !== null){
+                submitButton.disabled = false;
+                submitButton.setAttribute('data-kt-indicator', 'off');
+            }
+
         }
     });
-
-    return responseType;
 }
 
 //--clipboard

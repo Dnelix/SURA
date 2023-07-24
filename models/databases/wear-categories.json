@@ -80,7 +80,7 @@
     "children" : {
         "name" : "Children's Wear",
         "icon" : "las la-street-view",
-        "color" : "light",
+        "color" : "success",
         "types" : [
             "Kids' dresses",
             "Boys' suits and shirts",

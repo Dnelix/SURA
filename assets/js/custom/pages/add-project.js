@@ -80,8 +80,7 @@ var addProject = function () {
                     //console.log(formData);
                     
                     //var tailorid = formData['tailorid'];
-                    AJAXcall(null, submitButton, 'POST', 'controllers/projects.php', formData);
-                    //setTimeout(reloadPage(), 3000);
+                    AJAXcall(null, submitButton, 'POST', 'controllers/projects.php', formData, (responseType)=>{handleResponse(responseType, 'goback');});
                     
                 } else {
                     swal_Popup('error', 'Sorry, some important information missing. Please complete', 'Try Again!');
