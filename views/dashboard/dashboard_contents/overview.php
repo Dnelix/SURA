@@ -90,7 +90,7 @@
                                 </span>
                             </div>
                             <div class="m-0">
-                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $defaultcurrency.formatNumber('8200100'); ?></span>
+                                <span class="text-gray-700 fw-boldest d-block fs-2qx lh-1 ls-n1 mb-1"><?= $defaultcurrency.formatNumber($balanceTotal); ?></span>
                                 <span class="text-gray-500 fw-bold fs-6">Profit Earned</span>
                             </div>
                         </div>

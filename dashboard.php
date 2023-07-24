@@ -7,6 +7,16 @@ $customerList = (isset($customers->customerlist) ? $customers->customerlist : nu
 
 $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
 $projectCount = (isset($projects->count) ? $projects->count : 0);
+    
+    $incomeTotal = $expenseTotal = $balanceTotal = 0;
+    if(!empty($projects)){
+        $projectlist = $projects->projectlist;
+        foreach ($projectlist as $project) {
+            $incomeTotal += $project->income;
+            $expenseTotal += $project->expense;
+        }
+        $balanceTotal = $incomeTotal - $expenseTotal;
+    }
 
 $openProjects = empty($projects) ? null : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
 
