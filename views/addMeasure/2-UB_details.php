@@ -61,6 +61,20 @@
         var type = "PATCH";
         var url = web+"controllers/measurements.php?customer="+cid;
 
-        AJAXcall(formID, submitButton, type, url);
+        AJAXcall(formID, submitButton, type, url, null, (responseType)=>{
+            if(responseType !== 'success'){ return false; }
+            swal_confirm("DONE! What do you want to do next?", "Save & Exit", "Stay on this page")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    history.back();
+                } else if (result.isDenied) {
+                    console.log("Canceled");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+
     }
 </script>
