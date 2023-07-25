@@ -71,7 +71,7 @@
                                         <a href="projects?pid=<?= $item->id; ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="View/Edit Project details">
                                             <?= $svg_editicon; ?>
                                         </a>
-                                        <a href="javascript:deleteProject('<?= $loguserid; ?>','<?= $item->id; ?>')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Delete project">
+                                        <a href="javascript:deleteProject('<?= $item->id; ?>')" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Delete project">
                                             <?= $svg_deleteicon; ?>
                                         </a>
                                     </div>
@@ -92,22 +92,22 @@
 </div>
 
 <script>
-    function deleteProject(tid,pid){
+    function deleteProject(pid){
         var web = '<?= $c_website; ?>';
+        var tid = '<?= $loguserid; ?>';
+        var type = 'DELETE';
+        var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
 
-        var confirm = swal_confirm('Delete this project? '+tid+pid);
-
-        if(confirm == true){
-            console.log('Confirmed'); return false;
-        } else {
-            console.log(confirm); return false;
-        }
-
-        var formID = "#modal_LB_form";
-        var submitButton = document.querySelector('#modal_LB_submit');
-        var type = "PATCH";
-        var url = web+"controllers/projects.php?customer="+cid;
-
-        AJAXcall(formID, submitButton, type, url);
+        swal_confirm("Are you sure you want to delete this record? This cannot be undone!", "Delete", "Cancel")
+        .then((result) => {
+            if (result.isConfirmed) {
+                AJAXcall(null, null, type, url, null);
+            } else if (result.isDenied) {
+                console.log("Canceled");
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }
 </script>

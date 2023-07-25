@@ -42,19 +42,26 @@ function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
 }
 
 //sweetalert confirm
-function swal_confirm(msg, btn_yes='YES', btn_no='NO'){
-    return swal.fire({
-        text: msg,
-        icon: "question",
-        buttonsStyling: false,
-        showDenyButton: true,
-        confirmButtonText: btn_yes,
-        denyButtonText: btn_no,
-        customClass: {
-            confirmButton: "btn btn-primary",
-            denyButton: "btn btn-light"
-        }
-    })
+function swal_confirm(msg, btn_yes = 'YES', btn_no = 'NO') {
+    return new Promise((resolve, reject) => {
+        swal.fire({
+            text: msg,
+            icon: "question",
+            buttonsStyling: false,
+            showDenyButton: true,
+            confirmButtonText: btn_yes,
+            denyButtonText: btn_no,
+            customClass: {
+                confirmButton: "btn btn-primary",
+                denyButton: "btn btn-light"
+            }
+        }).then((result) => {
+            //The result object will contain { isConfirmed: true } for "YES" and { isDenied: true } for "NO"
+            resolve(result);
+        }).catch((error) => {
+            reject(error);
+        });
+    });
 }
 
 // Serialize any form and convert output to JSON. The name of each field will become the JSON attribute

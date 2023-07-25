@@ -19,7 +19,7 @@
                                 <a href="customers" class="link-white opacity-75-hover fw-bolder d-block mb-1"> <?= formatNumber($customerCount); ?> customers</a>
                             </span>
                             <span style="display:none">
-                                <a href="customers" class="link-white opacity-75-hover fw-bolder d-block mb-1"> created <?= formatNumber($projectCount).' '.$alt_job.'s'; ?> </a>
+                                <a href="projects" class="link-white opacity-75-hover fw-bolder d-block mb-1"> created <?= formatNumber($projectCount).' '.$alt_job.'s'; ?> </a>
                             </span>
                         </span>
                         <span class="position-absolute opacity-50 bottom-0 start-0 border-2 border-white border-bottom w-100"></span>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="col-6">
-                    <a href="financials">
+                    <a href="finance">
                         <div class="bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5">
                             <div class="symbol symbol-30px me-5 mb-8">
                                 <span class="symbol-label">
