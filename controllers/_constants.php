@@ -49,6 +49,7 @@ $privacypolicy_link = $c_website.'';
 //AUTH//
 $max_loginattempts  = 3;
 date_default_timezone_set('Africa/Lagos');
+$dateformat         = 'd/m/Y H:i';
 $write_dateformat   = '\'%d/%m/%Y %H:%i\'';
 $read_dateformat    = '%d/%m/%Y %H:%i';
 

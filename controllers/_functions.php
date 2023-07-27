@@ -285,11 +285,30 @@ function calculateTimeLeft($futureDate) {
   return $result . " to go";
 }
 
+// Format Date Time
+function formatDateTime($givenDate){
+  global $dateformat;
+  $dateObj = DateTime::createFromFormat($dateformat, $givenDate);
+
+  if ($dateObj !== false) {
+    $formattedDate = $dateObj->format($dateformat);
+  } else {
+    $timestamp = strtotime($givenDate);
+    if ($timestamp !== false && !empty($timestamp)){
+      $formattedDate = date($dateformat, $timestamp);
+    } else {
+      $formattedDate = "Invalid date format!";
+    }
+  }
+
+  return $formattedDate;
+}
+
 // add any number of days to a given date
 function addtoDate($givenDate, $num, $unit='day') {
-
+  global $dateformat;
+  
   $secondsInADay = 24 * 60 * 60;
-
   if ($unit === 'week'){
     $secondsInAWeek = 7 * $secondsInADay;
     $totalsecs = $secondsInAWeek;
@@ -301,8 +320,16 @@ function addtoDate($givenDate, $num, $unit='day') {
   }
 
   $daysToAdd = $num * $totalsecs;
-  $dateString = time($givenDate) + $daysToAdd; //this actually just adds to the current date. How do we evaluate for a given date?
-  $newDate = date('d/m/Y H:i', $dateString);
+
+  $dateObj = DateTime::createFromFormat($dateformat, $givenDate);
+  if ($dateObj !== false) {
+      $timestamp = $dateObj->getTimestamp();
+      $dateString = $timestamp + $daysToAdd;
+      //$formatted = date($dateformat, $timestamp);
+      $newDate = date($dateformat, $dateString);
+  } else {
+      return "Invalid date format.";
+  }
   
   return $newDate;
 }

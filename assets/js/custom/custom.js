@@ -22,6 +22,25 @@ function toggleView(elem1, elem2=null, elem3=null, elem4=null){
     $(elem4).toggleClass('d-none');
 }
 
+//Format DateTime in the format yyyy-mm-ddThh:mm
+function formatDateTime(datetimeValue, targetFormat) {
+    const [datePart, timePart] = datetimeValue.split('T');
+
+    // Split the date and time components
+    const [year, month, day] = datePart.split('-');
+    const [hours, minutes] = timePart.split(':');
+
+    // Build the formatted datetime string
+    let formattedDatetime = targetFormat
+      .replace('Y', year)
+      .replace('m', month)
+      .replace('d', day)
+      .replace('H', hours)
+      .replace('i', minutes);
+
+    return formattedDatetime;
+}
+
 //Sweetalert pop-ups
 function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     // status = error/success
@@ -80,7 +99,12 @@ function formdataJSON(form){
     for (var i = 0; i < formElements.length; i++) {
         var element = formElements[i];
         if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
-            formData[element.name] = element.value;
+            if (element.type === 'date' || element.type === 'datetime-local') {
+                // Parse value through the formatDateTime() fxn
+                formData[element.name] = formatDateTime(element.value, 'd/m/Y H:i');
+            } else {
+                formData[element.name] = element.value;
+            }
         }
     }
     return formData;

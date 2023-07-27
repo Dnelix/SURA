@@ -41,8 +41,9 @@ PAYLOAD
     $title      = trim($jsonData->title);
     $style_det  = (isset($jsonData->style_det) ? $jsonData->style_det : "" );
     $desc       = (isset($jsonData->description) ? trim($jsonData->description) : $style_det );
-    $start      = date('d/m/Y H:i', strtotime($jsonData->start_date));
-    $end        = (isset($jsonData->end_date) ? date('d/m/Y H:i', strtotime($jsonData->end_date)) : addtoDate($start, 1, 'week'));
+    $start      = formatDateTime($jsonData->start_date);
+    //$start      = date($dateformat, strtotime($jsonData->start_date));
+    $end        = (isset($jsonData->end_date) ? date($dateformat, strtotime($jsonData->end_date)) : addtoDate($start, 1, 'week'));
     $remind     = (isset($jsonData->remind_on) ? $jsonData->remind_on : null );
     $status     = (isset($jsonData->status) ? $jsonData->status : "Not Started" );
     $style_catg = (isset($jsonData->style_catg) ? $jsonData->style_catg : "" );
@@ -53,6 +54,11 @@ PAYLOAD
     $style_img1 = (isset($jsonData->style_img1) ? $jsonData->style_img1 : "" );
     $style_img2 = (isset($jsonData->style_img2) ? $jsonData->style_img2 : "" );
     $style_img3 = (isset($jsonData->style_img3) ? $jsonData->style_img3 : "" );
+
+    $timediff = time() - strtotime($jsonData->start_date);
+    $reply = "Raw-".$jsonData->start_date." \n Formatted-".$start." Seconds- ".$timediff;
+    $addDate = addtoDate($start, 7);
+    sendResponse(400, false, $reply, $addDate); exit();
 
     try{
 
