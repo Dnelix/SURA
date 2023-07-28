@@ -1,6 +1,7 @@
 <?php
     $start_date = DateTime::createFromFormat($dateformat, $start);
     $end_date = DateTime::createFromFormat($dateformat, $end);
+    $remind_on = DateTime::createFromFormat($dateformat, $remind);
 ?>
 
 <div class="card mb-5 mb-xl-10 d-none" id="project_details_edit">
@@ -47,12 +48,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Set Reminder</label>
                     <div class="col-lg-9 fv-row">
-                        <select name="remind_on" data-control="select2" data-hide-search="true" class="form-select form-select-lg bg-light border-body">
-                            <option value="1">One day to due date</option>
-                            <option value="3">Three days to due date</option>
-                            <option value="7">One week to due date</option>
-                            <option value="14">Two weeks to due date</option>
-                        </select>
+                        <input type="datetime-local" name="remind_on" class="form-control form-control-lg form-control-solid" value="<?= $remind_on->format('Y-m-d h:m'); ?>" />
                     </div>
                 </div>
 

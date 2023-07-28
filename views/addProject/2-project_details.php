@@ -44,10 +44,10 @@
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Set Reminder</label>
                     <div class="col-lg-9 fv-row">
                         <select name="remind_on" data-control="select2" data-hide-search="true" class="form-select form-select-lg bg-light border-body">
-                            <option value="1">One day to due date</option>
-                            <option value="3">Three days to due date</option>
-                            <option value="7">One week to due date</option>
-                            <option value="14">Two weeks to due date</option>
+                            <option value="-1">One day to due date</option>
+                            <option value="-3">Three days to due date</option>
+                            <option value="-7">One week to due date</option>
+                            <option value="-14">Two weeks to due date</option>
                         </select>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Total Expense (you can update this later)</label>
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Expenses (you can update this later)</label>
                     <div class="col-lg-8 fv-row">
                         <div class="input-group input-group-solid mb-5">
                             <span class="input-group-text"><?= $defaultcurrency; ?></span>
