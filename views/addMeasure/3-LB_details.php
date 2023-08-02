@@ -61,8 +61,8 @@
         var type = "PATCH";
         var url = web+"controllers/measurements.php?customer="+cid;
 
-        AJAXcall(formID, submitButton, type, url, null, (responseType)=>{
-            if(responseType !== 'success'){ return false; }
+        AJAXcall(formID, submitButton, type, url, null, (responseMsg)=>{
+            if(responseMsg.status !== 'success'){ return false; }
             swal_confirm("DONE! What do you want to do next?", "Save & Exit", "Stay on this page")
             .then((result) => {
                 if (result.isConfirmed) {

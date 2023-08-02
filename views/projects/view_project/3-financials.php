@@ -63,6 +63,6 @@
         var type = "PATCH";
         var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
         
-        AJAXcall(formID, submitButton, type, url, null, (responseType)=>{handleResponse(responseType, 'reload');});
+        AJAXcall(formID, submitButton, type, url, null, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');});
     }
 </script>

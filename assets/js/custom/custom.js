@@ -111,31 +111,49 @@ function formdataJSON(form){
 }
 
 // Handle response from ajax call
-function handleResponse(responseType, action, url=null){
-    if (responseType == 'success'){
+function handleResponse(response){
+    var responseStatus;
+    if(response['statusCode'] !== 200 || response['success'] !== true){
+        responseStatus = 'error';
+    } else {
+        responseStatus = 'success';
+    }
+    var responseDetails = responseStatus.toUpperCase()+" - "+JSON.stringify(response);
+    var responseMessage = response.messages[0];
+
+    return {
+        'status': responseStatus,
+        'message' : responseMessage,
+        'details': responseDetails,
+        'data': response.data
+    };
+}
+
+function handleResponseMsg(responseMsg, action, url=null){
+    if (responseMsg.status === 'success'){
         if(action == 'reload'){ reloadPage(); }
         else if(action == 'redirect'){ goTo(url); }
         else if(action == 'goback'){ window.history.back(); }
+        else if(action == 'data'){ console.log(responseMsg); }
+        //if no action is set, alert the message and do nothing
+        else {swal_Popup(responseMsg.status, responseMsg.message, 'Okay. Got it!');}
     } else {
-        console.log(responseType);
+        swal_Popup(responseMsg.status, responseMsg.message, 'Okay. Got it!');
+        console.log(responseMsg.details); // remove for production
     }
 }
 
 // AJAX Calls
 function AJAXcall(formID, submitButton=null, type, url, formData=null, callback){
-    var responseMessage;
-    var responseType; // error or success
+    var responseMsg; // error or success
     if(submitButton !== null){
         submitButton.setAttribute('data-kt-indicator', 'on'); //loading
         submitButton.disabled = true;
     }
 
     // Handle form serialization
-    if (formData === null){
-        formData = serializeToJSON(formID);
-    } else {
-        formData = formData;
-    }
+    if (formData === null){ formData = serializeToJSON(formID);
+    } else { formData = formData; }
 
     $.ajax({
         url: url,
@@ -144,19 +162,10 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         headers: {'Content-Type': 'application/json'},
         data: JSON.stringify(formData),
         success: function(response){
-            if(response['statusCode'] !== 200 || response['success'] !== true){
-                //responseMessage = "ERROR: "+response.messages[0];
-                responseMessage = "ERROR: "+JSON.stringify(response);
-                responseType = 'error';
-                swal_Popup(responseType, responseMessage, 'Okay. Got it!');
-            } else {
-                responseMessage = response.messages[0];
-                //responseMessage = "SUCCESS: "+JSON.stringify(response);
-                responseType = 'success';
-                swal_Popup(responseType, responseMessage, 'Okay. Got it!');
-            }
+            
+            responseMsg = handleResponse(response);
 
-            if(callback) callback(responseType);
+            if(callback) callback(responseMsg); //send to the handleResponseMsg() fxn
 
             if(submitButton !== null){
                 submitButton.disabled = false;

@@ -36,12 +36,12 @@ $alt_job            = "Project";
 
 //LINKS//
 $home               = "home";
-$login_link         = "?login";
-$signup_link        = "?signup";
-$reset_link         = "?password_reset";
-$terms_link         = "?terms";
+$login_link         = "home?login";
+$signup_link        = "home?signup";
+$reset_link         = "home?password_reset";
+$terms_link         = "home?terms";
 $referral_link      = $c_website.$signup_link.'&ref=';
-$customer_link      = $c_website.'?new_customer&ref=';
+$customer_link      = $c_website.'new?tid=';
 $activation_link    = $c_website.'';
 $getStarted_link    = $c_website.'';
 $privacypolicy_link = $c_website.'';

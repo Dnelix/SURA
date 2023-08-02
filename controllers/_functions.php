@@ -336,7 +336,6 @@ function addtoDate($givenDate, $num, $unit='day') {
 
 //* Process Image Upload
 function processImageUpload($inputName, $targetDirectory) {
-  // Check if the file was uploaded without errors
   if ($_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
     $tempFilePath = $_FILES[$inputName]['tmp_name'];
     $originalFileName = $_FILES[$inputName]['name'];
@@ -349,15 +348,12 @@ function processImageUpload($inputName, $targetDirectory) {
 
     // Move the uploaded file to the target directory
     if (move_uploaded_file($tempFilePath, $targetPath)) {
-      // File successfully uploaded
       return $targetPath;
     } else {
-      // Error while moving the uploaded file
-      return null;
+      return "Error while moving the uploaded file";
     }
   } else {
-    // Error in the uploaded file
-    return null;
+    return "Error in the uploaded file";
   }
 }
 
