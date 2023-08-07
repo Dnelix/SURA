@@ -43,7 +43,7 @@ PAYLOAD
     $password = $jsonData->password; // don't trim passwords
     $email_parts = explode("@", $email);
     $username = strtolower($email_parts[0]); //create temporal username from email
-    $createdon = date('d/m/Y H:i');
+    $createdon = date($dateformat);
 
     $role = (isset($jsonData->bizname) ? "business" : "customer" ); //define role
     $bizname = (isset($jsonData->bizname) ? $jsonData->bizname : "" ); //get business name if it is set

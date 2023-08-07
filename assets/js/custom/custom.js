@@ -61,13 +61,13 @@ function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
 }
 
 //sweetalert confirm
-function swal_confirm(msg, btn_yes = 'YES', btn_no = 'NO') {
+function swal_confirm(msg, btn_yes = 'YES', btn_no = 'NO', deny=true, icon='question') {
     return new Promise((resolve, reject) => {
         swal.fire({
             text: msg,
-            icon: "question",
+            icon: icon,
             buttonsStyling: false,
-            showDenyButton: true,
+            showDenyButton: deny,
             confirmButtonText: btn_yes,
             denyButtonText: btn_no,
             customClass: {
@@ -231,7 +231,7 @@ function randomizeSpans() {
 // Show Toast Message
 function showToastMsg(msg){
     toastr.options = {
-        "closeButton": false,
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
         "progressBar": true,
@@ -250,14 +250,30 @@ function showToastMsg(msg){
     };
 
     if (msg == "incomplete"){
-        toastr.error('Please complete your business profile to continue enjoying our services<br /><br /><button type="button" class="btn btn-bg-light btn-sm" onClick="goTo(\'profile?page=business\')">Go to Profile</button>', "Complete your profile");
+        toastr.error('Please complete your profile to get the most out of our services<br /><br /><button type="button" class="btn btn-bg-light btn-sm" onClick="goTo(\'profile?page=business\')">Go to Profile</button>', "Complete your profile");
     }
 }
 
 //#######################//
 //###### SPECIFIC #######//
 //#######################//
-// sendMail
+//share links
+function shareLink(media, message){
+    var url = '';
+    if(media === 'whatsapp'){
+        url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
+        //window.open(url, "_blank");
+    } else if(media === 'facebook'){
+        url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(location.href) + "&quote=" + encodeURIComponent(message);
+    } else if(media === 'twitter'){
+        url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(message);
+    } else {
+        alert('Invalid media');
+    }
+    window.open(url, "_blank");
+} 
+
+//sendMail
 function sendMail(type, subject, to_mail, to_name='', message='', sender=''){
     var params = {
         type: type,

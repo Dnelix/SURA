@@ -28,8 +28,8 @@ PAYLOAD
         $message = "";
         $message .= (strlen($jsonData->phone) < 1 ? 'Phone Number cannot be blank' : false);
         $message .= (strlen($jsonData->phone) > 15 ? 'Phone number cannot be greater than 15 characters' : false);
-        $message .= (strlen($jsonData->email) < 1 ? 'Customer name cannot be blank' : false);
-        $message .= (strlen($jsonData->email) > 50 ? 'Customer name cannot be greater than 50 characters' : false);
+        $message .= (strlen($jsonData->fullname) < 1 ? 'Customer name cannot be blank' : false);
+        $message .= (strlen($jsonData->fullname) > 50 ? 'Customer name cannot be greater than 50 characters' : false);
 
         sendResponse(400, false, $message);
     }
@@ -50,14 +50,25 @@ PAYLOAD
         $email = $username.'@'.$c_shortsite; // create temporal email as well
     }
     $password = getRandomPassword(8); //generate a random 8-digit password
-    $createdon = date('d/m/Y H:i');
+    $createdon = date($dateformat);
 
-    //5. Check if customer already exists under this tailor
-    try{
-        $query = $writeDB -> prepare('SELECT c.id FROM tbl_customers c INNER JOIN tbl_users u ON c.customerid = u.id WHERE u.phone = :phone OR u.email = :email AND c.tailorid = :tailorid');
+    
+    try{ //does tailor exist as a business?
+        $query = $writeDB -> prepare('SELECT id FROM tbl_users WHERE tbl_users.id = :id AND tbl_users.role = :role');
+        $query -> bindParam(':id', $tailor, PDO::PARAM_INT);
+        $query -> bindValue(':role', "business", PDO::PARAM_STR);
+        $query -> execute();
+
+        $rowCount = $query -> rowCount();
+        if($rowCount < 1){
+            sendResponse(400, false, 'Only valid business accounts can create customers'); exit();
+        }
+
+        //5. Check if customer already exists under this tailor
+        $query = $writeDB -> prepare('SELECT c.id FROM tbl_customers c INNER JOIN tbl_users u ON c.customerid = u.id WHERE c.tailorid = :tailorid AND (u.phone = :phone OR u.email = :email)' );
+        $query -> bindParam(':tailorid', $tailor, PDO::PARAM_INT);
         $query -> bindParam(':phone', $phone, PDO::PARAM_STR);
         $query -> bindParam(':email', $email, PDO::PARAM_STR);
-        $query -> bindParam(':tailorid', $tailor, PDO::PARAM_INT);
         $query -> execute();
 
         $rowCount = $query -> rowCount();
@@ -134,7 +145,7 @@ PAYLOAD
         $returnData['active'] = 1;
         $returnData['createdon'] = $createdon;
 
-        sendResponse(201, true, 'Customer Created', $returnData);
+        sendResponse(201, true, 'Customer data saved', $returnData);
 
     }
     catch (PDOException $e){

@@ -19,9 +19,8 @@ $projectCount = (isset($projects->count) ? $projects->count : 0);
     }
 
 $openProjects = empty($projects) ? null : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
-
 $bizdata = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid) -> data;
-$profileStatus = (empty($bizdata->description) || empty($bizdata->address) || empty($bizdata->state)) ? "incomplete" : "complete";
+
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
@@ -54,6 +53,13 @@ $profileStatus = (empty($bizdata->description) || empty($bizdata->address) || em
     <!--end::Root-->
 <!---------------------------------------->
 <?php include_once('views/foot.php'); ?>
+<?php
+    if ($userdata->role === "business") {
+        $profileStatus = (empty($bizdata->description) || empty($bizdata->address) || empty($bizdata->state)) ? "incomplete" : "complete";
+    } else {
+        $profileStatus = (empty($userdata->fullname) || empty($userdata->email) || empty($userdata->name)) ? "incomplete" : "complete";
+    }
+?>
 
 <script>
     window.addEventListener('DOMContentLoaded', randomizeSpans);

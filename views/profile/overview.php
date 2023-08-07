@@ -1,5 +1,9 @@
 <?php
+if ($userdata->role === "business") {
     $profileCompletion = calcProfileCompletion($userdata->fullname, $bizdata->name, $bizdata->description, $bizdata->address, $bizdata->state);
+} else {
+    $profileCompletion = calcProfileCompletion($userdata->fullname, $userdata->phone, $userdata->email, $userdata->username, $userdata->photo);
+}
 ?>
 
 <div class="card mb-5 mb-xl-10">
