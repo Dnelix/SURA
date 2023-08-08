@@ -39,7 +39,7 @@
     var formID = "#new_customer_check";
     var submitButton = document.querySelector('#new_customer_submit');
     var type = "POST";
-    var url = web+"controllers/customers.php";
+    var url = web+"controllers/users.php?type=customer";
 
     AJAXcall(formID, submitButton, type, url, null, (responseMsg)=>{
       if(responseMsg.status !== 'success'){

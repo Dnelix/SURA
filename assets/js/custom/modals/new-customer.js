@@ -65,7 +65,7 @@ var ModalNewCustomer = function () {
 						submitButton.disabled = true;
 
 						$.ajax({
-							url: 'controllers/customers.php',
+							url: 'controllers/users.php?type=customer',
 							type: 'POST',
 							dataType: 'JSON',
 							headers: {'Content-Type': 'application/json'},

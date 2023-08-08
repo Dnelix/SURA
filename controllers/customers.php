@@ -21,9 +21,7 @@ $measurement_parameters_array = array(
     'neck','top_length','torso','chest','shoulder','arm_length','sleeve_length','wrist','bicep','full_length','bottom_length','inseam_length','waist','hip','laps','flap','knee_length','round_knee','ankle','shoe_size'
 ); //named exactly as in the DB
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once('customers/add_customer.php');
-}
+//new customers are created from the users controller
 
 if(array_key_exists('tailor', $_GET)){
     $tailorid = $_GET['tailor'];

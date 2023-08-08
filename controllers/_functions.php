@@ -169,8 +169,8 @@ function callJSONAPI2($url, $accesstoken=null){
   return $response;
 }
 
-//Set JSON Request Headers
-function setJSONRequestHeaders($jsonData){
+//* Set JSON Request Headers
+function setJSONRequestHeaders($jsonData, $method){
   $headers = array(
     'Content-Type: application/json',
     'Content-Length: ' . strlen($jsonData)
@@ -179,7 +179,7 @@ function setJSONRequestHeaders($jsonData){
   // Create the stream context with headers
   $context = stream_context_create(array(
       'http' => array(
-          'method' => 'POST',
+          'method' => $method,
           'header' => $headers,
           'content' => $jsonData
       )
@@ -188,10 +188,10 @@ function setJSONRequestHeaders($jsonData){
   return $context;
 }
 
-//* Send data to controller
+// Send data to controller
 function sendToController($data, $controllerURL){
   $jsonData = json_encode($data);               // Convert the data to JSON
-  $context = setJSONRequestHeaders($jsonData);  // set request headers
+  $context = setJSONRequestHeaders($jsonData, 'POST');  // set request headers
 
   global $c_website;
   $fileURL = $c_website . $controllerURL;
@@ -202,6 +202,22 @@ function sendToController($data, $controllerURL){
   //return $feedback;
   $cleanOutput = json_decode($feedback);
   return $cleanOutput->messages[0];
+}
+
+// Validate required fields
+function validateMandatoryFields($jsonData, $mandatoryFields) {
+  $missingFields = array();
+  foreach ($mandatoryFields as $field) {
+      if (!isset($jsonData->$field)) {
+          $missingFields[] = ucfirst($field);
+      }
+  }
+  if (!empty($missingFields)) {
+      $missingFieldsList = implode(', ', $missingFields);
+      return "The following mandatory fields are missing: $missingFieldsList.";
+  }
+
+  return ''; // No missing fields
 }
 
 // Send any Email
