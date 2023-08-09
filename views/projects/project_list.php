@@ -40,7 +40,12 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
                 $projectList = array_filter($projects->projectlist, function($item) { return $item->status == $_GET['filter']; });
             }
 
+            $counter = 0;
+            $pageLimit = 10;
+            $listTotal = ($projectCount <= $pageLimit) ? $projectCount : $pageLimit;
+
             foreach($projectList as $project) {
+                if ($counter >= $pageLimit) { break;}
                 $projBal = ($project->income)-($project->expense);
         
     ?>
@@ -112,7 +117,34 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
 
             </a>
         </div>
-    <?php } } ?>
+    <?php $counter++; } } ?>
+</div>
+
+<!-- Pagination -->
+<div class="d-flex flex-stack flex-wrap pb-10">
+    <div class="fs-6 fw-bold text-gray-700">Showing 1 to <?= $listTotal.' of '.$projectCount.' '.$alt_job; ?>s </div>
+    <ul class="pagination">
+        <?php
+            $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+            $totalPages = ceil($projectCount / $pageLimit);
+
+            if ($currentPage > 1) {
+                echo '<li class="page-item previous"><a href="?page=' . ($currentPage - 1) . '" class="page-link"><i class="previous"></i></a></li>';
+            }
+
+            for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i === $currentPage) {
+                    echo '<li class="page-item active"><a href="#" class="page-link">' . $i . '</a></li>';
+                } else {
+                    echo '<li class="page-item"><a href="?page=' . $i . '" class="page-link">' . $i . '</a></li>';
+                }
+            }
+        
+            if ($currentPage < $totalPages) {
+                echo '<li class="page-item next"><a href="?page=' . ($currentPage + 1) . '" class="page-link"><i class="next"></i></a></li>';
+            }
+        ?>
+    </ul>
 </div>
 
 <script>

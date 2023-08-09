@@ -9,17 +9,22 @@
 
         <input type="hidden" name="tailor" value="<?= $_GET['tid']; ?>" />
 
-        <div class="fv-row mb-10">
+        <div class="fv-row mb-5">
           <label class="form-label fw-bolder text-dark fs-6">Your name</label>
           <input class="form-control form-control-solid" type="text" placeholder="" name="fullname" autoComplete="on" />
         </div>
-        <div class="fv-row mb-10">
+        <div class="fv-row mb-5">
           <label class="form-label fw-bolder text-dark fs-6">Your phone number</label>
           <input class="form-control form-control-solid" type="phone" placeholder="" name="phone" autoComplete="on" />
         </div>
-        <div class="fv-row mb-10">
+        <div class="fv-row mb-5">
           <label class="form-label fw-bolder text-dark fs-6">Email</label>
           <input class="form-control form-control-solid" type="email" placeholder="" name="email" autoComplete="on" />
+        </div>
+        <div class="fv-row mb-10">
+          <label class="form-label fw-bolder text-dark fs-6">Password</label>
+          <input class="form-control form-control-solid" type="password" placeholder="" name="password" autoComplete="on" />
+          <div class="text-muted">With a password you can protect and manage your data anytime</div>
         </div>
       
         <div class="text-center pb-lg-0 pb-8">

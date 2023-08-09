@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var bizDetails = function () {
+var addProject = function () {
     // Private variables
     var formID;
     var form;
@@ -14,41 +14,41 @@ var bizDetails = function () {
             form,
             {
                 fields: {
-                    name: {
+                    title: {
                         validators: {
                             notEmpty: {
-                                message: 'Business name is required'
+                                message: 'Project title is required'
                             }
                         }
                     },
-                    description: {
+                    start_date: {
                         validators: {
                             notEmpty: {
-                                message: 'Please provide a brief description for your business'
+                                message: 'A start date is required'
                             }
                         }
                     },
-                    phone: {
+                    end_date: {
                         validators: {
                             notEmpty: {
-                                message: 'A contact phone number is required'
+                                message: 'Please specify when this task is due'
+                            }
+                        }
+                    },
+                    style_catg: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please select a category for the project'
+                            }
+                        }
+                    },
+                    income: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Enter your fees for this project. You can update this later'
                             },
                             numeric: {
-                                message: 'The value is not a number'
-                            }
-                        }
-                    },
-                    email: {
-                        validators: {
-                            notEmpty: {
-                                message: 'An email address is required for communication'
-                            }
-                        }
-                    },
-                    address: {
-                        validators: {
-                            notEmpty: {
-                                message: 'A business address is required'
+                                message: 'Only numbers are accepted'
                             }
                         }
                     }
@@ -74,10 +74,13 @@ var bizDetails = function () {
 
             validation.validate().then(function (status) {
                 if (status == 'Valid') {
+
+                    //extract all form elements
+                    var formData = formdataJSON(form);
+                    //console.log(formData);
                     
-                    var userid = form.querySelector('[name="userid"]').value;
-                    var url = 'controllers/business.php?userid='+parseInt(userid);
-                    AJAXcall(formID, submitButton, 'PATCH', url, null, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');} );
+                    //var tailorid = formData['tailorid'];
+                    AJAXcall(null, submitButton, 'POST', 'controllers/projects.php', formData, (responseMsg)=>{handleResponseMsg(responseMsg, 'goback');});
                     
                 } else {
                     swal_Popup('error', 'Sorry, some important information missing. Please complete', 'Try Again!');
@@ -89,9 +92,9 @@ var bizDetails = function () {
     // Public methods
     return {
         init: function () {
-            formID = '#business_details_form';
+            formID = '#project_details_form';
             form = document.querySelector(formID);
-            submitButton = form.querySelector('#business_details_submit');
+            submitButton = form.querySelector('#project_details_submit');
 
             initValidation();
             handleForm();
@@ -101,5 +104,5 @@ var bizDetails = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function() {
-    bizDetails.init();
+    addProject.init();
 });
