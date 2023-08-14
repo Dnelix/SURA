@@ -24,7 +24,7 @@
         <div class="fv-row mb-10">
           <label class="form-label fw-bolder text-dark fs-6">Password</label>
           <input class="form-control form-control-solid" type="password" placeholder="" name="password" autoComplete="on" />
-          <div class="text-muted">With a password you can protect and manage your data anytime</div>
+          <div class="text-muted fs-7">With a password you can manage your data anytime</div>
         </div>
       
         <div class="text-center pb-lg-0 pb-8">

@@ -41,6 +41,17 @@ function formatDateTime(datetimeValue, targetFormat) {
     return formattedDatetime;
 }
 
+//Security
+function escapeHTML(input) {
+    return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;');
+}
+
 //Sweetalert pop-ups
 function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     // status = error/success
@@ -102,8 +113,10 @@ function formdataJSON(form){
             if (element.type === 'date' || element.type === 'datetime-local') {
                 // Parse value through the formatDateTime() fxn
                 formData[element.name] = formatDateTime(element.value, 'd/m/Y H:i');
+            } else if (element.type === 'file'){
+                formData[element.name] = element.files[0];
             } else {
-                formData[element.name] = element.value;
+                formData[element.name] = escapeHTML(element.value);
             }
         }
     }
@@ -160,7 +173,10 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         type: type,
         dataType: 'JSON',
         headers: {'Content-Type': 'application/json'},
-        data: JSON.stringify(formData),
+        processData: false,
+        contentType: false,
+        data: formData,
+        //data: JSON.stringify(formData),
         success: function(response){
             
             responseMsg = handleResponse(response);
@@ -257,6 +273,7 @@ function showToastMsg(msg){
 //#######################//
 //###### SPECIFIC #######//
 //#######################//
+
 //share links
 function shareLink(media, message){
     var url = '';

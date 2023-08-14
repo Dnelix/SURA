@@ -3,6 +3,7 @@ require_once('_constants.php');
 require_once('_functions.php');
 require_once('DBconnect.php');
 require_once('../models/Response.php');
+require_once('../models/Image.php');
 
 //connect to DB
 require_once('db/connect_write_read_db.php');
@@ -39,6 +40,8 @@ if(array_key_exists('userid', $_GET)){
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'PATCH') {
+        // $authID = checkAuthStatus($writeDB, $logtoken);
+        // if ($authID !== $userid){ sendResponse(400, false, 'Unauthorized access!'); exit(); }
         require_once('business/update_biz_data.php');
     }
 

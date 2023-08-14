@@ -77,7 +77,13 @@ var bizDetails = function () {
                     
                     var userid = form.querySelector('[name="userid"]').value;
                     var url = 'controllers/business.php?userid='+parseInt(userid);
-                    AJAXcall(formID, submitButton, 'PATCH', url, null, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');} );
+                    //var formData = formdataJSON(form);
+                    
+                    var photo = form.querySelector('[name="photo"]');
+                    var formData = new FormData();
+                    formData.append('photo', photo.files[0]);
+
+                    AJAXcall(null, submitButton, 'PATCH', url, formData, (responseMsg)=>{handleResponseMsg(responseMsg);} );
                     
                 } else {
                     swal_Popup('error', 'Sorry, some important information missing. Please complete', 'Try Again!');

@@ -50,6 +50,61 @@ function generateTokens() {
     'refresh_token_expiry' => $refreshtoken_expiry
   );
 }
+//**
+function checkAuthStatus($writeDB, $accesstoken=null){
+  global $max_loginattempts;
+
+  /*if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
+      sendResponse(401, false, 'Access token is missing or empty');
+  }
+  $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];*/
+  
+  try{
+      //get the user id associated with the access token (query both user and sessions tables)
+      $query = $writeDB -> prepare('SELECT tbl_sessions.id AS sessionid, userid, a_tokenexpiry, refreshtoken, r_tokenexpiry, active, loginattempts FROM tbl_sessions, tbl_users WHERE tbl_sessions.userid = tbl_users.id AND accesstoken = :accesstoken');
+      $query -> bindParam(':accesstoken', $accesstoken, PDO::PARAM_STR);
+      $query -> execute();
+  
+      $rowCount = $query -> rowCount();
+      if($rowCount === 0){
+          sendResponse(401, false, 'Invalid access token provided');
+      }
+  
+      $row = $query -> fetch(PDO::FETCH_ASSOC);
+  
+      $ret_sessionid = $row['sessionid'];
+      $ret_userid = $row['userid'];
+      $ret_a_tokenexpiry = $row['a_tokenexpiry'];
+      $ret_refreshtoken = $row['refreshtoken'];
+      $ret_r_tokenexpiry = $row['r_tokenexpiry'];
+      $ret_active = $row['active'];
+      $ret_loginattempts = $row['loginattempts'];
+  
+      if($ret_active !== '1'){
+          sendResponse(401, false, 'User account not active');
+      }
+      if($ret_loginattempts >= $max_loginattempts){
+          sendResponse(401, false, 'User account currently locked out');
+      }
+      //if the access token expiry time is less than the current time, then it has expired
+      if(strtotime($ret_a_tokenexpiry) < time()){
+          if(strtotime($ret_r_tokenexpiry) >= time()){ // optional. Check if refresh token is still active
+              $returnData = array();
+              $returnData['sessionID'] = $ret_sessionid;
+              $returnData['refresh_token'] = $ret_refreshtoken;
+              sendResponse(401, false, 'Access token expired',  $returnData);
+          }
+          sendResponse(401, false, 'Your login have expired. Please login again');
+      }
+
+      //else return user id (included because this is a function)
+      return $ret_userid;
+  
+  }
+  catch (PDOException $e){
+      responseServerException($e, 'There was an issue with authentication. Please try again');
+  }
+}
 
 // JSON
 function validateJsonRequest() {
@@ -351,27 +406,49 @@ function addtoDate($givenDate, $num, $unit='day') {
 }
 
 //* Process Image Upload
-function processImageUpload($inputName, $targetDirectory) {
-  if ($_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
-    $tempFilePath = $_FILES[$inputName]['tmp_name'];
-    $originalFileName = $_FILES[$inputName]['name'];
+function processImageUpload($inputName, $targetDirectory, $allowedExtensions = ['jpg', 'jpeg', 'png']) {
+  if (!isset($_FILES[$inputName])) {
+      throw new Exception('No file was uploaded.');
+  }
 
-    // Generate a unique filename to prevent overwriting existing files
-    $uniqueFileName = uniqid() . '_' . $originalFileName;
+  $errorCode = $_FILES[$inputName]['error'];
 
-    // Build the target path for storing the uploaded image
-    $targetPath = $targetDirectory . '/' . $uniqueFileName;
+  if ($errorCode !== UPLOAD_ERR_OK) {
+      throw new Exception(getUploadErrorMessage($errorCode));
+  }
 
-    // Move the uploaded file to the target directory
-    if (move_uploaded_file($tempFilePath, $targetPath)) {
+  $tempFilePath = $_FILES[$inputName]['tmp_name'];
+  $originalFileName = $_FILES[$inputName]['name'];
+  $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+  if (!in_array($fileExtension, $allowedExtensions)) {
+      throw new Exception('Invalid file type.');
+  }
+
+  $uniqueFileName = uniqid() . '_' . $originalFileName;
+  $targetPath = $targetDirectory . '/' . $uniqueFileName;
+
+  if (move_uploaded_file($tempFilePath, $targetPath)) {
       return $targetPath;
-    } else {
-      return "Error while moving the uploaded file";
-    }
   } else {
-    return "Error in the uploaded file";
+      throw new Exception('Error while moving the uploaded file.');
   }
 }
+
+function getUploadErrorMessage($errorCode) {
+  $uploadErrors = array(
+      UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+      UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+      UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded.',
+      UPLOAD_ERR_NO_FILE => 'No file was uploaded.',
+      UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder.',
+      UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+      UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload.'
+  );
+
+  return isset($uploadErrors[$errorCode]) ? $uploadErrors[$errorCode] : 'Unknown error';
+}
+
 
 ##########################################
 # DATABASE CALLS

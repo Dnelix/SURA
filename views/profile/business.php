@@ -11,7 +11,7 @@ if($userdata->role !== "business"){
         </div>
     </div>
     <div id="settings_business_details" class="collapse show">
-        <form id="business_details_form" class="form">
+        <form id="business_details_form" class="form" enctype="multipart/form-data">
 
             <input type="hidden" name="userid" value="<?= $loguserid; ?>"/>
 

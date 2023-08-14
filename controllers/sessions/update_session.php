@@ -55,7 +55,12 @@ try{
         sendResponse(401, false, "Refresh token has expired. Please login again");
     }
 
-    // else generate a new access token (in _constants)
+    // else generate a new access token
+    $tokens = generateTokens();
+    $accessToken = $tokens['access_token'];
+    $refreshToken = $tokens['refresh_token'];
+    $accessTokenExpiry = $tokens['access_token_expiry'];
+    $refreshTokenExpiry = $tokens['refresh_token_expiry'];
 
     $query = $writeDB -> prepare('UPDATE tbl_sessions SET accesstoken = :accesstoken, a_tokenexpiry = date_add(NOW(), INTERVAL :a_tokenexpiry SECOND), refreshtoken = :refreshtoken, r_tokenexpiry = date_add(NOW(), INTERVAL :r_tokenexpiry SECOND) WHERE id = :sessionid AND userid = :userid AND accesstoken = :ret_accesstoken AND refreshtoken = :ret_refreshtoken');
     $query -> bindParam(':sessionid', $ret_sessionid, PDO::PARAM_INT);

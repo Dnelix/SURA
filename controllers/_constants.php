@@ -35,6 +35,7 @@ $defaultcurrency    = "&#8358;"; //naira
 $alt_job            = "Project";
 
 //LINKS//
+$uploadPath         = '../assets/media/uploads'; //relative to controllers folder
 $home               = "home";
 $login_link         = "home?login";
 $signup_link        = "home?signup";

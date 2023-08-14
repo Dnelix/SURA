@@ -34,7 +34,10 @@ try{
     }
     //if the access token expiry time is less than the current time, then it has expired
     if(strtotime($ret_a_tokenexpiry) < time()){
-        if(strtotime($ret_r_tokenexpiry) >= time()){ // this portion of the code is optional and may not be required
+        if(strtotime($ret_r_tokenexpiry) >= time()){ 
+            // Optional. Check if refresh token is still active.
+            // Redirect to update_session.php
+
             $returnData = array();
             $returnData['sessionID'] = $ret_sessionid;
             $returnData['refresh_token'] = $ret_refreshtoken;

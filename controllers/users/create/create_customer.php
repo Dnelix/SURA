@@ -1,7 +1,7 @@
 <?php
 try{
     //1. validate mandatory fields
-    $mandatoryFields = array('fullname', 'phone', 'tailor');
+    $mandatoryFields = array('fullname', 'phone', 'tailor', 'password');
     $errorMsg = validateMandatoryFields($jsonData, $mandatoryFields);
     if (!empty($errorMsg)) {
         sendResponse(400, false, $errorMsg); exit();
@@ -23,9 +23,9 @@ try{
     $phone = trim($jsonData->phone);
     $tailor = (isset($jsonData->tailor) ? $jsonData->tailor : 0 );
     $email = (isset($jsonData->email) ? trim($jsonData->email) : "" );
+    $password = isset($jsonData->password) ? $jsonData->password : getRandomPassword(8); //generate a random 8-digit password
 
     //4. Set defaults
-    $password = getRandomPassword(8); //generate a random 8-digit password
     $createdon = date($dateformat);
     if ($email !== ""){
         $email_parts = explode("@", $email);
