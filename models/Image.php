@@ -15,7 +15,7 @@ Class Image {
     private $_uploadFolderURL;
 
     //constructor
-    public function __construct($id, $title, $filename, $mimetype, $refid, $updated){
+    public function __construct($id, $title, $filename, $mimetype, $refid, $updated=null){
         $this->setID($id);
         $this->setTitle($title);
         $this->_filetype = "image";
@@ -64,6 +64,24 @@ Class Image {
         $url = "/2023/SURA/assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
 
         return $httpOrHttps.$host.$url;
+    }
+    //return actual image file
+    public function getImageFile(){
+        $filePath = $this->getUploadFolderURL().$this->getRefID().'/'.$this->getFilename();
+        if (!file_exists($filePath)){
+            throw new ImageException("Image file not found");
+        }
+        //change content type from JSON to image
+        header('Content-Type: '.$this->getMimetype());
+        //define how the content is handled
+        header('Content-Disposition: inline; filename="'.$this->getFilename().'"'); //there are options for content disposition
+        //stream binary file to client
+        if(!readfile($filePath)){
+            http_response_code(404); //respond with 404 if unable to read the file
+            exit;
+        }
+        return $filePath;
+        exit;
     }
 
     //setters
@@ -126,6 +144,20 @@ Class Image {
 
         if(!move_uploaded_file($tempFileName, $uploadedFilePath)){
             throw new ImageException("Failed to upload image file. Please retry");
+        }
+    }
+
+    //Rename Image File
+    public function renameImageFile($oldFileName, $newFileName){
+        $oldFilePath = $this->getUploadFolderURL().$this.getRefID().'/'.$oldFileName;
+        $newFilePath = $this->getUploadFolderURL().$this.getRefID().'/'.$newFileName;
+
+        if(!file_exists($oldFilePath)){
+            throw new ImageException("Cannot find image file to rename");
+        }
+
+        if(!rename($oldFilePath, $newFilePath)){ //rename() is an inbuilt function
+            throw new ImageException("Failed to update the file name");
         }
     }
 

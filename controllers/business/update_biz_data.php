@@ -7,7 +7,7 @@ try {
     // sendResponse(404, false, $logoURL); exit();
     
     $jsonData = validateJsonRequest();
-    sendResponse(404, false, $jsonData); exit();
+    //sendResponse(404, false, $jsonData); exit();
     
     $columns = explode(', ', $all_fields);              // from the $all_fields list
     foreach($columns as $field){ $$field = false; }     // create a variable with the column name and set to false
@@ -59,7 +59,7 @@ try {
     $errorInfo = $query->errorInfo();
     $rowCount = $query->rowCount();
     if($rowCount === 0){
-        sendResponse(400, false, 'You have not updated this record');
+        sendResponse(400, false, 'You have not updated this record', $errorInfo);
     }
     
     //return the newly updated record
