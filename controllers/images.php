@@ -91,7 +91,6 @@ function getImageExtension($imageFileMime){
 }
 //------------End IMAGE Functions--------------------
 
-//tasks/1/images/5/attributes
 if(array_key_exists('refid', $_GET) && array_key_exists('imageid', $_GET) && array_key_exists('attributes', $_GET)){
     $ref_id = $_GET['refid'];
     $imageid = $_GET['imageid'];
@@ -113,7 +112,6 @@ if(array_key_exists('refid', $_GET) && array_key_exists('imageid', $_GET) && arr
     }
 }
 
-//tasks/1/images/5
 else if(array_key_exists('refid', $_GET) && array_key_exists('imageid', $_GET)){
     $ref_id = $_GET['refid'];
     $imageid = $_GET['imageid'];
@@ -127,13 +125,13 @@ else if(array_key_exists('refid', $_GET) && array_key_exists('imageid', $_GET)){
     }
     else if ($_SERVER['REQUEST_METHOD'] === 'DELETE'){
         //delete the specified image
+        require_once('images/delete_image_data.php');
     }
     else {
         sendResponse(405, false, 'Request method not allowed');
     }
 }
 
-//tasks/1/images
 else if(array_key_exists('refid', $_GET) && array_key_exists('userid', $_GET)){
     $ref_id = $_GET['refid'];
     $usr_id = $_GET['userid'];

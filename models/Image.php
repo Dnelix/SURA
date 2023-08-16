@@ -58,12 +58,14 @@ Class Image {
         return $this->_uploadFolderURL;
     }
     public function getImageURL(){
+        // $httpOrHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://"; // check to see the kind of server in use and build the URL accordingly
+        // $host = $_SERVER['HTTP_HOST'];
+        //$url = "/2023/SURA/assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
+        //return $httpOrHttps.$host.$url;
         global $c_website;
-        $httpOrHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://"; // check to see the kind of server in use and build the URL accordingly
-        $host = $_SERVER['HTTP_HOST'];
-        $url = "/2023/SURA/assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
+        $url = $c_website."assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
 
-        return $httpOrHttps.$host.$url;
+        return $url;
     }
     //return actual image file
     public function getImageFile(){
@@ -101,11 +103,12 @@ Class Image {
         $this->_filetype = $filetype;
     }
     public function setFilename($filename){
+        $filename = str_replace(' ', '_', $filename);
         if(strlen($filename) < 1 || strlen($filename) > 30){
             throw new ImageException("ERROR: Image filename must be between 1 and 30 characters");
         }
         if (preg_match("/^[a-zA-Z0-9_-]+(.jpg|.gif|.png)$/", $filename) != 1){
-            throw new ImageException("ERROR: Image filename must be .png/.gif/.jpg ");
+            throw new ImageException("ERROR: Wrong filename format or image must be .png/.gif/.jpg ");
         }
         $this->_filename = $filename;
     }
@@ -149,8 +152,8 @@ Class Image {
 
     //Rename Image File
     public function renameImageFile($oldFileName, $newFileName){
-        $oldFilePath = $this->getUploadFolderURL().$this.getRefID().'/'.$oldFileName;
-        $newFilePath = $this->getUploadFolderURL().$this.getRefID().'/'.$newFileName;
+        $oldFilePath = $this->getUploadFolderURL().$this->getRefID().'/'.$oldFileName;
+        $newFilePath = $this->getUploadFolderURL().$this->getRefID().'/'.$newFileName;
 
         if(!file_exists($oldFilePath)){
             throw new ImageException("Cannot find image file to rename");
@@ -158,6 +161,16 @@ Class Image {
 
         if(!rename($oldFilePath, $newFilePath)){ //rename() is an inbuilt function
             throw new ImageException("Failed to update the file name");
+        }
+    }
+
+    //Delete Image File
+    public function deleteImageFile(){
+        $filePath = $this->getUploadFolderURL().$this->getRefID()."/".$this->getFilename();
+        if (file_exists($filePath)){
+            if(!unlink($filePath)){
+                throw new ImageException("Failed to delete image file");
+            }
         }
     }
 
