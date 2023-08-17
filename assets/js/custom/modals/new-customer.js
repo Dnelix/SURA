@@ -72,7 +72,8 @@ var ModalNewCustomer = function () {
 							data: JSON.stringify(serializeToJSON(form)),
 							success: function(response){
 								if(response['success'] !== true){
-									responseMessage = "ERROR: "+JSON.stringify(response);
+									//responseMessage = "ERROR: "+JSON.stringify(response);
+									responseMessage = response.messages[0];
 									swal_Popup('error', responseMessage, 'Okay. Got it!');
 									submitButton.disabled = false;
 									submitButton.setAttribute('data-kt-indicator', 'off');

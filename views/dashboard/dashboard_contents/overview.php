@@ -13,7 +13,7 @@
                                 <a href="projects" class="link-white opacity-75-hover fw-bolder d-block mb-1"><?= count($openProjects).' unfinished '.$alt_job.'s'; ?></a>
                             </span>
                             <span style="display:none">
-                                <a href="finance" class="link-white opacity-75-hover fw-bolder d-block mb-1"> earned <?= $defaultcurrency.formatNumber('200000'); ?></a>
+                                <a href="finance" class="link-white opacity-75-hover fw-bolder d-block mb-1"> earned <?= $defaultcurrency.$balanceTotal; ?></a>
                             </span>
                             <span style="display:none">
                                 <a href="customers" class="link-white opacity-75-hover fw-bolder d-block mb-1"> <?= formatNumber($customerCount); ?> customers</a>

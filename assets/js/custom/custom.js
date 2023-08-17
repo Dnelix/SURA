@@ -55,6 +55,9 @@ function escapeHTML(input) {
 //Sweetalert pop-ups
 function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     // status = error/success
+    if (!responseMessage) {
+        responseMessage = 'NO RESPONSE MESSAGE!';
+    }
     if (status === 'error'){ var btn_type = "btn font-weight-bold btn-danger";} 
     else if (status === 'success') { var btn_type = "btn btn-primary";}
     else if (status === 'info') { var btn_type = "btn btn-info";}
@@ -113,8 +116,6 @@ function formdataJSON(form){
             if (element.type === 'date' || element.type === 'datetime-local') {
                 // Parse value through the formatDateTime() fxn
                 formData[element.name] = formatDateTime(element.value, 'd/m/Y H:i');
-            } else if (element.type === 'file'){
-                formData[element.name] = element.files[0];
             } else {
                 formData[element.name] = escapeHTML(element.value);
             }
@@ -142,13 +143,26 @@ function handleResponse(response){
     };
 }
 
-function handleResponseMsg(responseMsg, action, url=null){
+function handleResponseMsg(responseMsg, action=null, url=null){
     if (responseMsg.status === 'success'){
         if(action == 'reload'){ reloadPage(); }
         else if(action == 'redirect'){ goTo(url); }
         else if(action == 'goback'){ window.history.back(); }
-        else if(action == 'data'){ console.log(responseMsg); }
-        //if no action is set, alert the message and do nothing
+        else if(action == 'confirmexit'){
+            swal_confirm("DONE! What do you want to do next?", "Save & Exit", "Stay on this page")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    history.back();
+                } else if (result.isDenied) {
+                    console.log("Canceled");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+        else if(action == 'logdata'){ console.log(responseMsg); }
+        //if any other action is set, alert the message and do nothing
         else {swal_Popup(responseMsg.status, responseMsg.message, 'Okay. Got it!');}
     } else {
         swal_Popup(responseMsg.status, responseMsg.message, 'Okay. Got it!');
@@ -165,8 +179,12 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
     }
 
     // Handle form serialization
-    if (formData === null){ formData = serializeToJSON(formID);
-    } else { formData = formData; }
+    if (formData === null){ 
+        formData = serializeToJSON(formID);
+    } else {
+        //ensure you parse an already converted JSON data (eg by using the formdataJSON() fxn)
+        formData = formData; 
+    }
 
     $.ajax({
         url: url,
@@ -175,13 +193,17 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         headers: {'Content-Type': 'application/json'},
         processData: false,
         contentType: false,
-        data: formData,
-        //data: JSON.stringify(formData),
+        //data: formData,
+        data: JSON.stringify(formData),
         success: function(response){
             
             responseMsg = handleResponse(response);
 
-            if(callback) callback(responseMsg); //send to the handleResponseMsg() fxn
+            if(callback) {
+                callback(responseMsg); //send to the handleResponse() fxn
+            } else {
+                handleResponseMsg(responseMsg);
+            }
 
             if(submitButton !== null){
                 submitButton.disabled = false;

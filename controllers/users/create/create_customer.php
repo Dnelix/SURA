@@ -1,7 +1,7 @@
 <?php
 try{
     //1. validate mandatory fields
-    $mandatoryFields = array('fullname', 'phone', 'tailor', 'password');
+    $mandatoryFields = array('fullname', 'phone', 'tailor');
     $errorMsg = validateMandatoryFields($jsonData, $mandatoryFields);
     if (!empty($errorMsg)) {
         sendResponse(400, false, $errorMsg); exit();
