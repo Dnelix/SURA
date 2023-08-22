@@ -76,8 +76,16 @@ var bizDetails = function () {
                 if (status == 'Valid') {
                     
                     var userid = form.querySelector('[name="userid"]').value;
+                    
+                    var imageFieldName = 'photo';
+                    if (form.querySelector('[name="userid"]').value !== ''){
+                        var imgurl = 'controllers/images.php?name='+imageFieldName+'&refid='+parseInt(userid);
+                        var imageData = getUploadData(imageFieldName);
+                        AJAXUploadImg(imgurl, "POST", imageData, submitButton, (responseMsg)=>{handleResponseMsg(responseMsg);});
+                    }
+                    
+                    return false;
                     var url = 'controllers/business.php?userid='+parseInt(userid);
-
                     var formData = formdataJSON(form);
                     AJAXcall(null, submitButton, 'PATCH', url, formData, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');} );
                     

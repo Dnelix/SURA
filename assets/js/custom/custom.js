@@ -191,8 +191,6 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         type: type,
         dataType: 'JSON',
         headers: {'Content-Type': 'application/json'},
-        processData: false,
-        contentType: false,
         //data: formData,
         data: JSON.stringify(formData),
         success: function(response){
@@ -212,6 +210,51 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
 
         }
     });
+}
+
+function AJAXUploadImg(url, type, imageData, submitButton=null, callback){
+    var responseMsg; // error or success
+    if(submitButton !== null){
+        submitButton.setAttribute('data-kt-indicator', 'on');
+        submitButton.disabled = true;
+    }
+
+    $.ajax({
+        url: url,
+        type: type,
+        processData: false,
+        contentType: false,
+        data: imageData,
+        success: function(response){
+            responseMsg = handleResponse(response);
+
+            if(callback) {
+                callback(responseMsg);
+            } else {
+                handleResponseMsg(responseMsg);
+            }
+
+            if(submitButton !== null){
+                submitButton.disabled = false;
+                submitButton.setAttribute('data-kt-indicator', 'off');
+            }
+        }
+    });
+}
+
+// Process file uploads
+function getUploadData(fieldname){
+    var field = $('input[name="' + fieldname + '"]')[0];
+    var file = field.files[0];
+
+    var formData = new FormData();
+
+    if (field.files.length > 0) {
+        formData.append(fieldname, file);
+        return formData;
+    } else {
+        return "No file selected.";
+    }
 }
 
 //--clipboard

@@ -2,7 +2,7 @@
  
 class ImageException extends Exception {}
 
-Class Image {
+class Image {
 
     private $_id;
     private $_title;
@@ -13,17 +13,19 @@ Class Image {
     private $_updated;
 
     private $_uploadFolderURL;
+    private $_imageURL;
 
     //constructor
-    public function __construct($id, $title, $filename, $mimetype, $refid, $updated=null){
+    public function __construct($id, $title, $filename, $mimetype, $refid, $uploadFolderURL, $filetype='image', $updated=null){
         $this->setID($id);
         $this->setTitle($title);
-        $this->_filetype = "image";
         $this->setFilename($filename);
         $this->setMimetype($mimetype);
         $this->setRefID($refid);
+        $this->setUploadFolderURL($uploadFolderURL);
+        $this->setFiletype($filetype);
         $this->setUpdated($updated);
-        $this->_uploadFolderURL = "../assets/media/uploads/";
+        $this->_imageURL = 'assets/media/uploads/'; //used only for the getImageURL() fxn.
     }
 
     //getters
@@ -57,13 +59,10 @@ Class Image {
     public function getUploadFolderURL(){
         return $this->_uploadFolderURL;
     }
+    //return link to image
     public function getImageURL(){
-        // $httpOrHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://"; // check to see the kind of server in use and build the URL accordingly
-        // $host = $_SERVER['HTTP_HOST'];
-        //$url = "/2023/SURA/assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
-        //return $httpOrHttps.$host.$url;
         global $c_website;
-        $url = $c_website."assets/media/uploads/".$this->getRefID()."/".$this->getFilename();
+        $url = $c_website.$this->_imageURL.$this->getRefID()."/".$this->getFilename();
 
         return $url;
     }
@@ -123,6 +122,9 @@ Class Image {
             throw new ImageException("Associated/reference ID Error");
         }
         $this->_refid = $refid;
+    }
+    public function setUploadFolderURL($uploadFolderURL){
+        $this->_uploadFolderURL = $uploadFolderURL;
     }
     public function setUpdated($updated){
         $this->_updated = $updated;

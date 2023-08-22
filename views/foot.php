@@ -39,8 +39,7 @@
                 echo '<script src="assets/js/custom/pages/profile/activate-account.js"></script>';
             }
         } else if($curPage == "customers" && empty($_GET['cid'])){
-            echo '
-                <script src="assets/js/custom/pages/dataTablesInit.js"></script>';
+            echo '<script src="assets/js/custom/pages/dataTablesInit.js"></script>';
         } else if($curPage == "add_customer"){  
             echo '<script src="assets/js/custom/pages/add-customer.js"></script>';
         } else if($curPage == "add_project"){

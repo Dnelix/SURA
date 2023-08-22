@@ -14,6 +14,7 @@ require_once('db/connect_write_read_db.php');
 
 
 //------------IMAGE UPLOAD Functions--------------------
+//unused
 function validateImageAttributes($attr_name = 'attributes'){
     if(!isset($_POST[$attr_name])){
         sendResponse(400, false, 'Attributes missing from body of request');
@@ -36,58 +37,57 @@ function validateImageAttributes($attr_name = 'attributes'){
     return $jsonImageAttributes;
 }
 
-function getImageFileDetails($file_name = 'imagefile'){
+//useful
+function getUploadFileDetails($fileName, $maxFileSize = null){
+    $maxFileSize = empty($maxFileSize) ? 5242880 : $maxFileSize; //5mb max size by default
+
     //check to ensure the right content type is sent
     if(!isset($_SERVER['CONTENT_TYPE']) || strpos($_SERVER['CONTENT_TYPE'], "multipart/form-data; boundary=") === false){
         sendResponse(400, false, "Content type header not set to multipart/form-data with a boundary");
     }
     
     //Perform other validations on the image
-    if(!isset($_FILES[$file_name]) || $_FILES[$file_name]['error'] !== 0){
-        sendResponse(500, false, 'Image file upload unsuccessful. Ensure the right file is selected');
+    if(!isset($_FILES[$fileName])){
+        sendResponse(500, false, 'Ensure the right file is selected');
+    }
+    if($_FILES[$fileName]['error'] !== 0){
+        sendResponse(500, false, 'File upload is unsuccessful: '.$_FILES[$fileName]['error']);
     }
     
     //check image size
-    if(isset($_FILES[$file_name]['size']) && $_FILES[$file_name]['size'] > 5242880){ //if larger than 5mb
-        sendResponse(400, false, 'Image size cannot be greater than 5MB');
+    if(isset($_FILES[$fileName]['size']) && $_FILES[$fileName]['size'] > $maxFileSize){
+        sendResponse(400, false, 'File size is too large please resize');
     }
 
     //Get image file details (including mime)
-    $imageSizeDetails = getimagesize($_FILES[$file_name]['tmp_name']);
+    $imageSizeDetails = getimagesize($_FILES[$fileName]['tmp_name']);
     
     return array(
-        'imgdata' => $_FILES[$file_name],
+        'imgdata' => $_FILES[$fileName],
         'imgsize' => $imageSizeDetails
     );
 }
 
-function getImageExtension($imageFileMime){
-    $allowedFileTypes = array('image/jpeg', 'image/gif', 'image/png');
+function getUploadFilename($fileName) {
+    $sanitizedFileName = preg_replace('/[^a-zA-Z0-9_.]/', '', $fileName);
+    $fileNameWithoutExtension = pathinfo($sanitizedFileName, PATHINFO_FILENAME);
+    $finalFileName = str_replace(' ', '_', $fileNameWithoutExtension);
 
-    if(!in_array($imageFileMime, $allowedFileTypes)){
-        sendResponse(400, false, "Invalid Image file type!");
+    return $finalFileName;
+}
+
+function getUploadFileExtension($fileName, $allowedArray=null) {
+    if($allowedArray === null){
+        $allowedArray = array('jpeg', 'jpg', 'gif', 'png'); //image by default
     }
 
-    $fileExt = "";
-    switch ($imageFileMime){
-        case "image/jpeg":
-            $fileExt = ".jpg";
-            break;
-        case "image/png":
-            $fileExt = ".png";
-            break;
-        case "image/gif":
-            $fileExt = ".gif";
-            break;
-        default:
-            break;
+    $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+    if(!in_array($extension, $allowedArray)){
+        sendResponse(400, false, "Invalid file type!");
     }
 
-    if(empty($fileExt)){ 
-        sendResponse(400, false, "No valid file extension found for image");
-    }
-
-    return $fileExt;
+    return ".".$extension;
 }
 //------------End IMAGE Functions--------------------
 
@@ -132,11 +132,14 @@ else if(array_key_exists('refid', $_GET) && array_key_exists('imageid', $_GET)){
     }
 }
 
-else if(array_key_exists('refid', $_GET) && array_key_exists('userid', $_GET)){
+else if(array_key_exists('refid', $_GET) && array_key_exists('name', $_GET)){
     $ref_id = $_GET['refid'];
-    $usr_id = $_GET['userid'];
-    if($ref_id == '' || !is_numeric($ref_id) || !is_numeric($usr_id)){
-        sendResponse(400, false, 'Reference/usr ID cannot be blank and must be numeric');
+    $img_name = $_GET['name'];
+    if($ref_id == '' || !is_numeric($ref_id)){
+        sendResponse(400, false, 'Reference ID cannot be blank and must be numeric');
+    }
+    if(empty($img_name)){
+        sendResponse(400, false, 'Set a name for the image file');
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {

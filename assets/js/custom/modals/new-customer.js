@@ -58,37 +58,19 @@ var ModalNewCustomer = function () {
 			if (validator) {
 				validator.validate().then(function (status) {
 					//console.log('validated!');
-
 					if (status == 'Valid') {
-						var responseMessage;
-						submitButton.setAttribute('data-kt-indicator', 'on');
-						submitButton.disabled = true;
-
-						$.ajax({
-							url: 'controllers/users.php?type=customer',
-							type: 'POST',
-							dataType: 'JSON',
-							headers: {'Content-Type': 'application/json'},
-							data: JSON.stringify(serializeToJSON(form)),
-							success: function(response){
-								if(response['success'] !== true){
-									//responseMessage = "ERROR: "+JSON.stringify(response);
-									responseMessage = response.messages[0];
-									swal_Popup('error', responseMessage, 'Okay. Got it!');
-									submitButton.disabled = false;
-									submitButton.setAttribute('data-kt-indicator', 'off');
-								} else {
-									userID = response.data['user_id'];
-									//console.log(response);
-									//responseMessage = "SUCCESS: "+userID+" : "+JSON.stringify(response);
-									submitButton.disabled = false;
-									submitButton.setAttribute('data-kt-indicator', 'off');
-									form.reset();
-									$(formID).toggleClass('d-none');
-									$(successWinID).toggleClass('d-none');
-								}
+						var url = 'controllers/users.php?type=customer';
+						var formData = formdataJSON(form);
+						AJAXcall(null, submitButton, 'POST', url, formData, (responseMsg)=>{
+							if (responseMsg.status === 'success'){
+								userID = responseMsg.data['user_id'];			
+								form.reset();
+								$(formID).toggleClass('d-none');
+								$(successWinID).toggleClass('d-none');
+							} else {
+								handleResponseMsg(responseMsg);
 							}
-						}); 						
+						});					
 					} else {
 						//swal_Popup('error', 'Some required items are missing');
 					}
