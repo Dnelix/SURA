@@ -30,6 +30,7 @@ if($userdata->role !== "business"){
                                 <i class="bi bi-pencil-fill fs-7"></i>
                                 <input type="file" name="photo" accept=".png, .jpg, .jpeg" />
                                 <input type="hidden" name="logo_remove" />
+                                <input type="hidden" name="imgid" value="47" />
                             </label>
                             <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel logo">
                                 <i class="bi bi-x fs-2"></i>

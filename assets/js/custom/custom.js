@@ -243,7 +243,7 @@ function AJAXUploadImg(url, type, imageData, submitButton=null, callback){
 }
 
 // Process file uploads
-function getUploadData(fieldname){
+function getUploadData(fieldname, attributes=null){
     var field = $('input[name="' + fieldname + '"]')[0];
     var file = field.files[0];
 
@@ -251,6 +251,8 @@ function getUploadData(fieldname){
 
     if (field.files.length > 0) {
         formData.append(fieldname, file);
+        formData.append("attributes", JSON.stringify(attributes));
+
         return formData;
     } else {
         return "No file selected.";

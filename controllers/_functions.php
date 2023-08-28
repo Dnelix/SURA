@@ -449,6 +449,112 @@ function getUploadErrorMessage($errorCode) {
   return isset($uploadErrors[$errorCode]) ? $uploadErrors[$errorCode] : 'Unknown error';
 }
 
+########################################## 
+# FILE UPLOAD Functions 
+##########################################
+function validateFileAttributes($attr_name = 'attributes'){
+  if(!isset($_POST[$attr_name])){
+      sendResponse(400, false, 'Attributes missing from body of request');
+  }
+
+  if(!$jsonFileAttributes = json_decode($_POST[$attr_name])){
+      sendResponse(400, false, 'File attributes is not valid JSON');
+  }
+
+  //check for image title and filename
+  if(!isset($jsonFileAttributes->title) || !isset($jsonFileAttributes->filename) || $jsonFileAttributes->title == '' || $jsonFileAttributes->filename == ''){
+      sendResponse(400, false, 'Title and filename fields are mandatory');
+  }
+
+  //check the filename string to ensure it doesn't contain a . or the file extension
+  if(strpos($jsonFileAttributes->filename, ".") > 0){
+      sendResponse(400, false, "Filename should not contain the extension");
+  }
+
+  return $jsonFileAttributes;
+}
+
+function getExtensionFromMime($imageFileMime){
+  $allowedFileTypes = array('image/jpeg', 'image/gif', 'image/png');
+
+  if(!in_array($imageFileMime, $allowedFileTypes)){
+      sendResponse(400, false, "Invalid Image file type!");
+  }
+
+  $fileExt = "";
+  switch ($imageFileMime){
+      case "image/jpeg":
+          $fileExt = ".jpg";
+          break;
+      case "image/png":
+          $fileExt = ".png";
+          break;
+      case "image/gif":
+          $fileExt = ".gif";
+          break;
+      default:
+          break;
+  }
+
+  if(empty($fileExt)){ 
+      sendResponse(400, false, "No valid file extension found for image");
+  }
+
+  return $fileExt;
+}
+
+function getUploadFileDetails($fileName, $maxFileSize = null){
+  $maxFileSize = empty($maxFileSize) ? 5242880 : $maxFileSize; //5mb max size by default
+
+  //check to ensure the right content type is sent
+  if(!isset($_SERVER['CONTENT_TYPE']) || strpos($_SERVER['CONTENT_TYPE'], "multipart/form-data; boundary=") === false){
+      sendResponse(400, false, "Content type header not set to multipart/form-data with a boundary");
+  }
+  
+  //Perform other validations on the image
+  if(!isset($_FILES[$fileName])){
+      sendResponse(500, false, 'Ensure the right file is selected');
+  }
+  if($_FILES[$fileName]['error'] !== 0){
+      sendResponse(500, false, 'There is a problem with the selected file: '.$_FILES[$fileName]['error']);
+  }
+  
+  //check image size
+  if(isset($_FILES[$fileName]['size']) && $_FILES[$fileName]['size'] > $maxFileSize){
+      sendResponse(400, false, 'File size is too large please resize');
+  }
+
+  //Get image file details (including mime)
+  $imageSizeDetails = getimagesize($_FILES[$fileName]['tmp_name']);
+  
+  return array(
+      'imgdata' => $_FILES[$fileName],
+      'imgsize' => $imageSizeDetails
+  );
+}
+
+function getUploadFilename($fileName) {
+  $sanitizedFileName = preg_replace('/[^a-zA-Z0-9_.]/', '', $fileName);
+  $fileNameWithoutExtension = pathinfo($sanitizedFileName, PATHINFO_FILENAME);
+  $finalFileName = str_replace(' ', '_', $fileNameWithoutExtension);
+
+  return $finalFileName;
+}
+
+function getUploadFileExtension($fileName, $allowedArray=null) {
+  if($allowedArray === null){
+      $allowedArray = array('jpeg', 'jpg', 'gif', 'png'); //image by default
+  }
+
+  $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+  if(!in_array($extension, $allowedArray)){
+      sendResponse(400, false, "Invalid file type!");
+  }
+
+  return ".".$extension;
+}
+
 
 ##########################################
 # DATABASE CALLS

@@ -76,14 +76,18 @@ var bizDetails = function () {
                 if (status == 'Valid') {
                     
                     var userid = form.querySelector('[name="userid"]').value;
+                    var imgIdField = form.querySelector('[name="imgid"]').value;
+                    var imgid = (imgIdField == "") ? "" : "&imageid="+parseInt(imgIdField);
                     
                     var imageFieldName = 'photo';
-                    if (form.querySelector('[name="userid"]').value !== ''){
-                        var imgurl = 'controllers/images.php?name='+imageFieldName+'&refid='+parseInt(userid);
-                        var imageData = getUploadData(imageFieldName);
+                    var imgurl = 'controllers/images.php?userid='+parseInt(userid)+'&refid='+parseInt(userid)+imgid;
+                    var attributes = {filename:imageFieldName, title:'Business profile', userid:userid, refid:userid, type:'profile'};
+
+                    if (form.querySelector('[name="'+imageFieldName+'"]').value !== ''){
+                        var imageData = getUploadData(imageFieldName, attributes);
                         AJAXUploadImg(imgurl, "POST", imageData, submitButton, (responseMsg)=>{handleResponseMsg(responseMsg);});
                     }
-                    
+
                     return false;
                     var url = 'controllers/business.php?userid='+parseInt(userid);
                     var formData = formdataJSON(form);
