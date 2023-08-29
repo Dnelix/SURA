@@ -185,7 +185,7 @@ class Image {
         $image['filename']  = $this -> getFilename();
         $image['mimetype']  = $this -> getMimetype();
         $image['refid']     = $this -> getRefID();
-        $image['ImageURL']  = $this -> getImageURL();
+        $image['imageURL']  = $this -> getImageURL();
         $image['updated']   = $this -> getUpdated();
 
         return $image;

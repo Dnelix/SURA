@@ -1,9 +1,9 @@
 <?php
     try{
-        $readQuery = 'SELECT id, title, filetype, filename, mimetype, ref_id, updated FROM tbl_uploads WHERE id = :imgid AND ref_id = :refid';
+        $readQuery = 'SELECT id, title, filetype, filename, mimetype, refid, userid, updated FROM tbl_uploads WHERE refid = :refid AND userid = :userid';
         $query = $readDB -> prepare($readQuery);
-        $query->bindParam(':imgid', $imageid, PDO::PARAM_INT);
-        $query->bindParam(':refid', $ref_id, PDO::PARAM_INT);
+        $query->bindParam(':refid', $refid, PDO::PARAM_INT);
+        $query->bindParam(':userid', $userid, PDO::PARAM_INT);
         $query->execute();
 
         $rowCount = $query->rowCount();
@@ -18,10 +18,12 @@
                 $row['title'],
                 $row['filename'],
                 $row['mimetype'],
-                $row['ref_id'],
+                $row['refid'],
+                $uploadFolderURL,
+                $row['filetype'],
                 $row['updated']
             );
-            $imageArray[] = $image -> returnImageAsArray();
+            $imageArray = $image -> returnImageAsArray();
         }
         sendResponse(200, true, "Successful", $imageArray, true);
     }

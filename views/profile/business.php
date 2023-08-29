@@ -20,17 +20,17 @@ if($userdata->role !== "business"){
                     <label class="col-lg-4 col-form-label fw-bold fs-6">Logo</label>
                     <div class="col-lg-8">
                         <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('assets/media/svg/brand-logos/vodafone.svg')">
-                        <?php if(isset($bizdata->photo) && !empty($bizdata->photo)){
-                                echo '<div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/uploads/'. $bizdata->photo .')"></div>';
+                        <?php if(!empty($photoFile)){
+                                echo '<div class="image-input-wrapper w-125px h-125px" style="background-image: url('. $photoFile .')"></div>';
                             } else {
-                                echo '<div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/svg/brand-logos/vodafone.svg)"></div>';
+                                echo '<div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/uploads/upload.png)"></div>';
                             }
                         ?>
                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Logo">
                                 <i class="bi bi-pencil-fill fs-7"></i>
                                 <input type="file" name="photo" accept=".png, .jpg, .jpeg" />
                                 <input type="hidden" name="logo_remove" />
-                                <input type="hidden" name="imgid" value="47" />
+                                <input type="hidden" name="imgid" value="<?= $imageid; ?>" />
                             </label>
                             <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel logo">
                                 <i class="bi bi-x fs-2"></i>

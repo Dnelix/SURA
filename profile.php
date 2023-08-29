@@ -24,6 +24,9 @@ $location = (isset($bizdata->city) ? $bizdata->city.', '.$bizdata->state : 'Unkn
 
 $country_list = getCountries();
 
+$photoData = retrieveDataFrom($c_website.'controllers/images.php?userid='.$loguserid.'&refid='.$loguserid) -> data;
+$photoFile = isset($photoData) ? $photoData->imageURL : null;
+$imageid   = isset($photoData) ? $photoData->id : null;
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">

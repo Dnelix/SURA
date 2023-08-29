@@ -27,15 +27,12 @@ if(array_key_exists('refid', $_GET) && array_key_exists('userid', $_GET)){
             sendResponse(400, false, 'ImageID is invalid');
         }
         if($_SERVER['REQUEST_METHOD'] === 'GET') {
-            //get specified image
-            require_once('images/get_image_file.php');
+            require_once('images/get_image_file.php');      //get specified image (not sure how useful)
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            //update the specified image (PATCH doesn't work)
-            require_once('images/update_image.php');
+            require_once('images/update_image.php');        //update the specified image data (PATCH doesn't work)
         }
         else if ($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-            //delete the specified image
-            require_once('images/delete_image_data.php');
+            require_once('images/delete_image_data.php');   //delete the specified image
         }
         else {
             sendResponse(405, false, 'Request method not allowed');
@@ -43,12 +40,10 @@ if(array_key_exists('refid', $_GET) && array_key_exists('userid', $_GET)){
     }
 
     else if($_SERVER['REQUEST_METHOD'] === 'GET') {
-        //get image attribute
-        require_once('images/get_image_attributes.php');
+        require_once('images/get_image_attributes.php');    //get image attributes
     }    
     else if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //upload an image for the user
-        require_once('images/upload_image.php');
+        require_once('images/upload_image.php');            //upload an image for the user
     }
 
     else {

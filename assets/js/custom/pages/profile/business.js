@@ -76,19 +76,20 @@ var bizDetails = function () {
                 if (status == 'Valid') {
                     
                     var userid = form.querySelector('[name="userid"]').value;
-                    var imgIdField = form.querySelector('[name="imgid"]').value;
-                    var imgid = (imgIdField == "") ? "" : "&imageid="+parseInt(imgIdField);
                     
+                    //photo
+                    var imgid = form.querySelector('[name="imgid"]').value;
+                    var imgidQuery = (imgid == "") ? "" : "&imageid="+parseInt(imgid);
                     var imageFieldName = 'photo';
-                    var imgurl = 'controllers/images.php?userid='+parseInt(userid)+'&refid='+parseInt(userid)+imgid;
-                    var attributes = {filename:imageFieldName, title:'Business profile', userid:userid, refid:userid, type:'profile'};
+                    var imgurl = 'controllers/images.php?userid='+parseInt(userid)+'&refid='+parseInt(userid)+imgidQuery;
+                    var attributes = {filename:imageFieldName, title:'Business profile', type:'photo'};
 
                     if (form.querySelector('[name="'+imageFieldName+'"]').value !== ''){
                         var imageData = getUploadData(imageFieldName, attributes);
                         AJAXUploadImg(imgurl, "POST", imageData, submitButton, (responseMsg)=>{handleResponseMsg(responseMsg);});
                     }
 
-                    return false;
+                    //form
                     var url = 'controllers/business.php?userid='+parseInt(userid);
                     var formData = formdataJSON(form);
                     AJAXcall(null, submitButton, 'PATCH', url, formData, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');} );

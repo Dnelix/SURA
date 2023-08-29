@@ -1,7 +1,7 @@
 <div class="card mb-8">
     <div class="card-body pt-9 pb-0">
         <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
-            <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
+            <div class="d-flex flex-center flex-shrink-0 rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
                 <?= showCustomerIcon($cid, $initials, $customerdata->active, 'large'); ?>
             </div>
             
