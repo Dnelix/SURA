@@ -94,7 +94,7 @@ var KTSigninGeneral = function() {
                             // handle response
                             if(response['statusCode'] !== 201 && response['success'] !== true){
                                 var responseMessage = "ERROR: "+response.messages[0];
-                                console.log ("ERROR: "+JSON.stringify(response)); // remove for prod
+                                //console.log ("ERROR: "+JSON.stringify(response)); // remove for prod
 
                                 Swal.fire({
                                     text: responseMessage,

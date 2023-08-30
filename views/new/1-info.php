@@ -1,5 +1,5 @@
 <?php
-    if (isset($_GET['tid']) && !empty($_GET['tid'])){
+    if (isset($_GET['tid']) && !empty($_GET['tid'])){ // for now, you must have a tailor ID to register
         if (isset($_GET['cid']) && !empty($_GET['cid'])){
             $infoTitle = 'Provide or update your measurements';
             $infoText = 'Take your measurements or find someone to help you <br> Use the hints against each measurement if you need guidance.';
@@ -10,8 +10,15 @@
             $infoTitle = 'Hi there, your tailor needs your help';
             $infoText = 'Use the simple form below to provide your details.';
             $infoImage = 'assets/media/illustrations/sigma-1/8.png';
-            $infoLinks = '<a href="'.$signup_link.'">LOGIN</a> &nbsp; | &nbsp; <a href="#">HOW IT WORKS</a>';
+            $infoLinks = '<a href="?login">LOGIN</a> &nbsp; | &nbsp; <a href="#">HOW IT WORKS</a>';
         }
+    } else if (array_key_exists('login', $_GET)){
+        $infoTitle = 'Hi there, your tailor needs your help';
+        $infoText = 'Login to manage your information. Ask your tailor for a link if you don\'t have an account';
+        $infoImage = 'assets/media/illustrations/sigma-1/8.png';
+        $infoLinks = '<a href="history.back();">Go Back</a> &nbsp;';
+    } else {
+        $infoTitle = $infoImage = $infoLinks = $infoText = "undefined";
     }
 ?>
 

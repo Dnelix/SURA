@@ -7,7 +7,7 @@
         <?php 
             //$path = $_SERVER['QUERY_STRING'];
             
-            if (isset($_GET['tid']) && !empty($_GET['tid'])){
+            if (isset($_GET['tid']) && !empty($_GET['tid'])){  //tailor id is required for now
                 $tid = $_GET['tid'];
                 include_once('views/new/1-info.php');
 
@@ -20,9 +20,12 @@
 
                     include_once('views/new/3-measurements.php');
                 } else {
-                    include_once('views/new/2-customer.php');
+                    include_once('views/new/2-customer_reg.php');
                 }
 
+            } else if (array_key_exists('login', $_GET)){
+                include_once('views/new/1-info.php');
+                include_once('views/new/3-customer_login.php');
             } else {
                 include ('views/general/404_content.php');
                 exit();

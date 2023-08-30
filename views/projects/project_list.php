@@ -26,7 +26,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
 
 <div class="row g-6 g-xl-9">
 
-    <?php if($projectCount <= 0){ ?>
+    <?php if(empty($projectCount) || $projectCount <= 0){ ?>
 
     <div class="col-md-12 col-xl-12">
         <p class="fs-6 text-gray-400 fw-bold ms-1">You have no active/ongoing <?= $alt_job; ?>s at the moment. When you have registered your customers, you can start a new project by clicking the "New Project" button above.</p>
@@ -117,7 +117,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
 
             </a>
         </div>
-    <?php $counter++; } } ?>
+    <?php $counter++; } ?>
 </div>
 
 <!-- Pagination -->
@@ -143,6 +143,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
             if ($currentPage < $totalPages) {
                 echo '<li class="page-item next"><a href="?page=' . ($currentPage + 1) . '" class="page-link"><i class="next"></i></a></li>';
             }
+        }
         ?>
     </ul>
 </div>

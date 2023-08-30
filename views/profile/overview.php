@@ -2,7 +2,7 @@
 if ($userdata->role === "business") {
     $profileCompletion = calcProfileCompletion($userdata->fullname, $bizdata->name, $bizdata->description, $bizdata->address, $photoFile);
 } else {
-    $profileCompletion = calcProfileCompletion($userdata->fullname, $userdata->phone, $userdata->email, $userdata->username, $userdata->photo);
+    $profileCompletion = calcProfileCompletion($userdata->fullname, $userdata->phone, $userdata->email, $userdata->username, $photoFile);
 }
 
 $initials = getInitials($displayUserName);
@@ -14,7 +14,7 @@ $initials = getInitials($displayUserName);
         <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
             <div class="me-7 mb-4">
                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                    <?= isset($photoFile) ? '<img src="'.$photoFile.'" alt="image">' : showCustomerIcon($userdata->id, $initials, 1, 'large'); ?>
+                    <?= isset($photoFile) ? '<img src="'.$photoFile.'" alt="image">' : showCustomerIcon($userdata->id, $initials, 0, 'large'); ?>
                     <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                 </div>
             </div>

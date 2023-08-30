@@ -1,6 +1,6 @@
 <?php require("controllers/_constants.php"); ?>
-<?php require("controllers/_auth.php"); ?>
 <?php require("controllers/_functions.php"); ?>
+<?php require("controllers/_auth.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
