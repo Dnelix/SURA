@@ -1,7 +1,13 @@
 <?php include_once('views/head.php'); ?>
 
 <?php 
-    $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
+    if ($logrole === 'business'){
+        $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data;
+        $projects = (!empty($projects)) ? $projects->data : null; 
+    } else {
+        $projects = retrieveDataFrom($c_website.'controllers/projects.php?cid='.$loguserid);
+        $projects = (!empty($projects)) ? $projects->data : null; 
+    }
     $projectCount = (isset($projects->count) ? $projects->count : 0);
 ?>
 <!---------------------------------------->

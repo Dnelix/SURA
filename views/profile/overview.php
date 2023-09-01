@@ -2,7 +2,7 @@
 if ($userdata->role === "business") {
     $profileCompletion = calcProfileCompletion($userdata->fullname, $bizdata->name, $bizdata->description, $bizdata->address, $photoFile);
 } else {
-    $profileCompletion = calcProfileCompletion($userdata->fullname, $userdata->phone, $userdata->email, $userdata->username, $photoFile);
+    $profileCompletion = calcProfileCompletion($userdata->fullname, $userdata->phone, $userdata->email, $userdata->username, $userdata->username);
 }
 
 $initials = getInitials($displayUserName);
@@ -23,23 +23,27 @@ $initials = getInitials($displayUserName);
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                     <div class="d-flex flex-column">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">   <?= $displayUserName; ?> </a>
-                            <a href="#"><!--VERIFICATION BADGE-->
+                            <a href="javascript:;" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">   <?= $displayUserName; ?> </a>
+                            <a href="javascript:;"><!--VERIFICATION BADGE-->
                                 <?= $svg_verifiedicon; ?>
                             </a>
-                            <a href="#" class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade account</a>
+                            <?php if ($userdata->role === "business") { ?>
+                                <a href="javascript:;" class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade account</a>
+                            <?php } else { ?>
+                                <a onClick="javascript:swal_Popup('info', 'Sorry we can\'t do this now');" class="btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3">Switch to Business account</a>
+                            <?php } ?>
                         </div>
                         
                         <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                            <a href="javascript:;" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                 <?= $svg_usericon; ?>
                                 <?= $userdata->phone; ?>
                             </a>
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                            <a href="javascript:;" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                 <?= $svg_locationicon; ?>
                                 <?= $location; ?>
                             </a>
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                            <a href="javascript:;" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                 <?= $svg_mailicon; ?>
                                 <?= $userdata->email; ?>
                             </a>
@@ -47,7 +51,7 @@ $initials = getInitials($displayUserName);
                     </div>
 
                     <div class="d-flex my-4">
-                        <a href="#" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
+                        <a href="javascript:;" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
                         <div class="me-0">
                             <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                 <i class="bi bi-three-dots fs-3"></i>
@@ -67,6 +71,7 @@ $initials = getInitials($displayUserName);
                 <div class="d-flex flex-wrap flex-stack">
                     <div class="d-flex flex-column flex-grow-1 pe-8">
                         <div class="d-flex flex-wrap">
+                            <?php if ($userdata->role === "business") { ?>
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-arrow-up text-success me-2"></i>
@@ -74,6 +79,7 @@ $initials = getInitials($displayUserName);
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Total Customers</div>
                             </div>
+                            <?php } ?>
                             
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
@@ -82,7 +88,18 @@ $initials = getInitials($displayUserName);
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Total <?= $alt_job.'s'; ?></div>
                             </div>
+
+                            <?php if ($userdata->role === "customer") { ?>
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-arrow-down text-danger me-2"></i>
+                                    <div class="fs-2 fw-bolder counted" data-kt-countup="true" data-kt-countup-value="<?= $incomeTotal; ?>"><?= $incomeTotal; ?></div>
+                                </div>
+                                <div class="fw-bold fs-6 text-gray-400">Total Expenditure</div>
+                            </div>
+                            <?php } ?>
                             
+                            <?php if ($userdata->role === "business") { ?>
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fa fa-arrow-up text-success me-2"></i>
@@ -90,6 +107,7 @@ $initials = getInitials($displayUserName);
                                 </div>
                                 <div class="fw-bold fs-6 text-gray-400">Profit Earned</div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
 

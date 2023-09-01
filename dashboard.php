@@ -33,7 +33,13 @@ $bizdata = retrieveDataFrom($c_website.'controllers/business.php?userid='.$logus
 
                 <?php include_once('views/general/header.php'); ?>
                 <?php include_once('views/general/breadcrumb.php'); ?>
-                <?php include_once('views/dashboard/dashboard_contents.php'); ?>
+                <?php 
+                    if ($logrole === 'business'){
+                        include_once('views/dashboard/dashboard_contents.php'); 
+                    } else {
+                        include_once('views/general/construction.php');
+                    }
+                ?>
                 <?php include_once('views/general/footer.php'); ?>
                 <?php include_once('views/general/scrolltop.php'); ?>
                 
@@ -57,7 +63,7 @@ $bizdata = retrieveDataFrom($c_website.'controllers/business.php?userid='.$logus
     if ($userdata->role === "business") {
         $profileStatus = (empty($bizdata->description) || empty($bizdata->address) || empty($bizdata->state)) ? "incomplete" : "complete";
     } else {
-        $profileStatus = (empty($userdata->fullname) || empty($userdata->email) || empty($userdata->name)) ? "incomplete" : "complete";
+        $profileStatus = (empty($userdata->fullname) || empty($userdata->email) || empty($userdata->phone)) ? "incomplete" : "complete";
     }
 ?>
 

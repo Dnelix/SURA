@@ -161,6 +161,19 @@ function handleResponseMsg(responseMsg, action=null, url=null){
                 console.error(error);
             });
         }
+        else if(action == 'confirmreload'){
+            swal_confirm("Saved!", "OK", null, false, 'success')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    reloadPage();
+                } else if (result.isDenied) {
+                    console.log("Canceled");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
         else if(action == 'logdata'){ console.log(responseMsg); }
         //if any other action is set, alert the message and do nothing
         else {swal_Popup(responseMsg.status, responseMsg.message, 'Okay. Got it!');}
@@ -373,7 +386,7 @@ function sendMail(type, subject, to_mail, to_name='', message='', sender=''){
 }
 
 //logout
-function logout(sessionid, accesstoken){
+function logout(sessionid, accesstoken, role){
     var formActionURL = "controllers/sessions.php?sessionid="+sessionid;
     var logoutLink = document.querySelector('#logout_link');
     logoutLink.setAttribute('data-kt-indicator', 'on');
@@ -408,7 +421,11 @@ function logout(sessionid, accesstoken){
                     },
                     timer: "1000"
                 }).then(function () {
-                    location.href = "home";
+                    if(role == 'business'){
+                        location.href = "home";
+                    } else {
+                        location.href = "new?login";
+                    }
                 });
             }
         }

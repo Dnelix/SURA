@@ -58,7 +58,7 @@
 
     <script>
         function submitUB(){
-            var cid = '<?= $_GET['cid']; ?>';
+            var cid = '<?= $cid; ?>';
             var web = '<?= $c_website; ?>';
 
             var formID = "#modal_UB_form";
@@ -66,6 +66,6 @@
             var type = "PATCH";
             var url = web+"controllers/measurements.php?customer="+cid;
 
-            AJAXcall(formID, submitButton, type, url, null, (responseMsg)=>{handleResponseMsg(responseMsg, 'reload');});
+            AJAXcall(formID, submitButton, type, url, null, (responseMsg)=>{handleResponseMsg(responseMsg, 'confirmreload');});
         }
     </script>

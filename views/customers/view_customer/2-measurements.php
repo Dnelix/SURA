@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header border-0 pt-5">
                         <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to edit these measurements">
-                            <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_upper_body"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="javascript:;" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#modal_upper_body"><i class="fa fa-edit"></i> Edit</a>
                         </div>
                     </div>
                     <div class="card-body d-flex flex-center flex-column pt-12 p-9">
@@ -16,7 +16,7 @@
                         <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Upper Body (<?= $measureunit_text; ?>)</a>
                         <div class="fw-bold text-gray-400 mb-6">Measurements for tops and gowns</div>
 
-                        <div class="d-flex flex-center flex-wrap">
+                        <div class="d-flex flex-center flex-wrap" data-bs-toggle="modal" data-bs-target="#modal_upper_body">
                             <?php
                                 //$upperBody = array_slice($measures, 0, 10, true);
                                 foreach ($UBmeasures as $data){
@@ -50,7 +50,7 @@
                         <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder mb-0">Lower Body (<?= $measureunit_text; ?>)</a>
                         <div class="fw-bold text-gray-400 mb-6">Measurements for trousers, skirts, etc</div>
 
-                        <div class="d-flex flex-center flex-wrap">
+                        <div class="d-flex flex-center flex-wrap" data-bs-toggle="modal" data-bs-target="#modal_lower_body">
                             <?php
                                 //$lowerBody = array_slice($measures, 10);
                                 foreach ($LBmeasures as $data){

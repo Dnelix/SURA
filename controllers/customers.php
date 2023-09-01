@@ -59,6 +59,17 @@ if(array_key_exists('tailor', $_GET)){
     sendResponse(401, false, 'Invalid request for the available parameters');
 }
 
+else if(array_key_exists('customer', $_GET)){
+    $custid = $_GET['customer'];
+    if($custid == '' || !is_numeric($custid)){ 
+        sendResponse(400, false, 'Invalid customer Identifier'); 
+    }
+    if($_SERVER['REQUEST_METHOD'] === 'GET') {
+        require_once('customers/get_customer_record.php');
+    }
+    sendResponse(405, false, 'Invalid Request Method!');
+}
+
 else {
     sendResponse(405, false, 'Invalid Request Method!');
 }

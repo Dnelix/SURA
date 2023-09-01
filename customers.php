@@ -42,6 +42,7 @@
                 <!-- Include Modals -->
                 <?php 
                 if (isset($_GET['cid'])){
+                    $cid = $_GET['cid'];
                     include_once('views/components/modals/upper_body.php');
                     include_once('views/components/modals/lower_body.php'); 
                 }

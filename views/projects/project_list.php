@@ -18,6 +18,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
                         <option value="Completed"   <?= ($filter == 'Completed') ? 'selected':''; ?>>     Completed </option>
                     </select>
                 </div>
+
                 <a href="javascript:;" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_new_project">New Project</a>
             </div>
         </div>
@@ -29,7 +30,7 @@ $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
     <?php if(empty($projectCount) || $projectCount <= 0){ ?>
 
     <div class="col-md-12 col-xl-12">
-        <p class="fs-6 text-gray-400 fw-bold ms-1">You have no active/ongoing <?= $alt_job; ?>s at the moment. When you have registered your customers, you can start a new project by clicking the "New Project" button above.</p>
+        <p class="fs-6 text-gray-400 fw-bold ms-1">You have no active/ongoing <?= $alt_job; ?>s at the moment. You can start a new project by clicking the "New Project" button above.</p>
     </div>
 
     <?php 

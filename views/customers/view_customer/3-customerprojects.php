@@ -26,8 +26,12 @@
                                 <th class="min-w-150px"><?= $alt_job; ?> Info</th>
                                 <th class="min-w-100px">Start Date</th>
                                 <th class="min-w-100px">End Date</th>
-                                <th class="min-w-100px">Income</th>
-                                <th class="min-w-100px">Expense</th>
+                                <?php if ($customerdata->role === 'business'){ ?>
+                                    <th class="min-w-100px">Income</th>
+                                    <th class="min-w-100px">Expense</th>
+                                <?php } else { ?>
+                                    <th class="min-w-100px">Expense</th>
+                                <?php } ?>
                                 <th class="min-w-100px"> Status </th>
                                 <th class="min-w-100px text-end">Actions</th>
                             </tr>
@@ -58,8 +62,12 @@
                                     <span class="text-dark fw-bolder fs-6"><?= readableDateTime($item->end, 'dateonly'); ?></span>
                                     <span class="text-muted fw-bold d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
+
                                 <td><span class="text-success fw-bolder fs-6"><?= $item->income; ?></span></td>
+                            <?php if ($customerdata->role === 'business'){ ?>
                                 <td><span class="text-danger fw-bolder fs-6"><?= $item->expense; ?></span></td>
+                            <?php } ?>
+
                                 <td>
                                     <?= showStatus($item->status); ?>
                                 </td>

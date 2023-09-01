@@ -1,31 +1,38 @@
 <?php include_once('views/head.php'); ?>
-<?php
-$cid = (isset($_GET['cid']) ? $_GET['cid'] : '');
-$tid = (isset($_GET['tid']) ? $_GET['tid'] : '');
 
-if($cid == $loguserid){ //personal project
+<?php 
+    $cid = $loguserid;
     $record = retrieveDataFrom($c_website.'controllers/users.php?userid='. $cid);
-    $customerdata = $record->data;
-} else { //customer project
-    $record = retrieveDataFrom($c_website.'controllers/customers.php?tailor='. $loguserid .'&customer='. $cid);
-    $customerdata = !empty($record->data) ? $record->data->customerdata : null;
-}
-$customerName = isset($customerdata->fullname) ? $customerdata->fullname : $customerdata->username;
-$c_initials = getInitials($customerName);
 
-$projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='. $loguserid .'&customer='. $cid);
-$projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
+    $measurements = retrieveDataFrom($c_website.'controllers/measurements.php?customer='. $cid);
+    $measurements = (!empty($measurements)) ? $measurements->data : null;
+
+    $projects = retrieveDataFrom($c_website.'controllers/projects.php?cid='.$cid);
+    $projects = (!empty($projects)) ? $projects->data : null; 
+    $projectsCount = (isset($projects->count) ? $projects->count : 0);
 
     $incomeTotal = $expenseTotal = $balanceTotal = 0;
     if(!empty($projects->data)){
         $projectlist = $projects->data->projectlist;
         foreach ($projectlist as $project) {
             $incomeTotal += $project->income;
-            $expenseTotal += $project->expense;
+            //$expenseTotal += $project->expense;
         }
-        $balanceTotal = $incomeTotal - $expenseTotal;
+        //$balanceTotal = $incomeTotal - $expenseTotal;
     }
 
+    if($record !== NULL){
+        
+        $customerdata = $record->data;
+
+        $UBmeasures = (($measurements->UB !== null) ? (array)$measurements->UB : null); //Upperbody measurements
+        $LBmeasures = (($measurements->LB !== null) ? (array)$measurements->LB : null); //Lowerbody measurements
+
+        $projectsList   = ($projectsCount < 1) ? null : $projects->projectlist;
+
+        $customerName = isset($customerdata->fullname) ? $customerdata->fullname : $customerdata->username;
+        $initials = getInitials($customerName);
+    }
 ?>
 <!---------------------------------------->
 <body id="kt_body" style="<?= $bodystyle; ?>" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
@@ -44,14 +51,13 @@ $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
                 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
                     <div class="content flex-row-fluid" id="kt_content">
                         <div class="row g-5 g-xl-10">
-                            <?php 
-                                if (isset($_GET['cid']) && !empty($_GET['cid'])){
-                                    include('views/addProject/1-customersummary.php');
-                                    include('views/addProject/2-project_details.php');
-                                } else {
-                                    include_once('views/general/404_content.php');
-                                }
-                            ?>
+                            <div class="col-xl-12 mb-xl-10">
+                                <?php
+                                    include_once('views/customers/view_customer/1-customersummary.php');
+                                    include_once('views/customers/view_customer/2-measurements.php');
+                                    include_once('views/customers/view_customer/3-customerprojects.php');
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,8 +68,16 @@ $projectsCount  = (empty($projects->data->count)) ? 0 : $projects->data->count;
                 <?php include_once('views/general/scrolltop.php'); ?>
                 
                 <!-- Include Modals -->
+                <?php 
+                if (isset($cid)){
+                    include_once('views/components/modals/upper_body.php');
+                    include_once('views/components/modals/lower_body.php'); 
+                }
+                ?>
+
                 <?php include_once('views/components/modals/share_link.php'); ?>
                 <?php include_once('views/components/modals/new_customer.php'); ?>
+                <?php include_once('views/components/modals/new_project.php'); ?>
 
             </div>
         </div>

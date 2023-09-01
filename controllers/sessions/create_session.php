@@ -138,6 +138,7 @@
         $_SESSION["userid"] = $ret_id;
         $_SESSION["username"] = $ret_username;
         $_SESSION["accesstoken"] = $accessToken;
+        $_SESSION["role"] = $ret_role;
 
         $returnData = array();
         $returnData['session_id'] = intval($lastSessionID); //cast as integer

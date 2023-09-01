@@ -37,21 +37,37 @@
                 
                 <div class="separator my-2"></div>
                 
-                <div class="menu-item px-5">
-                    <a href="profile?page=business" class="menu-link px-5">Business Profile</a>
-                </div>
-                <div class="menu-item px-5">
-                    <a href="projects" class="menu-link px-5">
-                        <span class="menu-text">My <?= $alt_job.'s'; ?></span>
-                        <span class="menu-badge">
-                            <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
-                        </span>
-                    </a>
-                </div>
-                <div class="menu-item px-5">
-                    <a href="customers" class="menu-link px-5">My customers</a>
-                </div>
+                <?php if ($logrole === 'business'){ ?>
 
+                    <div class="menu-item px-5">
+                        <a href="profile?page=business" class="menu-link px-5">Business Profile</a>
+                    </div>
+                    <div class="menu-item px-5">
+                        <a href="projects" class="menu-link px-5">
+                            <span class="menu-text">My <?= $alt_job.'s'; ?></span>
+                            <span class="menu-badge">
+                                <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="menu-item px-5">
+                        <a href="customers" class="menu-link px-5">My customers</a>
+                    </div>
+
+                <?php } else { ?>
+
+                    <div class="menu-item px-5">
+                        <a href="profile?page=details" class="menu-link px-5">My Profile</a>
+                    </div>
+                    <div class="menu-item px-5">
+                        <a href="measurements" class="menu-link px-5">Measurement Data</a>
+                    </div>
+                    <div class="menu-item px-5">
+                        <a href="projects" class="menu-link px-5">My <?= $alt_job.'s'; ?></a>
+                    </div>
+                    
+                <?php } ?>
+                    
                 <div class="separator my-2"></div>
                 
                 <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start">
@@ -93,13 +109,13 @@
                         </div>
                     </div>
                 </div>
-                <!--end::Menu item-->
+                
                 <div class="menu-item px-5 my-1">
                     <a href="profile" class="menu-link px-5">Account Settings</a>
                 </div>
                 <div class="menu-item px-5">
                     
-                    <a onClick="logout(<?= $logsessionid; ?>, '<?= $logtoken; ?>')" class="menu-link px-5" id="logout_link">Sign Out
+                    <a onClick="logout(<?= $logsessionid; ?>, '<?= $logtoken; ?>', '<?= $logrole; ?>')" class="menu-link px-5" id="logout_link">Sign Out
                         <span class="indicator-progress"><span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </a>
                 </div>

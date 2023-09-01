@@ -10,8 +10,13 @@
         <form id="project_details_form" class="form" onSubmit="return false;">
             <div class="card-body border-top p-9">
 
+            <?php if ($userdata->role === "business") { ?>
                 <input type="hidden" name="tailorid" value="<?= $loguserid; ?>"/>
                 <input type="hidden" name="customerid" value="<?= $cid; ?>"/>
+            <?php } else { ?>
+                <input type="hidden" name="tailorid" value="<?= $tid; ?>"/>
+                <input type="hidden" name="customerid" value="<?= $loguserid; ?>"/>
+            <?php } ?>
 
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label required fw-bold fs-6">Title</label>
@@ -84,6 +89,7 @@
                     </div>
                 </div>
 
+                <?php if ($userdata->role === "business") { ?>
                 <br/>
                 <hr/>
                 <h3 class="fw-bolder m-0">Project Financials</h3>
@@ -106,6 +112,7 @@
                         </div>
                     </div>
                 </div>
+                <?php } ?>
 
             </div>
             

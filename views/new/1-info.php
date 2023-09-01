@@ -16,7 +16,7 @@
         $infoTitle = 'Hi there, your tailor needs your help';
         $infoText = 'Login to manage your information. Ask your tailor for a link if you don\'t have an account';
         $infoImage = 'assets/media/illustrations/sigma-1/8.png';
-        $infoLinks = '<a href="history.back();">Go Back</a> &nbsp;';
+        $infoLinks = '<a href="#">HOW IT WORKS</a> &nbsp;';
     } else {
         $infoTitle = $infoImage = $infoLinks = $infoText = "undefined";
     }

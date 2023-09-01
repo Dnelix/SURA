@@ -30,6 +30,8 @@
                     
                     <div class="d-flex my-4">
                         <a href="#" onClick="history.back()" class="btn btn-sm btn-light me-2"><span class="indicator-label"><i class="fa fa-arrow-left"></i> Go back</span></a>
+                        
+                        <?php if ($customerdata->role === 'business'){ ?>
                         <div class="me-0">
                             <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                 <i class="bi bi-three-dots fs-3"></i>
@@ -43,6 +45,7 @@
                                 <div class="menu-item px-3"><a href="#" class="menu-link px-3">Report Customer</a></div>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 
@@ -63,6 +66,7 @@
                             <div class="fw-bold fs-6 text-gray-400"><?= $alt_job; ?>s</div>
                         </div>
                         
+                        <?php if ($customerdata->role === 'business'){ ?>
                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <div class="d-flex align-items-center">
                                 <i class="fa fa-arrow-up me-2"></i>
@@ -70,6 +74,7 @@
                             </div>
                             <div class="fw-bold fs-6 text-gray-400">Total Earnings</div>
                         </div>
+                        <?php } ?>
                     </div>
                     
                 </div>

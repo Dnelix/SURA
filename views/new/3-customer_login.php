@@ -1,4 +1,5 @@
 <?php
+  $email = '';
   if (array_key_exists('login', $_GET) && isset($_GET['cid'])){
     $cid = $_GET['cid'];
     $email = (!empty($cid) ? getuserDataById('email', $cid) : null);
@@ -8,7 +9,7 @@
     <div class="flex-row-fluid d-flex flex-center justfiy-content-xl-first p-10">
         <div class="d-flex flex-center p-15 shadow-sm bg-body rounded w-100 w-md-550px mx-auto ms-xl-20">
 
-          <form class="form" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="dashboard">
+          <form class="form" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="measurements">
             <div class="text-center mb-10">
               <h1 class="text-dark mb-3" id="logtext">Login to manage your data</h1>
               <div class="text-gray-400 fw-bold fs-6">Don't have an account? Ask your tailor for a registration link.

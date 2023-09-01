@@ -2,21 +2,27 @@
 
 <?php 
 // $users called in from header.php
-$customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid) -> data;
+if ($logrole === 'business'){
+    $customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid);
+    $customers = (!empty($customers)) ? $customers->data : null;
+    $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid);
+    $projects = (!empty($projects)) ? $projects->data : null; 
+} else {
+    $projects = retrieveDataFrom($c_website.'controllers/projects.php?cid='.$loguserid);
+    $projects = (!empty($projects)) ? $projects->data : null; 
+}
 $customerCount = (isset($customers->count) ? $customers->count : 0);
-
-$projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data; 
 $projectCount = (isset($projects->count) ? $projects->count : 0);
 
-    $incomeTotal = $expenseTotal = $balanceTotal = 0;
-    if(!empty($projects)){
-        $projectlist = $projects->projectlist;
-        foreach ($projectlist as $project) {
-            $incomeTotal += $project->income;
-            $expenseTotal += $project->expense;
-        }
-        $balanceTotal = $incomeTotal - $expenseTotal;
+$incomeTotal = $expenseTotal = $balanceTotal = 0;
+if(!empty($projects)){
+    $projectlist = $projects->projectlist;
+    foreach ($projectlist as $project) {
+        $incomeTotal += $project->income;
+        $expenseTotal += $project->expense;
     }
+    $balanceTotal = $incomeTotal - $expenseTotal;
+}
 
 $biz = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid);
 $bizdata = (isset($biz->data) ? $biz->data : null);
