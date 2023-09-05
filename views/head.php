@@ -30,12 +30,12 @@
 		<!--end::Global Stylesheets Bundle-->
 
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHB3EPXVPG"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FJ6S48DX83"></script>
 		<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
-		gtag('config', 'G-EHB3EPXVPG');
+		gtag('config', 'G-FJ6S48DX83');
 		</script>
 	</head> 

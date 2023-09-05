@@ -1,8 +1,9 @@
 <?php
 
 try{
+    $all_fields = 'id, username, email, phone, fullname, photo, active, DATE_FORMAT(lastlogin, "'.$read_dateformat.'") as lastlogin, loginattempts, role, DATE_FORMAT(createdon, "'.$read_dateformat.'") as createdon';
 
-    $query = $writeDB -> prepare ('SELECT id, username, email, phone, fullname, photo, active, DATE_FORMAT(lastlogin, "'.$read_dateformat.'") as lastlogin, loginattempts, role, DATE_FORMAT(createdon, "'.$read_dateformat.'") as createdon FROM tbl_users');
+    $query = $writeDB -> prepare ('SELECT '.$all_fields.' FROM tbl_users');
     $query -> execute();
 
     $rowCount = $query->rowCount();

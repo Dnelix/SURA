@@ -91,8 +91,13 @@ try{
     $returnData['phone'] = $phone;
     $returnData['active'] = 1;
     $returnData['createdon'] = $createdon;
-
     //sendResponse(201, true, 'User Created', $returnData);
+
+    //10. send email
+    $subject = "We're glad you're here!";
+    $message = "We love to make your work easier. Say goodbye to all the hassles associated with maintaining your customer data. Login to {$c_shortsite} to get started.";
+    $sendMail = sendEmail('welcome', $subject, $email, $username, $message, 'Felix');
+    $returnData['email'] = $sendMail;
 }
 catch (PDOException $e){
     responseServerException($e, 'An error occurred while creating business account. Please try again');

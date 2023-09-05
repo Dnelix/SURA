@@ -97,6 +97,9 @@
                       <tr>
                         <td style="padding: 0 0 10px 0; font-size: 14px; line-height: 150%; font-weight: 400; color: #000000; letter-spacing: 0.01em;">
                           Thanks for choosing {$company}! We are happy to see you on board.
+                          <p><br/>
+                            {$message}
+                          </p>
                         </td>
                       </tr>
                       <tr>

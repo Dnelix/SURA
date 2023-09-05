@@ -1,5 +1,8 @@
 <?php include_once('views/head.php'); ?>
 <?php
+if ($logrole !== 'business'){
+    echo '<script>location.href = "measurements";</script>';
+}
 // $users called in from header.php
 $customers = retrieveDataFrom($c_website.'controllers/customers.php?tailor='.$loguserid) -> data;
 $customerCount = (isset($customers->count) ? $customers->count : 0);

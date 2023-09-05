@@ -224,7 +224,7 @@ function callJSONAPI2($url, $accesstoken=null){
   return $response;
 }
 
-//* Set JSON Request Headers
+// Set JSON Request Headers
 function setJSONRequestHeaders($jsonData, $method){
   $headers = array(
     'Content-Type: application/json',
