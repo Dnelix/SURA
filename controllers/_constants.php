@@ -14,7 +14,7 @@ $company        = "Sura";
 //$c_website    = "https://sura.ng/";
 $c_website      = "http://localhost/2023/sura/"; //trailing slash very important
 $c_shortsite    = "sura.ng";
-$c_title        = ucwords($pageTitle)." : Sura.ng - Easy to use customer database for fashion designers";
+$c_title        = ucwords($pageTitle)." : ".$c_shortsite." - Easy to use customer database for fashion designers";
 $c_tagline      = "Fashion with tech";
 $c_description  = "Easy to use tailor management system and customer database for fashion designers";
 $c_keywords     = "tailor, seamstress, fashion, tailor management system, business, clothes, customers, measurements";
@@ -36,6 +36,7 @@ $alt_job            = "Project";
 
 //LINKS//
 $uploadPath         = '../assets/media/uploads'; //relative to controllers folder
+$logo_image         = $c_website.'assets/media/logos/logo.png';
 $home               = "home";
 $login_link         = "home?login";
 $signup_link        = "home?signup";
@@ -46,6 +47,12 @@ $customer_link      = $c_website.'new?tid=';
 $activation_link    = $c_website.'';
 $getStarted_link    = $c_website.'';
 $privacypolicy_link = $c_website.'';
+
+//SOCIALS
+$c_facebook         = 'https://facebook.com/...';
+$c_twitter          = 'https://twitter.com/...';
+$c_linkedin         = 'https://linkedin.com/...';
+$c_whatsapp         = 'https://api.whatsapp.com/...';
 
 //AUTH//
 $max_loginattempts  = 3;

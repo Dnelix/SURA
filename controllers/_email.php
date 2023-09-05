@@ -27,30 +27,32 @@ if(isset($jsonData->subject) && isset($jsonData->to_mail)){
 $from       = $c_email;
 $from_name  = ((isset($sender) && $sender!=='') ? $sender : $company);
 $bcc        = ($to_mail === $c_email) ? '' : $c_email; //optional
+$year       = date('Y');
 
 // insert HTML email templates and update dynamic contents
-if($type == 'welcome'){
+if($type == 'old'){
+    $email_image = $c_website.'/assets/media/patterns/header-bg-dark.png';
     $htmlFile = file_get_contents('_email/welcome.php');
-} else if ($type == 'reset'){
-    $htmlFile = file_get_contents('_email/...');
+} else if ($type == 'welcome'){
+    $email_image = $c_website.'/assets/media/email/icon-positive-vote-3.svg';
+    $htmlFile = file_get_contents('_email/new.php');
 } else if ($type == 'general'){
-    $htmlFile = file_get_contents('_email/generic.php');
+    $email_image = $c_website.'/assets/media/email/icon-positive-vote-2.svg';
+    $htmlFile = file_get_contents('_email/general.php');
 } else {
-    $htmlFile = file_get_contents('_email/generic.php');
+    $email_image = $c_website.'/assets/media/email/icon-positive-vote-1.svg';
+    $htmlFile = file_get_contents('_email/general.php');
 }
-$htmlBody = str_replace('{$color_sec}', $color_sec, $htmlFile); //notice that this first item is modifying $htmlFile while others will modify $htmlBody in succession
-$htmlBody = str_replace('{$color_pri}', $color_pri, $htmlBody);
-$htmlBody = str_replace('{$to_name}', $to_name, $htmlBody);
-$htmlBody = str_replace('{$subject}', $subject, $htmlBody);
-$htmlBody = str_replace('{$message}', $message, $htmlBody);
-$htmlBody = str_replace('{$sender}', $sender, $htmlBody);
-$htmlBody = str_replace('{$company}', $company, $htmlBody);
-$htmlBody = str_replace('{$getStarted_link}', $getStarted_link, $htmlBody);
-$htmlBody = str_replace('{$activation_link}', $activation_link, $htmlBody);
-$htmlBody = str_replace('{$privacypolicy_link}', $privacypolicy_link, $htmlBody);
-$htmlBody = str_replace('{$c_tagline}', $c_tagline, $htmlBody);
-$htmlBody = str_replace('{$c_website}', $c_website, $htmlBody);
-$htmlBody = str_replace('{$c_description}', $c_description, $htmlBody);
+
+//replace the defined strings within the mail template with the corresponding variables (Aside from the braces, {strings} and variables must be identical)
+$htmlBody = $htmlFile;
+
+$items_to_replace = ['color_pri', 'color_sec', 'to_name', 'subject', 'message', 'sender', 'company', 'getStarted_link', 'activation_link', 'privacypolicy_link', 'c_tagline', 'c_shortsite', 'c_website', 'c_description', 'c_phone', 'c_email', 'svg_verifiedicon', 'email_image', 'logo_image', 'year', 'c_linkedin', 'c_facebook', 'c_twitter', 'c_whatsapp'];
+foreach ($items_to_replace as $item){
+    $placeholder = '{$' . $item . '}';
+    $variable = $$item;
+    $htmlBody = str_replace($placeholder, $variable, $htmlBody);
+}
 
 
 $noHtml = "You are getting this message because your mail client does not support HTML messages, hence you cannot receive emails from {$company}. Kindly update your email to avoid missing out on exciting offers.";
@@ -93,8 +95,8 @@ try{
     $responseData['to'] = "{$to_name} ({$to_mail})";
     //$responseData['message'] = $htmlBody;
 
+    if(!$mail->send()) { echo $mail->ErrorInfo; }
     sendResponse(200, true, 'Mail has been sent successfully', $responseData);
-    $mail->send();
 }
 catch(Exception  $e){
     $msg = "Failed to send email. Mailer Error: {$mail->ErrorInfo}";

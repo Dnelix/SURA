@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title></title>
+  <title>{$c_description}</title>
   <!--[if !mso]><!-- -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--<![endif]-->
@@ -81,10 +81,17 @@
           <table class="container" width="600" cellspacing="0" cellpadding="0" border="0">
             <tbody>
               <tr>
-                <td style="padding:48px 0 30px 0; text-align: center; font-size: 14px; color: {$color_pri}">
-                {$c_shortsite}
+                <td style="padding:48px 0 30px 0; text-align: center; font-size: 18px; color: {$color_pri}">
+                  <h3 style="text-transform:uppercase; font-weight:bold">{$c_shortsite} {$svg_verifiedicon}</h3>
                 </td>
               </tr>
+
+              <tr style="padding:48px 0 30px 0; text-align:center; font-size:18px; background:url({$email_header_image})" bgcolor="{$color_sec}">
+                <td class="head-content" cellpadding="50" style="color: #000000;">
+                  <p><br/></p>
+                </td>
+              </tr>
+
               <tr>
                 <td class="main-content" style="padding: 48px 30px 40px; color: #000000;" bgcolor="#ffffff">
                   <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -97,7 +104,7 @@
                       <tr>
                         <td style="padding: 0 0 10px 0; font-size: 14px; line-height: 150%; font-weight: 400; color: #000000; letter-spacing: 0.01em;">
                           Thanks for choosing {$company}! We are happy to see you on board.
-                          <p><br/>
+                          <p>
                             {$message}
                           </p>
                         </td>
@@ -108,8 +115,8 @@
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 0 0 24px 0;">
-                          <a class="button" href="{$activation_link}" title="Activate Account" style="width: 100%; background: {$color_pri} text-decoration: none; display: inline-block; padding: 10px 0; color: #fff; font-size: 14px; line-height: 21px; text-align: center; font-weight: bold; border-radius: 7px;">Activate Account</a>
+                        <td style="padding: 15px 0 15px 0;" bgcolor="{$color_sec}">
+                          <a class="button" href="{$activation_link}" title="Activate Account" style="width:100%; background-color:{$color_pri}; text-decoration:none; display:inline-block; padding:10px 0; color:#fff; font-size:14px; line-height:21px; text-align:center; font-weight:bold; border-radius:7px;">Activate Account</a>
                         </td>
                       </tr>
                       <tr>
@@ -122,7 +129,7 @@
                           <a style="display: flex; justify-content: space-between; align-items: center; padding: 28px 24px; border-radius: 4px; background-color: #FFF9F9; text-decoration: none;" href="{$getStarted_link}">
                             <span style="width: 90%; font-size: 14px; line-height: 150%; font-weight: bold; color: #29426E; letter-spacing: 0.01em;">Get Started Guide</span>
                             <span style="width: 10%; float: right;">
-                              <strong>→</strong>
+                              <strong> &gt;&gt; </strong>
                             </span>
                           </a>
                         </td>
@@ -132,7 +139,7 @@
                           <a style="display: flex; padding: 28px 24px; border-radius: 4px; background-color: #FFF9F9; text-decoration: none;" href="{$privacypolicy_link}">
                             <span style="width: 90%; font-size: 14px; line-height: 150%; font-weight: bold; color: #29426E; letter-spacing: 0.01em;">Review Privacy Policy</span>
                             <span style="width: 10%; float: right;">
-                              <strong>→</strong>
+                              <strong> &gt;&gt; </strong>
                             </span>
                           </a>
                         </td>

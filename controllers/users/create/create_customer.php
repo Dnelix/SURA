@@ -115,7 +115,7 @@ try{
     $subject = "We're glad you're here!";
     $message = "Update your measurements for your tailor and say goodbye to wrong cloth sizes and late deliveries. Login to {$c_shortsite} to get started.";
     $sendMail = sendEmail('welcome', $subject, $email, $username, $message, 'Felix');
-    $returnData['email'] = $sendMail;
+    $returnData['sendmail'] = $sendMail;
 
 }
 catch (PDOException $e){
