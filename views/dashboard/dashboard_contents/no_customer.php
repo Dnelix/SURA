@@ -53,7 +53,7 @@
                     </div>
                     
                     <div class="d-flex flex-column flex-sm-row d-grid gap-2">
-                        <a href="add_customer" class="btn btn-warning flex-shrink-0 me-2" data-bs-toggle="modal" data-bs-target="#modal_new_customer">Use a Form</a>
+                        <a href="add_customer" class="btn btn-warning flex-shrink-0 me-2" data-bs-toggle="modal" data-bs-target="#modal_new_customer">Create customer</a>
                         <a href="#" class="btn btn-danger flex-shrink-0" style="background: rgba(255, 255, 255, 0.2)" data-bs-toggle="modal" data-bs-target="#modal_share_link">Share Link</a>
                     </div>
                 </div>

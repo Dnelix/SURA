@@ -74,7 +74,7 @@ if(array_key_exists('tailor', $_GET)){
 
 else if(array_key_exists('cid', $_GET)){
     $cid = $_GET['cid'];
-    if($custid == '' || !is_numeric($custid)){ sendResponse(400, false, 'Invalid customer Identifier'); }
+    if($cid == '' || !is_numeric($cid)){ sendResponse(400, false, 'Invalid customer Identifier'); }
     
     if($_SERVER['REQUEST_METHOD'] === 'GET') {
         require_once('projects/list_my_projects.php');

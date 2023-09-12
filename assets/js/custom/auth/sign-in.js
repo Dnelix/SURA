@@ -20,10 +20,7 @@ var KTSigninGeneral = function() {
 					'email': {
                         validators: {
 							notEmpty: {
-								message: 'Email address is required'
-							},
-                            emailAddress: {
-								message: 'The value is not a valid email address'
+								message: 'Email or username is required'
 							}
 						}
 					},

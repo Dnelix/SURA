@@ -203,7 +203,10 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         url: url,
         type: type,
         dataType: 'JSON',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            //"Authorization": `${accesstoken}`
+        },
         //data: formData,
         data: JSON.stringify(formData),
         success: function(response){
@@ -390,10 +393,7 @@ function logout(sessionid, accesstoken, role){
     var formActionURL = "controllers/sessions.php?sessionid="+sessionid;
     var logoutLink = document.querySelector('#logout_link');
     logoutLink.setAttribute('data-kt-indicator', 'on');
-
-    var params = {
-        accesstoken: accesstoken
-    };
+    //var accesstoken = '<?php echo (isset($_SESSION["access_token"]) ? $_SESSION["access_token"] : "");?>';
 
     $.ajax({
         url: formActionURL,
@@ -401,9 +401,10 @@ function logout(sessionid, accesstoken, role){
         dataType: 'JSON',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer '.accesstoken
+            //"Authorization": `Bearer ${accesstoken}`
+            "Authorization": `${accesstoken}`
         },
-        data: JSON.stringify(params),
+        
         success: function(response){
             if(response['statusCode'] !== 200 || response['success'] !== true){
                 var responseMessage = "ERROR: "+response.messages[0];

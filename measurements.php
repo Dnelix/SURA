@@ -55,7 +55,7 @@
                                 <?php
                                     include_once('views/customers/view_customer/1-customersummary.php');
                                     include_once('views/customers/view_customer/2-measurements.php');
-                                    include_once('views/customers/view_customer/3-customerprojects.php');
+                                    include_once('views/customers/view_customer/4-tailorcustomerprojects.php');
                                 ?>
                             </div>
                         </div>

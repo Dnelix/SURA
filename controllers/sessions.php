@@ -30,17 +30,12 @@ if(array_key_exists('sessionid', $_GET)){
     }
     
     //validate authorization
-    /*if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
-        $message = (!isset($_SERVER['HTTP_AUTHORIZATION']) ? 'Access token is missing from the header' : false);
-        $message .= ((strlen($_SERVER['HTTP_AUTHORIZATION']) < 1) ? 'Access token cannot be blank' : false);
+    if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
+        $message = 'Access token is not provided';
         sendResponse(400, false, $message);
         exit(); 
     }
-    $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];*/
-
-    #####Try storing access token in the request and retrieving it from there.
-    $jsonData = validateJsonRequest();
-    $accesstoken = $jsonData->accesstoken;
+    $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];
 
     if($_SERVER['REQUEST_METHOD'] === 'GET') {
         // get details of a particular session (if necessary)
@@ -58,7 +53,7 @@ if(array_key_exists('sessionid', $_GET)){
 
     //else invalid
     else{
-        sendResponse(405, false, 'Invalid session GET request');
+        sendResponse(405, false, 'Invalid session request');
     }
 }
 

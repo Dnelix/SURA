@@ -54,7 +54,6 @@ foreach ($items_to_replace as $item){
     $htmlBody = str_replace($placeholder, $variable, $htmlBody);
 }
 
-
 $noHtml = "You are getting this message because your mail client does not support HTML messages, hence you cannot receive emails from {$company}. Kindly update your email to avoid missing out on exciting offers.";
 
 $mail = new PHPMailer(true);

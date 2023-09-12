@@ -77,7 +77,7 @@
                 <div class="row mb-6">
                     <label class="col-lg-3 col-form-label fw-bold fs-6">Upload Images</label>
                     <div class="col-lg-9 fv-row">
-                        <input type="file" name="style_img1" class="form-control form-control-lg form-control-solid" />
+                        <input type="file" name="style_img1" class="form-control form-control-lg form-control-solid" disabled />
                     </div>
                 </div>
 

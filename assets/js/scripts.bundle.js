@@ -2504,7 +2504,7 @@ var KTPasswordMeter = function(element, options) {
 
     // Default Options
     var defaultOptions = {
-        minLength: 8,
+        minLength: 4,
         checkUppercase: true,        
         checkLowercase: true,
         checkDigit: true,

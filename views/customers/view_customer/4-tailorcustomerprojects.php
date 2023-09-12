@@ -5,10 +5,10 @@
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">Activities</span>
-                    <span class="text-muted mt-1 fw-bold fs-7">You have <?= $projectsCount.' '.$alt_job; ?>(s) with this customer</span>
+                    <span class="text-muted mt-1 fw-bold fs-7">You have <?= $projectsCount.' '.$alt_job; ?>(s) with this tailor</span>
                 </h3>
-                <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to start a new project">
-                    <a href="add_project?cid=<?= $cid; ?>" class="btn btn-sm btn-dark btn-active-primary">
+                <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to start a new project" >
+                    <a href="javascript:newProject();" class="btn btn-sm btn-dark btn-active-primary">
                     <i class="fa fa-plus"></i> New <?= $alt_job; ?></a>
                 </div>
             </div>
@@ -24,11 +24,11 @@
                                     </div>
                                 </th>
                                 <th class="min-w-150px"><?= $alt_job; ?> Info</th>
+                                <th class="min-w-120px">Tailor</th>
                                 <th class="min-w-100px">Start Date</th>
                                 <th class="min-w-100px">End Date</th>
-                                <th class="min-w-100px">Income</th>
-                                <th class="min-w-100px">Expense</th>
-                                <th class="min-w-100px"> Status </th>
+                                <th class="min-w-80px">Expense</th>
+                                <th class="min-w-80px"> Status </th>
                                 <th class="min-w-100px text-end">Actions</th>
                             </tr>
                         </thead>
@@ -51,6 +51,10 @@
                                     <span class="text-muted fw-bold d-block fs-7"><?= limit_text($item->description, 7); ?></span>
                                 </td>
                                 <td>
+                                    <a href="javascript:;" class="text-dark fw-bolder text-hover-primary fs-6"><?= getuserDataById('username', $item->tailorid); ?> </a>
+                                    <span class="text-muted fw-bold d-block fs-7"><?= getuserDataById('email', $item->tailorid); ?></span>
+                                </td>
+                                <td>
                                     <span class="text-dark fw-bolder fs-6"><?= readableDateTime($item->start, 'dateonly'); ?></span>
                                     <span class="text-muted fw-bold d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
@@ -58,8 +62,9 @@
                                     <span class="text-dark fw-bolder fs-6"><?= readableDateTime($item->end, 'dateonly'); ?></span>
                                     <span class="text-muted fw-bold d-block fs-7"><?= readableDateTime($item->start, 'timeonly'); ?></span>
                                 </td>
-                                <td><span class="text-success fw-bolder fs-6"><?= $item->income; ?></span></td>
-                                <td><span class="text-danger fw-bolder fs-6"><?= $item->expense; ?></span></td>
+
+                                <td><span class="text-danger fw-bolder fs-6"><?= $item->income; ?></span></td>
+
                                 <td>
                                     <?= showStatus($item->status); ?>
                                 </td>
@@ -92,22 +97,28 @@
 </div>
 
 <script>
+    function newProject(){
+        swal_Popup('info', 'Sorry, this option is not currently available for customers. Please share the details of the project with your tailor');
+    }
+
     function deleteProject(pid){
         var web = '<?= $c_website; ?>';
         var tid = '<?= $loguserid; ?>';
         var type = 'DELETE';
         var url = web+"controllers/projects.php?tailor="+tid+"&pid="+pid;
 
-        swal_confirm("Are you sure you want to delete this record? This cannot be undone!", "Delete", "Cancel")
-        .then((result) => {
-            if (result.isConfirmed) {
-                AJAXcall(null, null, type, url, null);
-            } else if (result.isDenied) {
-                console.log("Canceled");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+        swal_Popup('error', 'Sorry, you are not authorized to take this action. Please reach out to your tailor to delete this project');
+
+        // swal_confirm("Are you sure you want to delete this record? This cannot be undone!", "Delete", "Cancel")
+        // .then((result) => {
+        //     if (result.isConfirmed) {
+        //         AJAXcall(null, null, type, url, null);
+        //     } else if (result.isDenied) {
+        //         console.log("Canceled");
+        //     }
+        // })
+        // .catch((error) => {
+        //     console.error(error);
+        // });
     }
 </script>

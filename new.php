@@ -11,7 +11,7 @@
                 $tid = $_GET['tid'];
                 include_once('views/new/1-info.php');
 
-                if (isset($_GET['cid']) && !empty($_GET['cid'])){
+                /*if (isset($_GET['cid']) && !empty($_GET['cid'])){
                     $cid = $_GET['cid'];
                     
                     $measurements = retrieveDataFrom($c_website.'controllers/measurements.php?customer='. $cid)->data;
@@ -19,9 +19,9 @@
                     $LBmeasures = (!empty($measurements) ? (array)$measurements->LB : null);
 
                     include_once('views/new/3-measurements.php');
-                } else {
+                } else {*/
                     include_once('views/new/2-customer_reg.php');
-                }
+                //}
 
             } else if (array_key_exists('login', $_GET)){
                 include_once('views/new/1-info.php');

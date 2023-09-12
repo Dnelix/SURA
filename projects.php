@@ -2,7 +2,7 @@
 
 <?php 
     if ($logrole === 'business'){
-        $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid) -> data;
+        $projects = retrieveDataFrom($c_website.'controllers/projects.php?tailor='.$loguserid);
         $projects = (!empty($projects)) ? $projects->data : null; 
     } else {
         $projects = retrieveDataFrom($c_website.'controllers/projects.php?cid='.$loguserid);
@@ -31,7 +31,8 @@
                                 if (isset($_GET['pid']) && $_GET['pid'] !== ''){
                                     include('views/projects/view_project.php'); 
                                 } else {
-                                    include('views/projects/project_list.php'); 
+                                    $list = ($logrole === 'business') ? 'project_list':'customer_project_list';
+                                    include('views/projects/'.$list.'.php'); 
                                 }
                             ?>
                         </div>

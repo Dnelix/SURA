@@ -1,3 +1,11 @@
+<?php
+$email = '';
+if(isset($_GET['uid'])){
+  $email = getuserDataById('email', $_GET['uid']);
+}
+
+?>
+
     <div class="flex-row-fluid d-flex flex-center justfiy-content-xl-first p-10">
         <div class="d-flex flex-center p-15 shadow-sm bg-body rounded w-100 w-md-550px mx-auto ms-xl-20">
 
@@ -10,7 +18,7 @@
 
             <div class="fv-row mb-10">
               <label class="form-label fw-bolder text-dark fs-6">Email/Username</label>
-              <input class="form-control form-control-solid" type="email" placeholder="" name="email" autoComplete="on" />
+              <input class="form-control form-control-solid" type="email" value="<?= $email; ?>" name="email" autoComplete="on" />
             </div>
           
             <div class="fv-row mb-10">

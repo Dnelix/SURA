@@ -5,7 +5,7 @@ try{
 
     //connect to the $readDB to perform this query
     $query = $readDB -> prepare ('SELECT '.$fields.' FROM tbl_projects WHERE customerid=:cid ORDER BY id DESC');
-    $query -> bindParam(':cid', $custid, PDO::PARAM_INT);
+    $query -> bindParam(':cid', $cid, PDO::PARAM_INT);
     $query -> execute();
 
     $rowCount = $query->rowCount();

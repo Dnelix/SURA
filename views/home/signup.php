@@ -51,7 +51,7 @@
                     <!--end::Meter-->
                 </div>
                 
-                <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp; symbols.</div>
+                <div class="text-muted">Use 5 or more characters with a mix of letters, numbers &amp; symbols.</div>
             </div>
             <!--end::password group=-->
             

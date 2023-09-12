@@ -17,6 +17,9 @@ if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
     sendResponse(200, true, '');
 }
 
+// $ret_userid = checkAuthStatus($writeDB);
+// sendResponse(405, false, $ret_userid); exit();
+
 //keep track of all columns in the db_table that can potentially be retrieved/updated
 $all_fields = 'id, owner, name, description, photo, phone, email, website, country, state, city, address, measure_unit, currency, t_income, t_expenses';
 

@@ -24,6 +24,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('users/create_user.php');
 }
 
+//check auth status here (user will not be logged in before self registration)
+
 if(array_key_exists('userid', $_GET)){
     $userid = $_GET['userid'];
 

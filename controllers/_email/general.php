@@ -61,11 +61,11 @@
                                 <div style="text-align:center; margin:0 15px 34px 15px">
                                     <div style="margin-bottom: 10px">
                                         <a href="{$c_website}" rel="noopener" target="_blank">
-                                            <img alt="Logo" src="{$logo_image}" style="max-width:100%; height: 35px"/>                
+                                            <img alt="Logo" src="{$logo_image}" style="max-width:80%; height: 35px"/>                
                                         </a>
                                     </div>
                                     <div style="margin-bottom: 15px">
-                                        <img alt="Image" src="{$email_image}"/>              
+                                        <img alt="Image" src="{$email_image}" style="max-width:100%;"/>              
                                     </div>
                                     <div style="font-weight: 500; margin-bottom: 27px; font-family:Arial,Helvetica,sans-serif;">
                                         <p style="margin-bottom:9px; color:#181C32; font-size: 22px; font-weight:700">{$subject}</p>

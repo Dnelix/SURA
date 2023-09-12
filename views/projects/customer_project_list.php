@@ -1,4 +1,8 @@
 <?php
+// work still needs to be done here
+include_once('views/general/construction.php');
+exit();
+//nothing below here will show
 $filter = (isset($_GET['filter'])) ? $_GET['filter'] : 'ALL';
 ?>
 

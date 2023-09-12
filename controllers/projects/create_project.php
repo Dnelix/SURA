@@ -47,8 +47,8 @@ PAYLOAD
     $remind     = (isset($jsonData->remind_on) ? addtoDate($end, $jsonData->remind_on) : null );
     $status     = (isset($jsonData->status) ? $jsonData->status : "Not Started" );
     $style_catg = (isset($jsonData->style_catg) ? $jsonData->style_catg : "" );
-    $income     = (isset($jsonData->income) ? $jsonData->income : 0 );
-    $expense    = (isset($jsonData->expense) ? $jsonData->expense : 0 );
+    $income     = (!empty($jsonData->income) ? $jsonData->income : 0.0 );
+    $expense    = (!empty($jsonData->expense) ? $jsonData->expense : 0.0 );
     $notes      = (isset($jsonData->notes) ? $jsonData->notes : "" );
     //4. Handle Images
     $style_img1 = (isset($jsonData->style_img1) ? $jsonData->style_img1 : "" );

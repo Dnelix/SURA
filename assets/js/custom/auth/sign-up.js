@@ -48,7 +48,7 @@ var KTSignupGeneral = function() {
                                 message: 'The password is required'
                             },
                             callback: {
-                                message: 'Please enter valid password',
+                                message: 'Your password does not meet the complexity requirements',
                                 callback: function(input) {
                                     if (input.value.length > 0) {
                                         return validatePassword();
@@ -163,7 +163,7 @@ var KTSignupGeneral = function() {
                                         // form.submit(); // submit form
                                         var redirectUrl = form.getAttribute('data-kt-redirect-url');
                                         if (redirectUrl) {
-                                            location.href = redirectUrl;
+                                            location.href = redirectUrl+'&uid='+response.data['user_id'];
                                         }
                                 });
                             }
@@ -194,7 +194,7 @@ var KTSignupGeneral = function() {
 
     // Password input validation
     var validatePassword = function() {
-        return  (passwordMeter.getScore() >= 75);
+        return  (passwordMeter.getScore() >= 50);
     }
 
     // Public functions

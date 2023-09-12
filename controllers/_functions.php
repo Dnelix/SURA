@@ -50,61 +50,6 @@ function generateTokens() {
     'refresh_token_expiry' => $refreshtoken_expiry
   );
 }
-//**
-function checkAuthStatus($writeDB, $accesstoken=null){
-  global $max_loginattempts;
-
-  /*if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
-      sendResponse(401, false, 'Access token is missing or empty');
-  }
-  $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];*/
-  
-  try{
-      //get the user id associated with the access token (query both user and sessions tables)
-      $query = $writeDB -> prepare('SELECT tbl_sessions.id AS sessionid, userid, a_tokenexpiry, refreshtoken, r_tokenexpiry, active, loginattempts FROM tbl_sessions, tbl_users WHERE tbl_sessions.userid = tbl_users.id AND accesstoken = :accesstoken');
-      $query -> bindParam(':accesstoken', $accesstoken, PDO::PARAM_STR);
-      $query -> execute();
-  
-      $rowCount = $query -> rowCount();
-      if($rowCount === 0){
-          sendResponse(401, false, 'Invalid access token provided');
-      }
-  
-      $row = $query -> fetch(PDO::FETCH_ASSOC);
-  
-      $ret_sessionid = $row['sessionid'];
-      $ret_userid = $row['userid'];
-      $ret_a_tokenexpiry = $row['a_tokenexpiry'];
-      $ret_refreshtoken = $row['refreshtoken'];
-      $ret_r_tokenexpiry = $row['r_tokenexpiry'];
-      $ret_active = $row['active'];
-      $ret_loginattempts = $row['loginattempts'];
-  
-      if($ret_active !== '1'){
-          sendResponse(401, false, 'User account not active');
-      }
-      if($ret_loginattempts >= $max_loginattempts){
-          sendResponse(401, false, 'User account currently locked out');
-      }
-      //if the access token expiry time is less than the current time, then it has expired
-      if(strtotime($ret_a_tokenexpiry) < time()){
-          if(strtotime($ret_r_tokenexpiry) >= time()){ // optional. Check if refresh token is still active
-              $returnData = array();
-              $returnData['sessionID'] = $ret_sessionid;
-              $returnData['refresh_token'] = $ret_refreshtoken;
-              sendResponse(401, false, 'Access token expired',  $returnData);
-          }
-          sendResponse(401, false, 'Your login have expired. Please login again');
-      }
-
-      //else return user id (included because this is a function)
-      return $ret_userid;
-  
-  }
-  catch (PDOException $e){
-      responseServerException($e, 'There was an issue with authentication. Please try again');
-  }
-}
 
 // JSON
 function validateJsonRequest() {
@@ -225,10 +170,14 @@ function callJSONAPI2($url, $accesstoken=null){
 }
 
 // Set JSON Request Headers
-function setJSONRequestHeaders($jsonData, $method){
+function setJSONRequestHeaders($jsonData, $method, $token=null){
+  //$auth = (!empty($token) ? "Authorization: Bearer $token" : null);
+  $auth = (!empty($token) ? "Authorization: $token" : null);
+
   $headers = array(
     'Content-Type: application/json',
-    'Content-Length: ' . strlen($jsonData)
+    'Content-Length: ' . strlen($jsonData),
+    $auth
   );
 
   // Create the stream context with headers
@@ -244,9 +193,9 @@ function setJSONRequestHeaders($jsonData, $method){
 }
 
 // Send data to controller
-function sendToController($data, $controllerURL){
+function sendToController($data, $controllerURL, $method='POST', $token=null){
   $jsonData = json_encode($data);               // Convert the data to JSON
-  $context = setJSONRequestHeaders($jsonData, 'POST');  // set request headers
+  $context = setJSONRequestHeaders($jsonData, $method, $token);  // set request headers
 
   global $c_website;
   $fileURL = $c_website . $controllerURL;
@@ -560,9 +509,70 @@ function getUploadFileExtension($fileName, $allowedArray=null) {
 ##########################################
 # DATABASE CALLS
 ##########################################
+function checkAuthStatus($writeDB, $accesstoken=null){
+  global $max_loginattempts;
+
+  if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
+      sendResponse(401, false, 'Access token is missing or empty');
+  }
+  $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];
+  
+  try{
+      //get the user id associated with the access token (query both user and sessions tables)
+      $query = $writeDB -> prepare('SELECT s.id AS sessionid, s.userid, s.a_tokenexpiry, s.refreshtoken, s.r_tokenexpiry, u.active, u.loginattempts FROM tbl_sessions AS s, tbl_users AS u WHERE s.userid = u.id AND s.accesstoken = :accesstoken');
+      $query -> bindParam(':accesstoken', $accesstoken, PDO::PARAM_STR);
+      $query -> execute();
+  
+      $rowCount = $query -> rowCount();
+      if($rowCount === 0){
+          sendResponse(401, false, 'Invalid access token!');
+      }
+  
+      $row = $query -> fetch(PDO::FETCH_ASSOC);
+  
+      $ret_sessionid = $row['sessionid'];
+      $ret_userid = $row['userid'];
+      $ret_a_tokenexpiry = $row['a_tokenexpiry'];
+      $ret_refreshtoken = $row['refreshtoken'];
+      $ret_r_tokenexpiry = $row['r_tokenexpiry'];
+      $ret_active = $row['active'];
+      $ret_loginattempts = $row['loginattempts'];
+  
+      if($ret_active !== '1'){
+          sendResponse(401, false, 'User account not active');
+      }
+      if($ret_loginattempts >= $max_loginattempts){
+          sendResponse(401, false, 'User account currently locked out');
+      }
+      //if the access token expiry time is less than the current time, then it has expired
+      if(strtotime($ret_a_tokenexpiry) < time()){
+          if(strtotime($ret_r_tokenexpiry) >= time()){ // optional. Check if refresh token is still active
+              $returnData = array();
+              $returnData['sessionID'] = $ret_sessionid;
+              $returnData['refresh_token'] = $ret_refreshtoken;
+              sendResponse(401, false, 'Access token expired',  $returnData);
+
+              //update access token with refresh token
+          }
+          //delete session entry from table
+          $controllerURL = 'controllers/sessions.php?sessionid='.$ret_sessionid;
+          return sendToController(null, $controllerURL, 'DELETE', $accesstoken);
+
+          sendResponse(401, false, 'Your login have expired. Please login again');
+      }
+
+      //else return user id (included because this is a function)
+      return $ret_userid;
+  
+  }
+  catch (PDOException $e){
+      responseServerException($e, 'There was an issue with authentication. Please try again');
+  }
+}
+
 function getuserDataById($data, $id){
   global $c_website;
-  $users = retrieveDataFrom($c_website.'controllers/users.php?userid='.$id);
+  $users = retrieveDataFrom($c_website.'controllers/users.php?userid='.intval($id));
   $userdata = (($users -> data !== null) ? $users->data->$data : null);
   return $userdata;
 }
