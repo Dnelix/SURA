@@ -69,7 +69,7 @@
                                         </a>
                                     </div>
                                     <div style="margin-bottom: 15px">
-                                        <img alt="Image" src="{$email_image}" style="max-width:100%;"/>              
+                                        <img alt="Image" src="{$email_image}" style="max-width:100%;"/>
                                     </div>
                                     <div style="font-weight: 500; margin-bottom: 27px; font-family:Arial,Helvetica,sans-serif;">
                                         <p style="margin-bottom:9px; color:#181C32; font-size: 22px; font-weight:700">Hey {$to_name}, thanks for signing up!</p>

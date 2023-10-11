@@ -61,7 +61,7 @@
                                 $wearOptions = retrieveDataFrom('models/databases/wear-categories.json');
                                 foreach ($wearOptions as $cat){
                                     $sel = ($cat->name == $style_catg) ? 'selected':'';
-                                    echo '<option value="'.$cat->name.'" '.$sel.' >'. $cat->name .' ('. implode($cat->types, ", ") .')</option>';
+                                    echo '<option value="'.$cat->name.'" '.$sel.' >'. $cat->name .' ('. implode(", ", $cat->types) .')</option>';
                                 } 
                             ?>
                         </select>

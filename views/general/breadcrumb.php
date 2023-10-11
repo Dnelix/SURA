@@ -23,6 +23,7 @@
             </div>
             <!--end::Page title-->
 
+            <?php if ($logrole === 'business'){ ?>
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-3 py-md-1">
                 <div class="me-4">
@@ -86,5 +87,6 @@
 
             </div>
             <!--end::Actions-->
+            <?php } ?>
         </div>
     </div>

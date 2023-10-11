@@ -31,16 +31,16 @@ $year       = date('Y');
 
 // insert HTML email templates and update dynamic contents
 if($type == 'old'){
-    $email_image = $c_website.'/assets/media/patterns/header-bg-dark.png';
+    $email_image = $c_website.'assets/media/patterns/header-bg-dark.png';
     $htmlFile = file_get_contents('_email/welcome.php');
 } else if ($type == 'welcome'){
-    $email_image = $c_website.'/assets/media/email/icon-positive-vote-3.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-3.svg';
     $htmlFile = file_get_contents('_email/new.php');
 } else if ($type == 'general'){
-    $email_image = $c_website.'/assets/media/email/icon-positive-vote-2.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-2.svg';
     $htmlFile = file_get_contents('_email/general.php');
 } else {
-    $email_image = $c_website.'/assets/media/email/icon-positive-vote-1.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-1.svg';
     $htmlFile = file_get_contents('_email/general.php');
 }
 
@@ -94,8 +94,11 @@ try{
     $responseData['to'] = "{$to_name} ({$to_mail})";
     //$responseData['message'] = $htmlBody;
 
-    if(!$mail->send()) { echo $mail->ErrorInfo; }
-    sendResponse(200, true, 'Mail has been sent successfully', $responseData);
+    if(!$mail->send()) { //echo $mail->ErrorInfo; 
+        sendResponse(401, false, 'Mail sending failed!', $mail->ErrorInfo);
+    } else {
+        sendResponse(200, true, 'Mail has been sent successfully', $responseData);
+    }
 }
 catch(Exception  $e){
     $msg = "Failed to send email. Mailer Error: {$mail->ErrorInfo}";

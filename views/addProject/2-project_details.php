@@ -69,7 +69,7 @@
                             <?php
                                 $wearOptions = retrieveDataFrom('models/databases/wear-categories.json');
                                 foreach ($wearOptions as $cat){
-                                    echo '<option value="'.$cat->name.'">'. $cat->name .' ('. implode($cat->types, ", ") .')</option>';
+                                    echo '<option value="'.$cat->name.'">'. $cat->name .' ('. implode(", ", $cat->types) .')</option>';
                                 } 
                             ?>
                         </select>

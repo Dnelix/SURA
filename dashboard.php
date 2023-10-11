@@ -21,7 +21,7 @@ $projectCount = (isset($projects->count) ? $projects->count : 0);
         $balanceTotal = $incomeTotal - $expenseTotal;
     }
 
-$openProjects = empty($projects) ? null : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
+$openProjects = empty($projects) ? array() : array_filter($projects->projectlist, function($item) { return $item->status !== 'Completed'; });
 $bizdata = retrieveDataFrom($c_website.'controllers/business.php?userid='.$loguserid) -> data;
 
 ?>

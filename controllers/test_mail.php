@@ -5,5 +5,12 @@ require_once('_constants.php');
 require_once('_functions.php');
 
 $sendMail = sendEmail('welcome', 'Welcome to '.$company, 'domainbuy101@gmail.com', 'Dnelix', 'Testing this mail', 'Felix');
-sendResponse(200, true, 'Mail has been sent successfully', $sendMail);
+
+echo $sendMail;
+
+// if($sendMail){
+//     sendResponse(200, true, 'Mail has been sent successfully', $sendMail);
+// } else {
+//     sendResponse(401, false, 'Mail not successful', $sendMail);
+// }
 ?>

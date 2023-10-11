@@ -143,8 +143,8 @@ function callJSONAPI($url, $data=[], $accesstoken=null, $type='POST'){
   return $response;
   curl_close($ch);
 }
-function callJSONAPI2($url, $accesstoken=null){
-  $postFields = '{"from":{"email":"mailtrap@rinotradefx.com","name":"Mailtrap Test"},"to":[{"email":"domainbuy101@gmail.com"}]}'; // for test. This should be dynamic array
+function callJSONAPI2($url, $postData, $accesstoken=null){
+  //$postData = '{"from":{"email":"mailtrap@rinotradefx.com","name":"Mailtrap Test"},"to":[{"email":"domainbuy101@gmail.com"}]}'; // for test. This should be dynamic array
 
   $curl = curl_init();
   curl_setopt_array($curl, array(
@@ -156,17 +156,21 @@ function callJSONAPI2($url, $accesstoken=null){
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => $postFields,
+      CURLOPT_POSTFIELDS => $postData,
       CURLOPT_HTTPHEADER => array(
           'Authorization: Bearer ' . $accesstoken,
           'Content-Type: application/json'
       ),
   ));
 
-  $response = curl_exec($curl);
+  if (curl_error($curl)) {
+    $response = curl_error($curl);
+  } else {
+    $response = curl_exec($curl);
+  }
 
-  curl_close($curl);
   return $response;
+  curl_close($curl);
 }
 
 // Set JSON Request Headers
@@ -205,8 +209,8 @@ function sendToController($data, $controllerURL, $method='POST', $token=null){
 
   //return $feedback;
   $cleanOutput = json_decode($feedback);
-  return $cleanOutput; //return all data (using for test only)
-  //return $cleanOutput->messages[0]; //return only the response message
+  //return $cleanOutput; //return all data (using for test only)
+  return $cleanOutput->messages[0]; //return only the response message
 }
 
 // Validate required fields

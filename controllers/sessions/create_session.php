@@ -40,7 +40,7 @@
         $rowCount = $query -> rowCount();
 
         if($rowCount === 0 || $rowCount > 1){
-            sendResponse(401, false, 'User not found or invalid!');
+            sendResponse(401, false, 'Invalid login credentials! Select SIGNUP to create an account or use the FORGOT PASSWORD option if you already have an account');
         }
         
         //no need for while statement since it's only going to be a single record
