@@ -34,13 +34,13 @@ if($type == 'old'){
     $email_image = $c_website.'assets/media/patterns/header-bg-dark.png';
     $htmlFile = file_get_contents('_email/welcome.php');
 } else if ($type == 'welcome'){
-    $email_image = $c_website.'assets/media/email/icon-positive-vote-3.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-3.png';
     $htmlFile = file_get_contents('_email/new.php');
 } else if ($type == 'general'){
-    $email_image = $c_website.'assets/media/email/icon-positive-vote-2.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-2.png';
     $htmlFile = file_get_contents('_email/general.php');
 } else {
-    $email_image = $c_website.'assets/media/email/icon-positive-vote-1.svg';
+    $email_image = $c_website.'assets/media/email/icon-positive-vote-1.png';
     $htmlFile = file_get_contents('_email/general.php');
 }
 

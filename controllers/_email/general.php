@@ -101,10 +101,10 @@
                         
                         <tr>
                             <td align="center" valign="center" style="text-align:center; padding-bottom: 20px;">                                
-                                <a href="{$c_linkedin}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-linkedin.svg"/></a>    
-                                <a href="{$c_whatsapp}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-dribbble.svg"/></a>    
-                                <a href="{$c_facebook}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-facebook.svg"/></a>   
-                                <a href="{$c_twitter}"><img alt="Logo" src="{$c_website}assets/media/email/icon-twitter.svg"/></a>                           
+                                <a href="{$c_linkedin}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-linkedin.png"/></a>    
+                                <a href="{$c_whatsapp}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-dribbble.png"/></a>    
+                                <a href="{$c_facebook}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-facebook.png"/></a>   
+                                <a href="{$c_twitter}"><img alt="Logo" src="{$c_website}assets/media/email/icon-twitter.png"/></a>                           
                             </td>
                         </tr>
                         

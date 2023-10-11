@@ -209,8 +209,8 @@ function sendToController($data, $controllerURL, $method='POST', $token=null){
 
   //return $feedback;
   $cleanOutput = json_decode($feedback);
-  //return $cleanOutput; //return all data (using for test only)
-  return $cleanOutput->messages[0]; //return only the response message
+  return $cleanOutput; //return all data (using for test only)
+  //return $cleanOutput->messages[0]; //return only the response message
 }
 
 // Validate required fields

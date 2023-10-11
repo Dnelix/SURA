@@ -91,7 +91,7 @@
                                 <div style="background: #F9F9F9; border-radius: 12px; padding:35px 30px">
                                     <div style="display:flex">
                                         <div style="display: flex; justify-content: center; align-items: center; width:40px; height:40px; margin-right:13px">
-                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.svg"/>  
+                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.png"/>  
                                             <span style="position: absolute; color:{$color_pri}; font-size: 16px; font-weight: 600;"> 1 </span>
                                         </div>
                                         <div>
@@ -107,7 +107,7 @@
 
                                     <div style="display:flex">
                                         <div style="display: flex; justify-content: center; align-items: center; width:40px; height:40px; margin-right:13px">
-                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.svg"/>
+                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.png"/>
                                             <span style="position: absolute; color:{$color_pri}; font-size: 16px; font-weight: 600;"> 2 </span>
                                         </div>
                                         <div>
@@ -123,7 +123,7 @@
 
                                     <div style="display:flex">
                                         <div style="display: flex; justify-content: center; align-items: center; width:40px; height:40px; margin-right:13px">
-                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.svg"/>  
+                                            <img alt="Logo" src="{$c_website}assets/media/email/icon-polygon.png"/>  
                                             <span style="position: absolute; color:{$color_pri}; font-size: 16px; font-weight: 600;"> 3 </span>                   
                                         </div>
                                         <div>
@@ -154,10 +154,10 @@
                         
                         <tr>
                             <td align="center" valign="center" style="text-align:center; padding-bottom: 20px;">                                
-                                <a href="{$c_linkedin}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-linkedin.svg"/></a>    
-                                <a href="{$c_whatsapp}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-dribbble.svg"/></a>    
-                                <a href="{$c_facebook}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-facebook.svg"/></a>   
-                                <a href="{$c_twitter}"><img alt="Logo" src="{$c_website}assets/media/email/icon-twitter.svg"/></a>                           
+                                <a href="{$c_linkedin}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-linkedin.png"/></a>    
+                                <a href="{$c_whatsapp}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-dribbble.png"/></a>    
+                                <a href="{$c_facebook}" style="margin-right:10px"><img alt="Logo" src="{$c_website}assets/media/email/icon-facebook.png"/></a>   
+                                <a href="{$c_twitter}"><img alt="Logo" src="{$c_website}assets/media/email/icon-twitter.png"/></a>                           
                             </td>
                         </tr>
                         
