@@ -97,7 +97,7 @@ try{
     if(!$mail->send()) { //echo $mail->ErrorInfo; 
         sendResponse(401, false, 'Mail sending failed!', $mail->ErrorInfo);
     } else {
-        sendResponse(200, true, 'Mail has been sent successfully', $responseData);
+        sendResponse(200, true, 'Mail has been sent successfully');
     }
 }
 catch(Exception  $e){

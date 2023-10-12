@@ -198,7 +198,7 @@ function setJSONRequestHeaders($jsonData, $method, $token=null){
 
 // Send data to controller
 function sendToController($data, $controllerURL, $method='POST', $token=null){
-  $jsonData = json_encode($data);               // Convert the data to JSON
+  $jsonData = json_encode($data);                                 // Convert the data to JSON
   $context = setJSONRequestHeaders($jsonData, $method, $token);  // set request headers
 
   global $c_website;
@@ -208,9 +208,27 @@ function sendToController($data, $controllerURL, $method='POST', $token=null){
   //$feedback = file_get_contents($fileURL . '?data=' . urlencode($jsonData));  //GET method
 
   //return $feedback;
-  $cleanOutput = json_decode($feedback);
-  return $cleanOutput; //return all data (using for test only)
+  //$cleanOutput = json_decode($feedback);
+  //return $cleanOutput; //return all data (using for test only)
   //return $cleanOutput->messages[0]; //return only the response message
+  
+  // Find the block of the JSON response
+  $jsonStart = strpos($feedback, '{"statusCode"');
+  $jsonEnd = strrpos($feedback, '}');
+  $jsonLength = $jsonEnd - $jsonStart + 1;
+  
+  // Extract the JSON string
+  $jsonString = substr($feedback, $jsonStart, $jsonLength);
+  
+  // Decode the JSON string
+  $jsonData = json_decode($jsonString, true);
+  
+  if ($jsonData !== null){
+    $messages = $jsonData['messages'][0];
+    return $messages;
+  } else {
+      return 'Error decoding JSON.';
+  }
 }
 
 // Validate required fields
