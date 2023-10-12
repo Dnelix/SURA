@@ -87,12 +87,12 @@ try{
     $mail->msgHTML($htmlBody, __DIR__);                         //Read HTML from external file, convert referenced images to embedded. Convert HTML into a basic plain-text alternative body
     $mail->AltBody = $noHtml;
     
-    $responseData = array();
+    /*$responseData = array();
     $responseData['type'] = $type;
     $responseData['subject'] = $subject;
     $responseData['from'] = "{$from_name} ({$from})";
     $responseData['to'] = "{$to_name} ({$to_mail})";
-    //$responseData['message'] = $htmlBody;
+    //$responseData['message'] = $htmlBody;*/
 
     if(!$mail->send()) { //echo $mail->ErrorInfo; 
         sendResponse(401, false, 'Mail sending failed!', $mail->ErrorInfo);
