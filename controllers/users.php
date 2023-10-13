@@ -24,6 +24,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('users/create_user.php');
 }
 
+if(array_key_exists('reset', $_GET) && isset($_GET['data'])){
+    $resetUserData = $_GET['data'];     //data can be email or username
+
+    if(!empty($resetUserData) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+        require_once('users/reset/send_reset_link.php'); exit();
+    } else if (!empty($resetUserData) && $_SERVER['REQUEST_METHOD'] === 'PATCH'){
+        require_once('users/reset/reset_userpassword.php'); exit();
+    } else {
+        sendResponse(401, false, 'Invalid request method or parameters');
+    }
+}
+
 //check auth status here (user will not be logged in before self registration)
 
 if(array_key_exists('userid', $_GET)){

@@ -18,7 +18,7 @@ if(isset($jsonData->subject) && isset($jsonData->to_mail)){
     $type       = (isset($jsonData->type) ? $jsonData->type : '');
     $to_name    = (isset($jsonData->to_name) ? $jsonData->to_name : '');
     $message    = (isset($jsonData->message) ? $jsonData->message : '');
-    $sender     = (isset($jsonData->sender) ? $jsonData->sender : $company);
+    $sender     = (isset($jsonData->sender) && !empty($jsonData->sender)) ? $jsonData->sender : 'Customer Service Team';
 } else {
     sendResponse(400, false, 'Invalid data in the JSON body. Unable to proceed');
     exit();

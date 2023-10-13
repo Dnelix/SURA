@@ -55,7 +55,7 @@ function escapeHTML(input) {
 //Sweetalert pop-ups
 function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     // status = error/success
-    if (!responseMessage) {
+    if (!responseMessage || responseMessage == '') {
         responseMessage = 'NO RESPONSE MESSAGE!';
     }
     if (status === 'error'){ var btn_type = "btn font-weight-bold btn-danger";} 
@@ -64,7 +64,7 @@ function swal_Popup(status, responseMessage, btn_text='Ok, got it!'){
     else { var btn_type = "btn btn-warning";}
 
     Swal.fire({
-        text: responseMessage,
+        html: responseMessage,
         icon: status,
         buttonsStyling: false,
         confirmButtonText: btn_text,
@@ -153,6 +153,19 @@ function handleResponseMsg(responseMsg, action=null, url=null){
             .then((result) => {
                 if (result.isConfirmed) {
                     history.back();
+                } else if (result.isDenied) {
+                    console.log("Canceled");
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+        else if(action == 'confirmredirect'){
+            swal_confirm(responseMsg.message, "Proceed", null, false, 'success')
+            .then((result) => {
+                if (result.isConfirmed) {
+                    goTo(url);
                 } else if (result.isDenied) {
                     console.log("Canceled");
                 }

@@ -196,22 +196,8 @@ function setJSONRequestHeaders($jsonData, $method, $token=null){
   return $context;
 }
 
-// Send data to controller
-function sendToController($data, $controllerURL, $method='POST', $token=null){
-  $jsonData = json_encode($data);                                 // Convert the data to JSON
-  $context = setJSONRequestHeaders($jsonData, $method, $token);  // set request headers
-
-  global $c_website;
-  $fileURL = $c_website . $controllerURL;
-
-  $feedback = file_get_contents($fileURL, false, $context);  // Send data to controller file
-  //$feedback = file_get_contents($fileURL . '?data=' . urlencode($jsonData));  //GET method
-
-  //return $feedback;
-  //$cleanOutput = json_decode($feedback);
-  //return $cleanOutput; //return all data (using for test only)
-  //return $cleanOutput->messages[0]; //return only the response message
-  
+//For email responses and other feedback that may return more than the expected JSON
+function getJSONFromVerboseOutput($feedback){
   // Find the block of the JSON response
   $jsonStart = strpos($feedback, '{"statusCode"');
   $jsonEnd = strrpos($feedback, '}');
@@ -229,6 +215,26 @@ function sendToController($data, $controllerURL, $method='POST', $token=null){
   } else {
       return 'Error decoding JSON.';
   }
+}
+
+// Send data to controller
+function sendToController($data, $controllerURL, $method='POST', $token=null){
+  $jsonData = json_encode($data);                                 // Convert the data to JSON
+  $context = setJSONRequestHeaders($jsonData, $method, $token);  // set request headers
+
+  global $c_website;
+  $fileURL = $c_website . $controllerURL;
+
+  $feedback = file_get_contents($fileURL, false, $context);  // Send data to controller file
+  //$feedback = file_get_contents($fileURL . '?data=' . urlencode($jsonData));  //GET method
+
+  //return $feedback;
+  //$cleanOutput = json_decode($feedback);
+  //return $cleanOutput; //return all data (using for test only)
+  //return $cleanOutput->messages[0]; //return only the response message
+  
+  // Find the block of the JSON response
+  return getJSONFromVerboseOutput($feedback);
 }
 
 // Validate required fields

@@ -57,8 +57,8 @@
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" height="auto" style="border-collapse:collapse">
                     <tbody>                      
                         <tr>
-                            <td align="center" valign="center" style="text-align:center; padding-bottom: 10px">
-                                <div style="text-align:center; margin:0 15px 34px 15px">
+                            <td align="center" valign="center" style="display:flex; text-align:center; margin:0 60px 35px 60px">
+                                <div style="text-align:center">
                                     <div style="margin-bottom: 10px">
                                         <a href="{$c_website}" rel="noopener" target="_blank">
                                             <img alt="Logo" src="{$logo_image}" style="max-width:80%; height: 35px"/>                
@@ -67,9 +67,11 @@
                                     <div style="margin-bottom: 15px">
                                         <img alt="Image" src="{$email_image}" style="max-width:100%;"/>              
                                     </div>
-                                    <div style="font-weight: 500; margin-bottom: 27px; font-family:Arial,Helvetica,sans-serif;">
-                                        <p style="margin-bottom:9px; color:#181C32; font-size: 22px; font-weight:700">{$subject}</p>
-                                        <p style="margin-bottom:2px; color:#7E8299">{$message}</p>  
+                                    <div style="font-weight: 400; margin-bottom: 15px; font-family:Arial,Helvetica,sans-serif; line-height:200%">
+                                        <p style="margin-bottom:10px; color:#181C32; font-size: 22px; font-weight:700">{$subject}</p>
+                                        <div style="color:#7E8299; max-width:100%">
+                                            {$message}
+                                        </div>  
                                     </div>
                                 </div>
                             </td>

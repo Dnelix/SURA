@@ -41,6 +41,7 @@ $home               = "home";
 $login_link         = "home?login";
 $signup_link        = "home?signup";
 $reset_link         = "home?password_reset";
+$newPassword_link   = "home?new_password";
 $terms_link         = "home?terms";
 $referral_link      = $c_website.$signup_link.'&ref=';
 $customer_link      = $c_website.'new?tid=';

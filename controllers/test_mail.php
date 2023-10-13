@@ -4,6 +4,7 @@ require_once('../models/Response.php');
 require_once('_constants.php');
 require_once('_functions.php');
 
+//sendEmail($type, $subject, $to_mail, $to_name='', $message='', $sender='')
 $sendMail = sendEmail('welcome', 'Welcome to '.$company, 'domainbuy101@gmail.com', 'Dnelix', 'Testing this mail', 'Felix');
 
 echo $sendMail;

@@ -1,14 +1,11 @@
 "use strict";
 
 // Class definition
-var KTPasswordResetGeneral = function() {
+var PasswordResetGeneral = function() {
     // Elements
     var form;
     var submitButton;
     var validator;
-
-    // specify form action URL
-    var formActionURL = 'scripts/forgotPass.php';
 
     // Handle form
     var handleForm = function(e) {
@@ -20,10 +17,7 @@ var KTPasswordResetGeneral = function() {
 					'email': {
                         validators: {
 							notEmpty: {
-								message: 'Email address is required'
-							},
-                            emailAddress: {
-								message: 'The value is not a valid email address'
+								message: 'Please provide your email or username'
 							}
 						}
 					}
@@ -47,64 +41,21 @@ var KTPasswordResetGeneral = function() {
             // Validate form
             validator.validate().then(function (status) {
                 if (status == 'Valid') {
-                    submitButton.setAttribute('data-kt-indicator', 'on');
-                    submitButton.disabled = true;
-                    
-                    // Ajax Request
-                    FormValidation.utils.fetch(formActionURL, {
-                        method: 'POST',
-                        params: {
-                            email: emailField.value
-                        }
-                    }).then(function(response) {
-                        submitButton.removeAttribute('data-kt-indicator');
-                        submitButton.disabled = false;
 
-                        // handle response
-                        if(response !== "success"){
-                            var responseMessage = "ERROR: "+JSON.stringify(response);
+                    var url = 'controllers/users.php?reset&data='+ emailField.value;
 
-                            Swal.fire({
-                                text: responseMessage,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn btn-danger"
-                                }
-                            });
+                    AJAXcall(null, submitButton, 'GET', url, null, (responseMsg)=>{
+                        if(responseMsg.status !== 'success'){
+                          swal_Popup(responseMsg.status, responseMsg.message);
+                          return false; 
                         } else {
-                            Swal.fire({
-                                html: "We have sent a mail to <b>"+ emailField.value +"</b>. <br/>Kindly click the link in the email to reset your password. Remeber to check your spam box if you cannot find the mail",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Proceed to login",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {  //if the confirm button is clicked
-                                    form.reset(); 
-                                    var redirectUrl = form.getAttribute('data-kt-redirect-url');
-                                    if (redirectUrl) {
-                                        location.href = redirectUrl;
-                                    }
-                                }
-                            });
+                            var msg = "We have sent a mail to <b>"+ emailField.value +"</b>. <br/>Kindly click the link in the email to reset your password. Remember to check your spam box if you cannot find the mail";
+                            swal_Popup('success', msg);
                         }
-                        
                     });
 					
                 } else {
-                    Swal.fire({
-                        text: "Oops! You have some error in the form, please review and try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
+                    swal_Popup('error', 'Sorry, some errors were detected, please try again.', 'Try Again!');
                 }
             });
 		});
@@ -114,8 +65,8 @@ var KTPasswordResetGeneral = function() {
     return {
         // Initialization
         init: function() {
-            form = document.querySelector('#kt_password_reset_form');
-            submitButton = document.querySelector('#kt_password_reset_submit');
+            form = document.querySelector('#password_reset_form');
+            submitButton = document.querySelector('#password_reset_submit');
             
             handleForm();
         }
@@ -125,5 +76,5 @@ var KTPasswordResetGeneral = function() {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function() {
-    KTPasswordResetGeneral.init();
+    PasswordResetGeneral.init();
 });

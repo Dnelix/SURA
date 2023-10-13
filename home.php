@@ -5,10 +5,12 @@
         <div class="d-flex flex-column flex-xl-row flex-column-fluid">
 
         <?php 
-            $path = $_SERVER['QUERY_STRING'];
             // $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             // $parts = explode('?', $url);
             // $path = end($parts);
+            $queryString = $_SERVER['QUERY_STRING'];
+            $queryParts = explode('&', $queryString);
+            $path = $queryParts[0];
 
             include_once('views/home/main.php');
             
