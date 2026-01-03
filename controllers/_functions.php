@@ -18,7 +18,7 @@ function responseServerException($e, $message){
   $response = new Response();
   $response -> setHttpStatusCode(200); //change back to 500 for prod.
   $response -> setSuccess(false);
-  //$response -> addMessage($message);
+  $response -> addMessage($message);
   $response -> addMessage($e); //optional. Remove for prod.
   $response -> send();
   exit(); 
@@ -67,12 +67,19 @@ function validateJsonRequest() {
   return $jsonData;
 }
 
-// Get JSON as either php object(false) or array(true)
-function retrieveDataFrom($url='php://input', $stat = false){
-  if($stat === true){
-    return json_decode(file_get_contents($url), true);
+// Get JSON as either php object($stat = false) or array($stat = true)
+function retrieveDataFrom($url='php://input', $stat = false, $auth=true){
+  if($auth !== true){
+    //for the rare case where we don't want to authenticate the GET request
+    return json_decode(file_get_contents($url), $stat); 
+
   } else {
-    return json_decode(file_get_contents($url));
+    $logToken = $_SESSION["accesstoken"];
+    $context = stream_context_create([
+      'http' => ['header' => "Authorization: $logToken\r\n",],
+    ]);
+
+    return json_decode(file_get_contents($url, false, $context), $stat);
   }
 }
 
@@ -124,7 +131,7 @@ function getuserDevice($userAgent){
   return $browser;
 }
 
-//* Make JSON API call: Opt 1&2
+//* Make JSON API call: Opt 1&2 (next time you look at this, remove the "Bearer" string)
 function callJSONAPI($url, $data=[], $accesstoken=null, $type='POST'){
   $ch = curl_init(); //initialize a session
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -219,6 +226,7 @@ function getJSONFromVerboseOutput($feedback){
 
 // Send data to controller
 function sendToController($data, $controllerURL, $method='POST', $token=null){
+  $token = (!empty($token) ? $token : $_SESSION["accesstoken"]);
   $jsonData = json_encode($data);                                 // Convert the data to JSON
   $context = setJSONRequestHeaders($jsonData, $method, $token);  // set request headers
 
@@ -241,7 +249,7 @@ function sendToController($data, $controllerURL, $method='POST', $token=null){
 function validateMandatoryFields($jsonData, $mandatoryFields) {
   $missingFields = array();
   foreach ($mandatoryFields as $field) {
-      if (!isset($jsonData->$field)) {
+      if (!isset($jsonData->$field) || empty($jsonData->$field)) {
           $missingFields[] = ucfirst($field);
       }
   }
@@ -383,50 +391,6 @@ function addtoDate($givenDate, $num, $unit='day') {
   return $newDate;
 }
 
-//* Process Image Upload
-function processImageUpload($inputName, $targetDirectory, $allowedExtensions = ['jpg', 'jpeg', 'png']) {
-  if (!isset($_FILES[$inputName])) {
-      throw new Exception('No file was uploaded.');
-  }
-
-  $errorCode = $_FILES[$inputName]['error'];
-
-  if ($errorCode !== UPLOAD_ERR_OK) {
-      throw new Exception(getUploadErrorMessage($errorCode));
-  }
-
-  $tempFilePath = $_FILES[$inputName]['tmp_name'];
-  $originalFileName = $_FILES[$inputName]['name'];
-  $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
-
-  if (!in_array($fileExtension, $allowedExtensions)) {
-      throw new Exception('Invalid file type.');
-  }
-
-  $uniqueFileName = uniqid() . '_' . $originalFileName;
-  $targetPath = $targetDirectory . '/' . $uniqueFileName;
-
-  if (move_uploaded_file($tempFilePath, $targetPath)) {
-      return $targetPath;
-  } else {
-      throw new Exception('Error while moving the uploaded file.');
-  }
-}
-
-function getUploadErrorMessage($errorCode) {
-  $uploadErrors = array(
-      UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
-      UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
-      UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded.',
-      UPLOAD_ERR_NO_FILE => 'No file was uploaded.',
-      UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder.',
-      UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
-      UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload.'
-  );
-
-  return isset($uploadErrors[$errorCode]) ? $uploadErrors[$errorCode] : 'Unknown error';
-}
-
 ########################################## 
 # FILE UPLOAD Functions 
 ##########################################
@@ -533,17 +497,62 @@ function getUploadFileExtension($fileName, $allowedArray=null) {
   return ".".$extension;
 }
 
+//* Process Image Upload
+function processImageUpload($inputName, $targetDirectory, $allowedExtensions = ['jpg', 'jpeg', 'png']) {
+  if (!isset($_FILES[$inputName])) {
+      throw new Exception('No file was uploaded.');
+  }
+
+  $errorCode = $_FILES[$inputName]['error'];
+
+  if ($errorCode !== UPLOAD_ERR_OK) {
+      throw new Exception(getUploadErrorMessage($errorCode));
+  }
+
+  $tempFilePath = $_FILES[$inputName]['tmp_name'];
+  $originalFileName = $_FILES[$inputName]['name'];
+  $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+  if (!in_array($fileExtension, $allowedExtensions)) {
+      throw new Exception('Invalid file type.');
+  }
+
+  $uniqueFileName = uniqid() . '_' . $originalFileName;
+  $targetPath = $targetDirectory . '/' . $uniqueFileName;
+
+  if (move_uploaded_file($tempFilePath, $targetPath)) {
+      return $targetPath;
+  } else {
+      throw new Exception('Error while moving the uploaded file.');
+  }
+}
+
+function getUploadErrorMessage($errorCode) {
+  $uploadErrors = array(
+      UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+      UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+      UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded.',
+      UPLOAD_ERR_NO_FILE => 'No file was uploaded.',
+      UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder.',
+      UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+      UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload.'
+  );
+
+  return isset($uploadErrors[$errorCode]) ? $uploadErrors[$errorCode] : 'Unknown error';
+}
+
 
 ##########################################
 # DATABASE CALLS
 ##########################################
-function checkAuthStatus($writeDB, $accesstoken=null){
+function checkAuthStatus($writeDB){
   global $max_loginattempts;
 
   if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
       sendResponse(401, false, 'Access token is missing or empty');
   }
   $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];
+  //return $accesstoken; exit();
   
   try{
       //get the user id associated with the access token (query both user and sessions tables)
@@ -566,7 +575,7 @@ function checkAuthStatus($writeDB, $accesstoken=null){
       $ret_active = $row['active'];
       $ret_loginattempts = $row['loginattempts'];
   
-      if($ret_active !== '1'){
+      if($ret_active !== '1' && $ret_active !== 1){
           sendResponse(401, false, 'User account not active');
       }
       if($ret_loginattempts >= $max_loginattempts){
@@ -581,17 +590,18 @@ function checkAuthStatus($writeDB, $accesstoken=null){
               sendResponse(401, false, 'Access token expired',  $returnData);
 
               //update access token with refresh token
-          }
-          //delete session entry from table
-          $controllerURL = 'controllers/sessions.php?sessionid='.$ret_sessionid;
-          return sendToController(null, $controllerURL, 'DELETE', $accesstoken);
+          } else { //if refresh token is also expired
+            //delete session entry from table
+            $controllerURL = 'controllers/sessions.php?sessionid='.$ret_sessionid;
+            return sendToController(null, $controllerURL, 'DELETE', $accesstoken);
 
-          sendResponse(401, false, 'Your login have expired. Please login again');
+            sendResponse(401, false, 'Your login have expired. Please login again');
+          }
       }
 
       //else return user id (included because this is a function)
       return $ret_userid;
-  
+      exit();
   }
   catch (PDOException $e){
       responseServerException($e, 'There was an issue with authentication. Please try again');

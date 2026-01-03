@@ -115,7 +115,7 @@
                 </div>
                 <div class="menu-item px-5">
                     
-                    <a onClick="logout(<?= $logsessionid; ?>, '<?= $logtoken; ?>', '<?= $logrole; ?>')" class="menu-link px-5" id="logout_link">Sign Out
+                    <a onClick="logout(<?= $logsessionid; ?>, '<?= $logrole; ?>')" class="menu-link px-5" id="logout_link">Sign Out
                         <span class="indicator-progress"><span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </a>
                 </div>

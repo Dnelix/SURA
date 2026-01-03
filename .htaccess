@@ -1,4 +1,8 @@
-php_flag display_errors on
+<IfModule mod_php.c>
+    # PHP Configurations (Only applied if supported)
+    php_value allow_url_fopen On
+    php_flag display_errors On
+</IfModule>
 
 # Allow the HTTP authorization header to be used in session validations
 SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1

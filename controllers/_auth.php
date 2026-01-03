@@ -15,6 +15,12 @@
             exit();
         }
 
+        echo '
+            <script>
+                var auth_token = ' . json_encode($logtoken) . ';
+            </script>
+        ';
+
     } else {
 
         if ($curPage != "" && $curPage != $home && !in_array($curPage, $externalPages) ){

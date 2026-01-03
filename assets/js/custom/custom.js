@@ -218,7 +218,7 @@ function AJAXcall(formID, submitButton=null, type, url, formData=null, callback)
         dataType: 'JSON',
         headers: {
             'Content-Type': 'application/json',
-            //"Authorization": `${accesstoken}`
+            "Authorization": `${auth_token}` //auth_token is provided from auth.php
         },
         //data: formData,
         data: JSON.stringify(formData),
@@ -402,11 +402,10 @@ function sendMail(type, subject, to_mail, to_name='', message='', sender=''){
 }
 
 //logout
-function logout(sessionid, accesstoken, role){
+function logout(sessionid, role){
     var formActionURL = "controllers/sessions.php?sessionid="+sessionid;
     var logoutLink = document.querySelector('#logout_link');
     logoutLink.setAttribute('data-kt-indicator', 'on');
-    //var accesstoken = '<?php echo (isset($_SESSION["access_token"]) ? $_SESSION["access_token"] : "");?>';
 
     $.ajax({
         url: formActionURL,
@@ -414,8 +413,8 @@ function logout(sessionid, accesstoken, role){
         dataType: 'JSON',
         headers: {
             'Content-Type': 'application/json',
-            //"Authorization": `Bearer ${accesstoken}`
-            "Authorization": `${accesstoken}`
+            //"Authorization": `Bearer ${auth_token}`
+            "Authorization": `${auth_token}` //auth_token is provided from auth.php
         },
         
         success: function(response){
