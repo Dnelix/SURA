@@ -6,7 +6,7 @@ $pageurlParts   = explode('/', $pageurl);
 $curPage        = end($pageurlParts);
 $pageTitle      = $curPage; //careful with this
 //$pageTitle    = $pageurlParts[3]; //this will differ in prod.
-$queryString    = parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $params); //get the query string (if available)
+//$queryString    = isset($_SERVER['REQUEST_URI']) ? parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $params) : null; //get the query string (if available)
 $curSubpage     = isset($params['page']) ? $params['page'] : null; // Retrieve the value of the 'page' parameter
 
 //ORGANIZATION DETAILS//

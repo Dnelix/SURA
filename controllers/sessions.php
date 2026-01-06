@@ -29,6 +29,11 @@ if(array_key_exists('sessionid', $_GET)){
         exit(); 
     }
     
+    // if delete    
+    if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+        require_once('sessions/delete_session.php');
+    }
+
     //validate authorization
     if(!isset($_SERVER['HTTP_AUTHORIZATION']) || strlen($_SERVER['HTTP_AUTHORIZATION']) < 1){
         $message = 'Access token is not provided';
@@ -41,11 +46,6 @@ if(array_key_exists('sessionid', $_GET)){
         // get details of a particular session (if necessary)
     }
     
-    // if delete    
-    if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-        require_once('sessions/delete_session.php');
-    }
-
     // if update
     else if($_SERVER['REQUEST_METHOD'] === 'PATCH'){
         require_once('sessions/update_session.php');

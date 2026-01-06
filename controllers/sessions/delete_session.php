@@ -1,8 +1,8 @@
 <?php
     try{
-        $query = $writeDB -> prepare('DELETE FROM tbl_sessions WHERE id = :id AND accesstoken = :accesstoken LIMIT 1');
+        $query = $writeDB -> prepare('DELETE FROM tbl_sessions WHERE id = :id LIMIT 1');
         $query -> bindParam(':id', $sessionid, PDO::PARAM_INT);
-        $query -> bindParam(':accesstoken', $accesstoken, PDO::PARAM_STR);
+        //$query -> bindParam(':accesstoken', $accesstoken, PDO::PARAM_STR);
         $query -> execute();
 
         $rowCount = $query->rowCount();
